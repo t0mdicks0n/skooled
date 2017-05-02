@@ -4,10 +4,10 @@
 
 ## Team
 
-  - teamMember
-  - teamMember
-  - teamMember
-  - teamMember
+  - Preda Wen
+  - Tom Dickson
+  - David Gould
+  - Nick Anderson
 
 ## Table of Contents
 
@@ -51,3 +51,4 @@ View the project roadmap [here](LINK_TO_DOC)
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+PREDA EDITED SOMETHING.
