@@ -4,10 +4,10 @@
 
 ## Team
 
-  - teamMember
-  - teamMember
-  - teamMember
-  - teamMember
+  - Preda Wen
+  - Tom Dickson
+  - David Gould
+  - Nick Anderson
 
 ## Table of Contents
 
