@@ -9,8 +9,8 @@
     <script src="node_modules/lodash/lodash.js"></script>
     <script src="node_modules/mocha/mocha.js"></script>
     <script src="node_modules/chai/chai.js"></script>
-    <script src="node_modules/sinon/pkg/sinon-server-1.17.3.js"></script>
-    <script src="node_modules/sinon/pkg/sinon-1.17.3.js"></script>
+    <!-- <script src="node_modules/sinon/pkg/sinon-server-1.17.3.js"></script> -->
+    <script src="node_modules/sinon/pkg/sinon-2.2.0.js"></script>
     <script>
       mocha.setup('bdd');
       var expect = chai.expect;
@@ -20,7 +20,7 @@
     </script>
 
     <!-- include source files here... -->
-    <script src="compiled/src/config/youtube.js"></script>
+    <!-- <script src="compiled/src/config/youtube.js"></script>
     <script src="compiled/src/lib/searchYouTube.js"></script>
     <script src="compiled/src/data/exampleVideoData.js"></script>
     <script src="compiled/src/components/VideoListEntry.js"></script>
@@ -28,10 +28,12 @@
     <script src="compiled/src/components/VideoPlayer.js"></script>
     <script src="compiled/src/components/Nav.js"></script>
     <script src="compiled/src/components/Search.js"></script>
-    <script src="compiled/src/components/App.js"></script>
+    <script src="compiled/src/components/App.js"></script> -->
+    <script src="react-client/src/components/Login.jsx"</script>
 
     <!-- include spec files here... -->
-    <script src="compiled/spec/data/fakeVideoData.js"></script>
+    <script src="react-client/spec/components/LoginSpec.js"></script>
+    <!-- <script src="compiled/spec/data/fakeVideoData.js"></script>
     <script src="compiled/spec/data/moreFakeVideoData.js"></script>
     <script src="compiled/spec/components/Wrapper.js"></script>
     <script src="compiled/spec/components/VideoListSpec.js"></script>
@@ -39,7 +41,7 @@
     <script src="compiled/spec/components/VideoPlayerSpec.js"></script>
     <script src="compiled/spec/components/AppSpec.js"></script>
     <script src="compiled/spec/lib/searchYouTubeSpec.js"></script>
-    <script src="compiled/spec/components/SearchSpec.js"></script>
+    <script src="compiled/spec/components/SearchSpec.js"></script> -->
 
   </head>
   <body>
