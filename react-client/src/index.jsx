@@ -2,6 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import List from './components/List.jsx';
+import Router from 'react-router';
+import Route from 'react-router';
+
 
 class App extends React.Component {
   constructor(props) {
@@ -33,4 +36,11 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render (
+  <Router>
+    <Route path = "/test" component = {App}/>
+  </Router>,
+  document.getElementById('app')    
+);
+
+// ReactDOM.render(<App />, document.getElementById('app'));
