@@ -27,17 +27,23 @@ class Login extends React.Component {
 
   render() {
     return (
-      <form >
-        <label>
-          Username:
-          <input type="text" value={this.state.username} onChange={this.handleUsernameChange} />
-        </label>
-        <label>
-          Password:
-          <input type="text" value={this.state.password} onChange={this.handlePasswordChange} />
-        </label>
-        <button type="button" onSubmit={this.handleSubmit}> Submit </button>
-      </form>
+      <div>
+        <img src="stock_logo.jpg" height="200" width="200"></img>
+        <h1> Welcome to Skooled! </h1>
+        <form>
+          <label>
+            Username:
+            <input type="text" value={this.state.username} onChange={this.handleUsernameChange} />
+          </label>
+          <br></br>
+          <label>
+            Password:
+            <input type="text" value={this.state.password} onChange={this.handlePasswordChange} />
+          </label>
+          <br></br>
+          <button type="button" onSubmit={this.handleSubmit}> Submit </button>
+        </form>
+      </div>
     );
   }
 }
