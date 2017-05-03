@@ -4,11 +4,12 @@ class Login extends React.Component {
 	constructor (props) {
 		super (props);
     this.state = {
-      username: '';
-      password: '';
+      username: '',
+      password: ''
     };
 
-    this.handleChange = this.handleChange.bind(this);
+    this.handleUsernameChange = this.handleUsernameChange.bind(this);
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
@@ -40,3 +41,5 @@ class Login extends React.Component {
     );
   }
 }
+
+export default Login;
