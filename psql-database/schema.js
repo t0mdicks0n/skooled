@@ -1,6 +1,5 @@
-module.exports = function (knex) {
-
-  knex.schema.raw('DROP TABLE IF EXISTS users, students, users_students CASCADE');
+// module.exports.up = function (knex, Promise) {
+module.exports = function (knex, Promise) {
 
   knex.schema.hasTable('users').then((exists) => {
     if (!exists) {
@@ -39,3 +38,7 @@ module.exports = function (knex) {
   });
 
 };
+
+// module.exports.down = function (knex, Promise) {
+//   knex.schema.raw('DROP TABLE IF EXISTS users, students, users_students CASCADE');
+// };
