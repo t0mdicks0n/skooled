@@ -1,4 +1,4 @@
-// import { shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Admin from '../../react-client/src/components/Admin';
