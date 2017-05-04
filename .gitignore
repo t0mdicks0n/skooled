@@ -21,8 +21,11 @@ coverage
 # Compiled Dirs (http://nodejs.org/api/addons.html)
 build/
 
-# Ignore compiled javascript file
+# Bundled javascript file
 bundle.js
+
+# Configuration directory for sensitive data
+config/
 
 # Dependency directorys
 # Deployed apps should consider commenting these lines out:
