@@ -1,30 +1,46 @@
 var User = require('./models/user.js');
 var Student = require('./models/student.js');
 
-// ADMIN PAGE: ADD USER
-User.forge({
-  email: '123abc@example.com',
-  password: '123',
-  first_name: 'John',
-  last_name: 'Doe',
-  phone_number: '18001234567',
-  role: 'admin',
-  salt: '123SADF908',
-}).save().then(function(newRow) {
-  console.log(newRow.id); // Returns ID of new row
-}).catch(function(err) {
-  console.log(err);
-});
+module.exports = {
+  // ADMIN PAGE: ADD USER
+  insertUser : (user) => {
+    User.forge({
+      // email: user.email,
+      // password: user.password,
+      // first_name: user.first_name,
+      // last_name: user.last_name,
+      // phone_number: user.phone_number,
+      // role: user.role,
+      // salt: user.salt
+      email: '123abc@example.com',
+      password: '123',
+      first_name: 'John',
+      last_name: 'Doe',
+      phone_number: '18001234567',
+      role: 'admin',
+      salt: '123SADF908',
+    }).save().then(function(newRow) {
+      console.log(newRow.id); // Returns ID of new row
+    }).catch(function(err) {
+      console.log(err);
+    })
+  },
 
-// LOGIN PAGE: GET USER BY EMAIL
-User.forge({email: '123abc@example.com'})
-.fetch({require: true})
-.then(function (user) {
-    console.log('user info:', user);
-})
-.catch(function (err) {
-  console.log('message:', err.message);
-});
+  // LOGIN PAGE: GET USER BY EMAIL
+  selectUser : (user, callback) => {
+    User.forge({email: user.email})
+    .fetch({require: true})
+    .then(function (user) {
+      // console.log('user info:', user);
+      callback(null, user);
+    })
+    .catch(function (err) {
+      // console.log('message:', err.message);
+      callback(err, null);
+    })
+  }
+
+};
 
 /*
 USE DATABASE COMMAND BELOW TO CLEAR ALL TABLES...
