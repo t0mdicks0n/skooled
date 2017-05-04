@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Login from '../../react-client/src/components/Login';
+import Login from '../../components/Login';
 import renderer from 'react-test-renderer';
 
 describe('Login', () => {
