@@ -7,15 +7,15 @@ var app = express();
 app.use(express.static(__dirname + '/../react-client/dist'));
 app.use(bodyParser.json());
 
-app.post('/admin', function (req, res) {
-  pg.insertUser(function(err, data) {
-    if(err) {
-      res.sendStatus(500);
-    } else {
-      console.log('values received:', data);
-    }
-  });
-});
+// app.post('/admin', function (req, res) {
+//   pg.insertUser(function(err, data) {
+//     if(err) {
+//       res.sendStatus(500);
+//     } else {
+//       console.log('values received for admin page:', data);
+//     }
+//   });
+// });
 
 
 // app.get('/items', function (req, res) {
@@ -43,7 +43,8 @@ app.get('/login', function (req, res) {
     if(err) {
       res.sendStatus(500);
     } else {
-      res.json(data);
+      //res.json(data);
+      console.log('values sent for login page:', data);
     }
   });
 });
