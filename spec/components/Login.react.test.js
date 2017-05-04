@@ -1,4 +1,4 @@
-import { shallow } from 'enzyme';
+// import { shallow } from 'enzyme';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Login from '../../react-client/src/components/Login';
@@ -7,10 +7,6 @@ import renderer from 'react-test-renderer';
 describe('Login', () => {
   let wrapper = shallow(<Login />);
 
-
-  beforeEach(() => {
-
-  })
 
   test('is a stateful class component.', () => {
     expect(React.Component.isPrototypeOf(Login)).toBe(true);
@@ -25,7 +21,9 @@ describe('Login', () => {
     // expect(wrapper.contains(<form>)).toEqual(true);
   });
 
-  test('should update ')
+  test('should call `handleSubmit` when button is clicked.', () => {
+    expect(handleSubmit.called).toBe(true);
+  });
 
   test('one plus one equals two', () => {
     expect(1 + 1).toBe(2);
