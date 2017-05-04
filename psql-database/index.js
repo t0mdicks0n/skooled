@@ -28,9 +28,7 @@ User.forge({email: '123abc@example.com'})
 
 /*
 USE DATABASE COMMAND BELOW TO CLEAR ALL TABLES...
-
 DROP TABLE IF EXISTS users, students, users_students CASCADE;
-
 */
 
 
@@ -50,7 +48,6 @@ User.forge({email: 'abc123@example.com'})
 .catch(function (err) {
   console.log('message:', err.message);
 });
-
 // ADMIN PAGE: ADD STUDENT
 Student.forge({
   first_name: 'Jimmy',
@@ -60,24 +57,20 @@ Student.forge({
 }).catch(function(err) {
   console.log(err);
 });
-
 // ADMIN PAGE: GET ALL USERS
 User.collection().fetch().then(function(users) {
    console.log(JSON.stringify(users)); // collection of users
 });
-
 // ADMIN PAGE: GET ALL STUDENTS
 Student.collection().fetch().then(function(users) {
    console.log(JSON.stringify(users)); // collection of users
 });
-
 // ADMIN PAGE: DELETE USER BY ID
 User.forge({id: 1}).fetch().then(function (item) {
   return item.destroy().then(function () {
       console.log('destroyed!');
     });
 });
-
 // ADMIN PAGE: DELETE STUDENT BY ID
 Student.forge({id: 1}).fetch().then(function (item) {
   return item.destroy().then(function () {

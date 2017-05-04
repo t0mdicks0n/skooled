@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 class Admin extends React.Component {
 	constructor(props) {
@@ -9,7 +10,13 @@ class Admin extends React.Component {
 			email: '',
 	    phone: '',
 			role: ''
-		}
+		};
+    this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
+    this.handleLastNameChange = this.handleLastNameChange.bind(this);
+    this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.handlePhoneChange = this.handlePhoneChange.bind(this);
+    this.handleRoleChange = this.handleRoleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
   handleFirstNameChange(event) {

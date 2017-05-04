@@ -6,21 +6,33 @@ var bodyParser = require('body-parser');
 
 var app = express();
 
+
 // UNCOMMENT FOR REACT
 app.use(express.static(__dirname + '/../react-client/dist'));
+app.use(bodyParser.json());
 
 // UNCOMMENT FOR ANGULAR
 // app.use(express.static(__dirname + '/../angular-client'));
 // app.use(express.static(__dirname + '/../node_modules'));
 
-app.get('/items', function (req, res) {
-  items.selectAll(function(err, data) {
-    if(err) {
-      res.sendStatus(500);
-    } else {
-      res.json(data);
-    }
-  });
+// app.get('/items', function (req, res) {
+//   items.selectAll(function(err, data) {
+//     if(err) {
+//       res.sendStatus(500);
+//     } else {
+//       res.json(data);
+//     }
+//   });
+// });
+
+app.post('/login', function(req, res) {
+  console.log(req.body);
+  res.send('Hello');
+});
+
+app.post('/admin', function(req, res) {
+  console.log(req.body);
+  res.send('Hello');
 });
 
 app.listen(3000, function() {
