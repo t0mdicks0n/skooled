@@ -5,20 +5,20 @@ module.exports = {
   // ADMIN PAGE: ADD USER
   insertUser : (user) => {
     User.forge({
-      email: user.email,
-      password: user.password,
-      first_name: user.first_name,
-      last_name: user.last_name,
-      phone_number: user.phone_number,
-      role: user.role,
-      salt: user.salt
-      // email: '123abc@example.com',
-      // password: '123',
-      // first_name: 'John',
-      // last_name: 'Doe',
-      // phone_number: '18001234567',
-      // role: 'admin',
-      // salt: '123SADF908',
+      // email: user.email,
+      // password: user.password,
+      // first_name: user.first_name,
+      // last_name: user.last_name,
+      // phone_number: user.phone_number,
+      // role: user.role,
+      // salt: user.salt
+      email: '123abc@example.com',
+      password: '123',
+      first_name: 'John',
+      last_name: 'Doe',
+      phone_number: '18001234567',
+      role: 'admin',
+      salt: '123SADF908',
     }).save().then(function(newRow) {
       console.log(newRow.id); // Returns ID of new row
     }).catch(function(err) {
