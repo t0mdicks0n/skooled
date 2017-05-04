@@ -1,26 +1,43 @@
-var dbConfig = require('./config');
-var knex = require('knex')(dbConfig);
-var schema = require('./schema.js')(knex);
-var bookshelf = require('bookshelf')(knex);
-// module.exports = require('bookshelf')(knex);
+var User = require('./models/user.js');
+var Student = require('./models/student.js');
 
-var User = bookshelf.Model.extend({
-   tableName: 'users'
+User.forge({
+  email: 'test@example.com',
+  password: '123',
+  first_name: 'John',
+  last_name: 'Doe',
+  phone_number: '18001234567',
+  role: 'admin',
+  salt: '123SADF908',
+}).save().then(function(newRow) {
+  console.log(newRow.id); // Returns ID of new row
+}).catch(function(err) {
+  console.log(err);
 });
 
-var Student = bookshelf.Model.extend({
-   tableName: 'users',
-   function () {
-      return this.belongsTo(User, 'category_id');
-    },
+Student.forge({
+  first_name: 'Jimmy',
+  last_name: 'John'
+}).save().then(function(newRow) {
+  console.log(newRow.id); // Returns ID of new row
+}).catch(function(err) {
+  console.log(err);
 });
 
-// console.log(User.)
-
-// new User({id: 1}).fetch().then(function(user) {
-//   console.log(JSON.stringify(user)); // user with `id` of 1
-// })
 
 // User.collection().fetch().then(function(users) {
 //    console.log(JSON.stringify(users)); // collection of users
-// })
+// });
+
+
+// User.forge({id: 1}).fetch().then(function (item) {
+//   return item.destroy().then(function () {
+//       console.log('destroyed!');
+//     });
+// });
+
+// Student.forge({id: 1}).fetch().then(function (item) {
+//   return item.destroy().then(function () {
+//       console.log('destroyed!');
+//     });
+// });
