@@ -17,34 +17,18 @@ app.use(bodyParser.json());
 //   });
 // });
 
-
-// app.get('/items', function (req, res) {
-//   items.selectAll(function(err, data) {
-//     if(err) {
-//       res.sendStatus(500);
-//     } else {
-//       res.json(data);
-//     }
-//   });
-// });
-
-// app.post('/login', function(req, res) {
+// app.post('/admin', function(req, res) {
 //   console.log(req.body);
 //   res.send('Hello');
 // });
 
-app.post('/admin', function(req, res) {
-  console.log(req.body);
-  res.send('Hello');
-});
-
 app.get('/login', function (req, res) {
-  pg.selectUser(function(err, data) {
+  pg.selectUser({email: '123abc@example.com'}, function(err, data) {
     if(err) {
       res.sendStatus(500);
+      res.send(JSON.stringify(data));
     } else {
-      //res.json(data);
-      console.log('values sent for login page:', data);
+      res.json(data);
     }
   });
 });
