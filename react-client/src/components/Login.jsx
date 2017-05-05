@@ -15,12 +15,10 @@ class Login extends React.Component {
 
   handleUsernameChange(event) {
     this.setState({username: event.target.value});
-    console.log('handleUsernameChange invoked', event.target.value);
   }
 
   handlePasswordChange(event) {
     this.setState({password: event.target.value});
-    console.log('handlePasswordChange invoked', event.target.value);
   }
 
   handleSubmit() {
@@ -43,7 +41,7 @@ class Login extends React.Component {
             <input type="text" value={this.state.password} onChange={this.handlePasswordChange} />
           </label>
           <br></br>
-          <button type="button" onSubmit={this.handleSubmit}> Submit </button>
+          <button type="button" onClick={this.handleSubmit}> Submit </button>
         </form>
       </div>
     );
