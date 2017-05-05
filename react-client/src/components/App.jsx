@@ -14,7 +14,7 @@ class App extends React.Component {
     this.state = { 
       username: '',
       password: '',
-      loggedIn: true
+      loggedIn: false
     }
     this.sendCredentials = this.sendCredentials.bind(this);
   }
