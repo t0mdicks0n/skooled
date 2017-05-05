@@ -24,12 +24,15 @@ class App extends React.Component {
       username: username,
       password: password
     });
-    axios.post('/login', this.state)
+    axios.post('/login', {username: username, password: password})
     .then(response => {
-      console.log('response recieved from server');
+      console.log('response received from server', response.data.isLoggedIn);
+      this.setState({
+        loggedIn: response.data.isLoggedIn
+      });
     })
     .catch(error => {
-      console.log('error, recieved no response from server');
+      console.log('error, received no response from server');
     });
     event.preventDefault();
   }

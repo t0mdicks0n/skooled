@@ -22,15 +22,41 @@ app.use(bodyParser.json());
 //   res.send('Hello');
 // });
 
-app.get('/login', function (req, res) {
-  pg.selectUser({email: '123abc@example.com'}, function(err, data) {
+// pg.insertUser();
+
+
+app.post('/login', function (req, res) {
+  console.log('req.body', req.body);
+  // console.log('body', typeof req.body.username);
+
+  let retrievedUser;
+  pg.selectUser({email: req.body.username}, function(err, data) {
     if(err) {
-      res.sendStatus(500);
-      res.send(JSON.stringify(data));
+      // res.sendStatus(500);
+      // res.send(JSON.stringify(data));
     } else {
-      res.json(data);
+      console.log('data from db', data.attributes);
+      console.log('client password', req.body.password);
+      console.log('db password', data);
+      if (req.body.password === data.attributes.password) {
+        // let responseData = {
+        //   username: req.body.username,
+        //   password: req.body.password,
+        //   found: true
+        // };
+        console.log('Reached inside if statement');
+        res.json({isLoggedIn: true});
+      } else {
+        res.json({isLoggedIn: false});
+      }
+      // retrievedUser = data;
+      // res.json(data);
     }
   });
+
+  // Compare username & password from client with data from db.
+  
+
 });
 
 app.listen(3000, function() {
