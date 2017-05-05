@@ -4,6 +4,7 @@ import $ from 'jquery';
 import { BrowserRouter, Route, Link, Switch, Redirect } from 'react-router-dom';
 import Login from './Login.jsx';
 import Admin from './Admin.jsx';
+import Nav from './Nav.jsx';
 import axios from 'axios';
 
 
@@ -11,9 +12,9 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-      // items: [],
       username: '',
-      password: ''
+      password: '',
+      loggedIn: true
     }
     this.sendCredentials = this.sendCredentials.bind(this);
   }
@@ -50,12 +51,23 @@ class App extends React.Component {
   render () {
     return (
         <div>
-  	      <li><Link to="login">Login</Link></li>
-  	      <li><Link to="admin">Admin</Link></li>
+          <Nav/>
+          <Route name="login" path="/login" component={() => (<Login enterCredentials={this.sendCredentials}/> )}/>
+          <Route name="admin" path="/admin" component={() => (<Admin isLoggedIn={this.state.loggedIn}/> )} />
+          <Route name="nav" path="/nav" component={Nav} />
         </div>
     )
   }
 }
 
+const Authenticated = (component, loggedIn) => {
+  console.log(component.isLoggedIn)
+  if (component.isLoggedIn) {
+    var RequestedPath = component.name;
+    return (<RequestedPath />);
+  } else {
+    return (<Redirect to="login"/>);
+  }
+}
+
 export default App;
-   

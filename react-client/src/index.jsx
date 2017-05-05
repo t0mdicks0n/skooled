@@ -6,17 +6,9 @@ import Login from './components/Login.jsx';
 import Admin from './components/Admin.jsx';
 
 ReactDOM.render((
- <BrowserRouter>
-  <div>
-
-    <Route path="/" component={App}/>
-    <Route name="login" path="/login" component={Login}/>
-    <Route name="admin" path="/admin" component={Admin} />
-
-
-  </div>
-</BrowserRouter>
-
-
+  <BrowserRouter>
+    <div>
+      <Route path="/" component={App}/>
+    </div>
+  </BrowserRouter>
 ), document.getElementById('app'));
-
