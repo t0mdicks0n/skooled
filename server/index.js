@@ -65,6 +65,11 @@ app.post('/login', (req, res) => {
 });
 
 
+app.get('/admin', (error, data) => {
+
+});
+
+
 app.post('/admin', (error, data) => {
 
 });
