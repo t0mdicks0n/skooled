@@ -22,7 +22,8 @@ class TeacherAdmin extends React.Component {
 	}
 
   componentDidMount() {
-    console.log(this.props)
+    console.log(this.props);
+    console.log('Rendering TeacherAdmin component');
   }
 
   handleFirstNameChange(event) {
@@ -51,44 +52,39 @@ class TeacherAdmin extends React.Component {
 
 
 	render() {
-    if (!this.props.isLoggedIn) {
-      return (<Redirect to="login"/>)
-    } else {
-    	return (
-  			<div>
-  				<form>        
-            <label>
-              First Name:
-              <input type="text" value={this.state.firstName} onChange={this.handleFirstNameChange} />
-            </label>
-            <br></br>
-            <label>
-              Last Name:
-              <input type="text" value={this.state.lastName} onChange={this.handleLastNameChange} />
-            </label>
-            <br></br>
-            <label>
-              Email:
-              <input type="text" value={this.state.email} onChange={this.handleEmailChange} />
-            </label>
-            <br></br>
-            <label>
-              Phone:
-              <input type="text" value={this.state.phone} onChange={this.handlePhoneChange} />
-            </label>
-            <br></br>
-            <label>
-              Password:
-              <input type="text" value={this.state.phone} onChange={this.handlePasswordChange} />
-            </label>
-            <br></br>
-            <button type="button" onSubmit={this.handleSubmit}> Submit </button>
-  				</form>
-  			</div>
-  		)
-    }
+  	return (
+			<div>
+				<form>        
+          <label>
+            First Name:
+            <input type="text" value={this.state.firstName} onChange={this.handleFirstNameChange} />
+          </label>
+          <br></br>
+          <label>
+            Last Name:
+            <input type="text" value={this.state.lastName} onChange={this.handleLastNameChange} />
+          </label>
+          <br></br>
+          <label>
+            Email:
+            <input type="text" value={this.state.email} onChange={this.handleEmailChange} />
+          </label>
+          <br></br>
+          <label>
+            Phone:
+            <input type="text" value={this.state.phone} onChange={this.handlePhoneChange} />
+          </label>
+          <br></br>
+          <label>
+            Password:
+            <input type="text" value={this.state.phone} onChange={this.handlePasswordChange} />
+          </label>
+          <br></br>
+          <button type="button" onSubmit={this.handleSubmit}> Submit </button>
+				</form>
+			</div>
+		)
 	}
-
 }
 
 export default TeacherAdmin;

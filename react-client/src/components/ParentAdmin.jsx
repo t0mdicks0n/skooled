@@ -12,7 +12,7 @@ class ParentAdmin extends React.Component {
 			email: '',
 	    phone: '',
       password: '',
-      student: ''
+      students: ['Sean Patrick', 'Raymond Cooper']
 		};
     this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
     this.handleLastNameChange = this.handleLastNameChange.bind(this);
@@ -24,7 +24,9 @@ class ParentAdmin extends React.Component {
 	}
 
   componentDidMount() {
-    console.log(this.props)
+    console.log(this.props);
+    // Make http request to obtain array of students to populate the dropdown for student.
+
   }
 
   handleFirstNameChange(event) {
@@ -57,46 +59,46 @@ class ParentAdmin extends React.Component {
 
 
 	render() {
-    if (!this.props.isLoggedIn) {
-      return (<Redirect to="login"/>)
-    } else {
-    	return (
-  			<div>
-  				<form> 
-            <label>
-              First Name:
-              <input type="text" value={this.state.firstName} onChange={this.handleFirstNameChange} />
-            </label>
-            <br></br>
-            <label>
-              Last Name:
-              <input type="text" value={this.state.lastName} onChange={this.handleLastNameChange} />
-            </label>
-            <br></br>
-            <label>
-              Email:
-              <input type="text" value={this.state.email} onChange={this.handleEmailChange} />
-            </label>
-            <br></br>
-            <label>
-              Phone:
-              <input type="text" value={this.state.phone} onChange={this.handlePhoneChange} />
-            </label>
-            <br></br>
-            <label>
-              Password:
-              <input type="text" value={this.state.password} onChange={this.handlePasswordChange} />
-            </label>
-            <br></br>
-            <select> 
-              <option value={this.state.studentList} onChange={this.handleS}>  </option>
-            </select>
-            <br></br>
-            <button type="button" onSubmit={this.handleSubmit}> Submit </button>
-  				</form>
-  			</div>
-  		)
-    }
+  	return (
+			<div>
+				<form> 
+          <label>
+            First Name:
+            <input type="text" value={this.state.firstName} onChange={this.handleFirstNameChange} />
+          </label>
+          <br></br>
+          <label>
+            Last Name:
+            <input type="text" value={this.state.lastName} onChange={this.handleLastNameChange} />
+          </label>
+          <br></br>
+          <label>
+            Email:
+            <input type="text" value={this.state.email} onChange={this.handleEmailChange} />
+          </label>
+          <br></br>
+          <label>
+            Phone:
+            <input type="text" value={this.state.phone} onChange={this.handlePhoneChange} />
+          </label>
+          <br></br>
+          <label>
+            Password:
+            <input type="text" value={this.state.password} onChange={this.handlePasswordChange} />
+          </label>
+          <br></br>
+          Student:
+          <select> 
+            <option value="" defaultValue> Please Choose </option>
+            {this.state.students.map((student, index) => 
+              <option value={student} key={index} > {student} </option>
+            )}
+          </select>
+          <br></br>
+          <button type="button" onSubmit={this.handleSubmit}> Submit </button>
+				</form>
+			</div>
+		)
 	}
 
 }
