@@ -39,7 +39,7 @@ app.post('/login', (req, res) => {
 
   let retrievedUser;
   pg.selectUser({email: req.body.username}, (error, data) => {
-    if(error) {
+    if (error) {
       res.sendStatus(500);
       res.send(JSON.stringify(data));
     } else {
@@ -65,13 +65,46 @@ app.post('/login', (req, res) => {
 });
 
 
-app.get('/admin', (error, data) => {
-
+app.post('/admin/teacher', (req, res) => {
+  console.log('req.body', req.body);
+  pg.insertUser({req.body}, (error, data) => {
+    if (error) {
+      console.log('Error inserting new teacher info to db.', error);
+      res.sendStatus(500);
+    } else {
+      console.log('Inserted new teacher info to db.', data);
+      res.sendStatus(200);
+    }
+  })
 });
 
 
-app.post('/admin', (error, data) => {
+app.get('/admin/parent', (req, res) => {
+  // This gets the students in array from the db to send back to the client.
+  // Client then renders this in the drop down options to link parent to a student.
+  pg.selectAllStudents((error, data) => {
+    if (error) {
+      console.error('Error retrieving all students from db', error);
+      res.sendStatus(500);
+    } else {
+      console.log('Retrieved all students from db', data);
+      res.json(data);
+    }
+  });
+});
 
+
+app.post('/admin/parent', (req, res) => {
+  console.log(req.body);
+  pg.insertUser({req.body}, (error, data) => {
+    if (error) {
+      console.error('Error inserting new parent info to db.', error);
+      res.sendStatus(500);
+    } else {
+      console.log('Inserted new parent info to db.', data);
+      res.sendStatus(200);
+    }
+  });
 });
 
 app.listen(process.env.PORT || 5000, function() {
