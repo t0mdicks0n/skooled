@@ -3,7 +3,7 @@ import axios from 'axios';
 import { BrowserRouter, Route, Link, Switch, Redirect } from 'react-router-dom';
 
 
-class Admin extends React.Component {
+class ParentAdmin extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -12,14 +12,14 @@ class Admin extends React.Component {
 			email: '',
 	    phone: '',
       password: '',
-			role: ''
+      student: ''
 		};
     this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
     this.handleLastNameChange = this.handleLastNameChange.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePhoneChange = this.handlePhoneChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.handleRoleChange = this.handleRoleChange.bind(this);
+    this.handleStudentSelect = this.handleStudentSelect.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
@@ -44,11 +44,11 @@ class Admin extends React.Component {
   }
   
   handlePasswordChange(event) {
-    this.setState({role: event.target.value});
+    this.setState({password: event.target.value});
   }
 
-  handleRoleChange(event) {
-    this.setState({role: event.target.value});
+  handleStudentSelect(event) {
+    this.setState({student: event.target.value})
   }
 
   handleSubmit(event) {
@@ -63,11 +63,6 @@ class Admin extends React.Component {
     	return (
   			<div>
   				<form> 
-            <select>
-              <option value={this.state.role} onChange={this.handleSubmit}> Teacher </option>
-              <option value={this.state.role} onChange={this.handleSubmit}> Parent </option>  
-            </select>
-            <br></br>
             <label>
               First Name:
               <input type="text" value={this.state.firstName} onChange={this.handleFirstNameChange} />
@@ -90,11 +85,11 @@ class Admin extends React.Component {
             <br></br>
             <label>
               Password:
-              <input type="text" value={this.state.phone} onChange={this.handlePasswordChange} />
+              <input type="text" value={this.state.password} onChange={this.handlePasswordChange} />
             </label>
             <br></br>
             <select> 
-              <option value={this.state.role} onChange={this.handleSubmit}>  </option> */GET student ID's and names from DB
+              <option value={this.state.studentList} onChange={this.handleS}>  </option>
             </select>
             <br></br>
             <button type="button" onSubmit={this.handleSubmit}> Submit </button>
@@ -106,4 +101,4 @@ class Admin extends React.Component {
 
 }
 
-export default Admin;
+export default ParentAdmin;
