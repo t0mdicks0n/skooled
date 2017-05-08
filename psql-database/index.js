@@ -38,7 +38,7 @@ module.exports = {
       // console.log('message:', err.message);
       callback(err, null);
     })
-  }
+  },
 
   // ADMIN PAGE: ADD STUDENT
   insertStudent : (user, student, callback) => {

@@ -31,6 +31,12 @@ pg.insertUser({
     phone_number: '18001234567',
     role: 'admin',
     salt: '123SADF908',
+}, (error, data) => {
+  if (error) {
+    console.error('Error inserting fake user.');
+  } else {
+    console.log('Inserted fake user ok.');
+  }
 });
 
 app.post('/login', (req, res) => {

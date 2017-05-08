@@ -4,8 +4,6 @@ import $ from 'jquery';
 import { BrowserRouter, Route, Link, Switch, Redirect } from 'react-router-dom';
 import Login from './Login.jsx';
 import CreateUser from './CreateUser.jsx';
-import TeacherAdmin from './TeacherAdmin.jsx';
-import ParentAdmin from './ParentAdmin.jsx';
 import Nav from './Nav.jsx';
 import axios from 'axios';
 

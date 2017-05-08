@@ -1,5 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Link, Switch, Redirect } from 'react-router-dom';
+import TeacherAdmin from './TeacherAdmin.jsx';
+import ParentAdmin from './ParentAdmin.jsx';
 
 class CreateUser extends React.Component {
 	constructor(props) {
@@ -13,6 +15,7 @@ class CreateUser extends React.Component {
 
   handleUserTypeChange(event) {
     this.setState({usertype: event.target.value});
+    console.log('this.state.usertype', this.state.usertype);
   }
 
   handleSubmit(event) {
@@ -22,6 +25,7 @@ class CreateUser extends React.Component {
 
   render() {
     if (this.state.usertype === '') {
+      console.log('this.state.usertype', this.state.usertype);
       return (
         <div>
           <h3> Create User </h3>
@@ -33,6 +37,14 @@ class CreateUser extends React.Component {
             <br></br>
             <button type="button" onSubmit={this.handleSubmit}> Submit </button>
           </form>
+        </div>
+      )
+    } else {
+      console.log('this.state.usertype', this.state.usertype);
+      return (
+        <div>
+          <Route name="TeacherAdmin" path="/admin/teacher" component={<TeacherAdmin />}/>
+          <Route name="ParentAdmin" path="/admin/parent" component={<ParentAdmin />}/>
         </div>
       )
     }
