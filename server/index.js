@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 //   res.send('Hello');
 // });
 
-// pg.insertUser();
+pg.insertUser();
 
 
 app.post('/login', function (req, res) {
@@ -55,7 +55,7 @@ app.post('/login', function (req, res) {
   });
 
   // Compare username & password from client with data from db.
-  
+
 
 });
 
