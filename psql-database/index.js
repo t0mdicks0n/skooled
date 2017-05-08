@@ -3,7 +3,7 @@ var Student = require('./models/student.js');
 
 module.exports = {
   // ADMIN PAGE: ADD USER
-  insertUser : (user) => {
+  insertUser : (user, callback) => {
     User.forge({
       email: user.email,
       password: user.password,
@@ -19,10 +19,10 @@ module.exports = {
       // phone_number: '18001234567',
       // role: 'admin',
       // salt: '123SADF908',
-    }).save().then(function(newRow) {
-      console.log(newRow.id); // Returns ID of new row
+    }).save().then(function(user) {
+      callback(null, user);
     }).catch(function(err) {
-      console.log(err);
+      callback(err, null);
     })
   },
 
@@ -38,6 +38,28 @@ module.exports = {
       // console.log('message:', err.message);
       callback(err, null);
     })
+  }
+
+  // ADMIN PAGE: ADD STUDENT
+  insertStudent : (user, student, callback) => {
+    Student.forge({
+      first_name: student.first_name,
+      last_name: student.last_name
+    }).save().then(function(student) {
+      callback(null, student);
+    }).catch(function(err) {
+      callback(err, null);
+    });
+  },
+
+  // ADMIN PAGE: GET ALL STUDENTS
+  selectAllStudents : (user, callback) => {
+    Student.collection().fetch()
+    .then(function(students) {
+      callback(null, students);
+    }).catch(function(err) {
+      callback(err, null);
+    });
   }
 
 };
