@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 //   res.send('Hello');
 // });
 
-pg.insertUser();
+// pg.insertUser();
 
 
 app.post('/login', function (req, res) {
