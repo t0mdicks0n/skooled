@@ -58,7 +58,7 @@ class App extends React.Component {
         <div>
           <Nav/>
           <Route name="login" path="/login" component={() => (<Login enterCredentials={this.sendCredentials}/> )}/>
-          <Route name="admin" path="/admin" component={() => (<Admin isLoggedIn={this.state.loggedIn}/> )} />
+          <Route name="admin" path="/admin" component={() => (<CreateUser isLoggedIn={this.state.loggedIn}/> )} />
           <Route name="nav" path="/nav" component={Nav} />
         </div>
     )

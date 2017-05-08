@@ -11,28 +11,32 @@ class CreateUser extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-handleUserTypeChange(event) {
-  this.setState({usertype: event.target.value});
-}
+  handleUserTypeChange(event) {
+    this.setState({usertype: event.target.value});
+  }
 
-handleSubmit(event) {
-  event.preventDefault();
-}
+  handleSubmit(event) {
+    event.preventDefault();
 
-render() {
-  <div>
-    <h3> Create User </h3>
-    <form> 
-      <select placeholder='Choose Type'>
-        <option value={this.state.usertype} onChange={this.handleUserTypeChange}> Teacher </option>
-        <option value={this.state.usertype} onChange={this.handleUserTypeChange}> Parent </option>  
-      </select>
-      <br></br>
-      <button type="button" onSubmit={this.handleSubmit}> Submit </button>
-    </form>
-  </div>
+  }
 
-}
+  render() {
+    if (this.state.usertype === '') {
+      return (
+        <div>
+          <h3> Create User </h3>
+          <form> 
+            <select placeholder='Choose Type'>
+              <option value={this.state.usertype} onChange={this.handleUserTypeChange}> Teacher </option>
+              <option value={this.state.usertype} onChange={this.handleUserTypeChange}> Parent </option>  
+            </select>
+            <br></br>
+            <button type="button" onSubmit={this.handleSubmit}> Submit </button>
+          </form>
+        </div>
+      )
+    }
+  }
 }
 
 export default CreateUser;  
