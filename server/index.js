@@ -22,8 +22,16 @@ app.use(bodyParser.json());
 //   res.send('Hello');
 // });
 
-// pg.insertUser();
-
+// Insert demo-user
+pg.insertUser({
+   email: '123abc@example.com',
+    password: '123',
+    first_name: 'John',
+    last_name: 'Doe',
+    phone_number: '18001234567',
+    role: 'admin',
+    salt: '123SADF908',
+});
 
 app.post('/login', function (req, res) {
   console.log('req.body', req.body);
