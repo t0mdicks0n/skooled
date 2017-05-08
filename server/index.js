@@ -33,19 +33,20 @@ pg.insertUser({
     salt: '123SADF908',
 });
 
-app.post('/login', function (req, res) {
-  console.log('req.body', req.body);
+app.post('/login', (req, res) => {
+  // console.log('req.body', req.body);
   // console.log('body', typeof req.body.username);
 
   let retrievedUser;
-  pg.selectUser({email: req.body.username}, function(err, data) {
-    if(err) {
-      // res.sendStatus(500);
-      // res.send(JSON.stringify(data));
+  pg.selectUser({email: req.body.username}, (error, data) => {
+    if(error) {
+      res.sendStatus(500);
+      res.send(JSON.stringify(data));
     } else {
-      console.log('data from db', data.attributes);
-      console.log('client password', req.body.password);
-      console.log('db password', data);
+      // console.log('data from db', data.attributes);
+      // console.log('client password', req.body.password);
+      // console.log('db password', data);
+      // Compare username & password from client with data from db.
       if (req.body.password === data.attributes.password) {
         // let responseData = {
         //   username: req.body.username,
@@ -61,9 +62,10 @@ app.post('/login', function (req, res) {
       // res.json(data);
     }
   });
+});
 
-  // Compare username & password from client with data from db.
 
+app.post('/admin', (error, data) => {
 
 });
 
