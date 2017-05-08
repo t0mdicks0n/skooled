@@ -11,12 +11,14 @@ class Admin extends React.Component {
 			lastName: '',
 			email: '',
 	    phone: '',
+      password: '',
 			role: ''
 		};
     this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
     this.handleLastNameChange = this.handleLastNameChange.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePhoneChange = this.handlePhoneChange.bind(this);
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleRoleChange = this.handleRoleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
 	}
@@ -40,10 +42,15 @@ class Admin extends React.Component {
   handlePhoneChange(event) {
     this.setState({phone: event.target.value});
   }
+  
+  handlePasswordChange(event) {
+    this.setState({role: event.target.value});
+  }
 
   handleRoleChange(event) {
     this.setState({role: event.target.value});
   }
+
   handleSubmit(event) {
     event.preventDefault();
   }
@@ -56,6 +63,11 @@ class Admin extends React.Component {
     	return (
   			<div>
   				<form> 
+            <select>
+              <option value={this.state.role} onChange={this.handleSubmit}> Teacher </option>
+              <option value={this.state.role} onChange={this.handleSubmit}> Parent </option>  
+            </select>
+            <br></br>
             <label>
               First Name:
               <input type="text" value={this.state.firstName} onChange={this.handleFirstNameChange} />
@@ -76,9 +88,13 @@ class Admin extends React.Component {
               <input type="text" value={this.state.phone} onChange={this.handlePhoneChange} />
             </label>
             <br></br>
-            <select>
-              <option value={this.state.role} onChange={this.handleSubmit}> Teacher </option>
-              <option value={this.state.role} onChange={this.handleSubmit}> Parent </option>  
+            <label>
+              Password:
+              <input type="text" value={this.state.phone} onChange={this.handlePasswordChange} />
+            </label>
+            <br></br>
+            <select> 
+              <option value={this.state.role} onChange={this.handleSubmit}>  </option> */GET student ID's and names from DB
             </select>
             <br></br>
             <button type="button" onSubmit={this.handleSubmit}> Submit </button>
