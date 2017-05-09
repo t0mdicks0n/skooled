@@ -10,7 +10,7 @@ router.get('/students', (req, res) => {
       res.sendStatus(500);
     } else {
       console.log('Retrieved all students from db', data);
-      res.json(['Sean Patrick', 'Raymond Cooper']);
+      res.send(data);
     }
   });
 });

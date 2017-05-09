@@ -122,7 +122,7 @@ class ParentAdmin extends React.Component {
           <select onChange={this.handleStudentSelect} value={this.state.value} > 
             <option value="" defaultValue> Please Choose </option>
             {this.state.students.map((student, index) => 
-              <option value={student} key={index} > {student} </option>
+              <option value={student.first_name + ' ' + student.last_name} key={index} > {student.first_name + ' ' + student.last_name} </option>
             )}
           </select>
           <br></br>
