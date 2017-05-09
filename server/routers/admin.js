@@ -1,6 +1,11 @@
 var express = require('express');
 var router = express.Router();
 var pg = require('../../psql-database');
+var bodyParser = require('body-parser');
+
+router.use(express.static(__dirname + '/../../react-client/dist'));
+router.use(bodyParser.json());
+
 
 router.get('/students', (req, res) => {
   // Select all students from db to send back to client for ParentAdmin form.
