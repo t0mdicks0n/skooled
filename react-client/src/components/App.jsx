@@ -30,6 +30,8 @@ class App extends React.Component {
       this.setState({
         loggedIn: response.data.isLoggedIn
       });
+      console.log('Response on successfull post ', response.data);
+      window.localStorage.accessToken = response.data.jwtToken;
     })
     .catch(error => {
       console.log('error, received no response from server');
@@ -38,17 +40,23 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    // $.ajax({
-    //   url: '/items', 
-    //   success: (data) => {
-    //     this.setState({
-    //       items: data
-    //     })
-    //   },
-    //   error: (err) => {
-    //     console.log('err', err);
-    //   }
-    // });
+    // if(window.localStorage.accessToken) {
+    //   this.setState({loggedIn: true});
+    // }
+    var currentToken = window.localStorage.accessToken;
+    var config = {
+      headers: {'Authorization': currentToken}
+    };
+
+    axios.get('checkOnClientLoad', config)
+    .then(response => {
+      console.log('response received from server', response.data);
+      this.setState({loggedIn: true});
+      console.log(response);
+    })
+    .catch(error => {
+      console.log('error, received no response from server');
+    });
   }
 
   render () {
