@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var pg = require('../psql-database');
+var services = require('../services');
 var home = require('./routers/admin');
 var admin = require('./routers/admin');
 
@@ -28,13 +29,12 @@ app.use(bodyParser.json());
 
 // Insert demo-user
 pg.insertUser({
-   email: '123abc@example.com',
-    password: '123',
-    first_name: 'John',
-    last_name: 'Doe',
-    phone_number: '18001234567',
-    role: 'admin',
-    salt: '123SADF908',
+  email: '123abc@example.com',
+  password: '123',
+  firstName: 'John',
+  lastName: 'Doe',
+  phone: '18001234567',
+  role: 'teacher'
 }, (error, data) => {
   if (error) {
     console.error('Error inserting fake user.', error);
@@ -53,23 +53,26 @@ app.post('/login', (req, res) => {
       res.sendStatus(500);
       res.send(JSON.stringify(data));
     } else {
-      // console.log('data from db', data.attributes);
-      // console.log('client password', req.body.password);
-      // console.log('db password', data);
-      // Compare username & password from client with data from db.
-      if (req.body.password === data.attributes.password) {
-        // let responseData = {
-        //   username: req.body.username,
-        //   password: req.body.password,
-        //   found: true
-        // };
-        console.log('Reached inside if statement');
-        res.json({isLoggedIn: true});
-      } else {
-        res.json({isLoggedIn: false});
-      }
-      // retrievedUser = data;
-      // res.json(data);
+      services.checkHashPassword(req.body.password, data.attributes.password, (err, match) => {
+        if (err) console.log('password issue:', err);
+        // console.log('data from db', data.attributes);
+        // console.log('client password', req.body.password);
+        // console.log('db password', data);
+        // Compare username & password from client with data from db.
+        if (match) {
+          // let responseData = {
+          //   username: req.body.username,
+          //   password: req.body.password,
+          //   found: true
+          // };
+          console.log('Reached inside if statement');
+          res.json({isLoggedIn: true});
+        } else {
+          res.json({isLoggedIn: false});
+        }
+        // retrievedUser = data;
+        // res.json(data);
+      });
     }
   });
 });
