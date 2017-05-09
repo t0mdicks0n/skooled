@@ -11,7 +11,8 @@ class TeacherAdmin extends React.Component {
 			lastName: '',
 			email: '',
 	    phone: '',
-      password: ''
+      password: '',
+      role: 'teacher'
 		};
     this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
     this.handleLastNameChange = this.handleLastNameChange.bind(this);
@@ -43,11 +44,27 @@ class TeacherAdmin extends React.Component {
   }
   
   handlePasswordChange(event) {
-    this.setState({role: event.target.value});
+    this.setState({password: event.target.value});
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
+  handleSubmit() {
+    // HTTP transaction to server to send this.state to server.
+    let userInfo = {
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      email: this.state.email,
+      phone: this.state.phone,
+      password: this.state.password,
+      role: this.state.role
+    };
+    console.log('sending userInfo', userInfo);
+    axios.post('/admin/teacher', userInfo)
+    .then(response => {
+      console.log('Successfully added teacher to db.', response);
+    })
+    .catch(error => {
+      console.error('Failed to add teacher to db.', error);
+    });
   }
 
 
@@ -77,10 +94,10 @@ class TeacherAdmin extends React.Component {
           <br></br>
           <label>
             Password:
-            <input type="text" value={this.state.phone} onChange={this.handlePasswordChange} />
+            <input type="text" value={this.state.password} onChange={this.handlePasswordChange} />
           </label>
           <br></br>
-          <button type="button" onSubmit={this.handleSubmit}> Submit </button>
+          <button type="button" onClick={this.handleSubmit}> Submit </button>
 				</form>
 			</div>
 		)

@@ -87,6 +87,7 @@ app.get('/admin/students', (req, res) => {
 
 app.post('/admin/teacher', (req, res) => {
   console.log('req.body', req.body);
+
   pg.insertUser(req.body, (error, data) => {
     if (error) {
       console.log('Error inserting new teacher info to db.', error);
@@ -111,6 +112,20 @@ app.post('/admin/parent', (req, res) => {
     }
   });
 });
+
+
+app.post('/admin/student', (req, res) => {
+  console.log('req.body inside POST /admin/student', req.body);
+  pg.insertUser(req.body, (error, data) => {
+    if (error) {
+      console.error('Error inserting new student info to db.', error);
+      res.sendStatus(500);
+    } else {
+      console.log('Inserted new student info to db.', data);
+      res.sendStatus(200);
+    }
+  });
+})
 
 
 app.listen(process.env.PORT || 5000, function() {

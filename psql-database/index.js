@@ -7,9 +7,9 @@ module.exports = {
     User.forge({
       email: user.email,
       password: user.password,
-      first_name: user.first_name,
-      last_name: user.last_name,
-      phone_number: user.phone_number,
+      first_name: user.firstName,
+      last_name: user.lastName,
+      phone_number: user.phone,
       role: user.role
       // email: '123abc@example.com',
       // password: '123',

@@ -13,7 +13,8 @@ class ParentAdmin extends React.Component {
 	    phone: '',
       password: '',
       students: [],
-      student: ''
+      student: '',
+      role: 'parent'
 		};
     this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
     this.handleLastNameChange = this.handleLastNameChange.bind(this);
@@ -65,8 +66,6 @@ class ParentAdmin extends React.Component {
   }
 
   handleSubmit() {
-
-    console.log(this.state);
     // HTTP transaction to server to send this.state to server.
     let userInfo = {
       firstName: this.state.firstName,
@@ -74,7 +73,8 @@ class ParentAdmin extends React.Component {
       email: this.state.email,
       phone: this.state.phone,
       password: this.state.password,
-      student: this.state.student
+      student: this.state.student,
+      role: this.state.role
     };
     console.log('sending userInfo', userInfo);
     axios.post('/admin/parent', userInfo)
@@ -84,7 +84,6 @@ class ParentAdmin extends React.Component {
     .catch(error => {
       console.error('Failed to add parent to db.', error);
     });
-    event.preventDefault();
   }
 
 
