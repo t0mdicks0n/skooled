@@ -10,15 +10,13 @@ module.exports = {
       first_name: user.first_name,
       last_name: user.last_name,
       phone_number: user.phone_number,
-      role: user.role,
-      salt: user.salt
+      role: user.role
       // email: '123abc@example.com',
       // password: '123',
       // first_name: 'John',
       // last_name: 'Doe',
       // phone_number: '18001234567',
-      // role: 'admin',
-      // salt: '123SADF908',
+      // role: 'admin'
     }).save().then(function(user) {
       callback(null, user);
     }).catch(function(err) {
