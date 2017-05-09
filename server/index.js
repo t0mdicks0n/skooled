@@ -1,9 +1,13 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var pg = require('../psql-database');
+var home = require('./routers/admin');
+var admin = require('./routers/admin');
 
 var app = express();
 
+app.use('/home', admin);
+app.use('/admin', admin);
 app.use(express.static(__dirname + '/../react-client/dist'));
 app.use(bodyParser.json());
 
@@ -69,63 +73,6 @@ app.post('/login', (req, res) => {
     }
   });
 });
-
-
-app.get('/admin/students', (req, res) => {
-  // Select all students from db to send back to client for ParentAdmin form.
-  pg.selectAllStudents(req.body, (error, data) => {
-    if (error) {
-      console.error('Error retrieving all students from db', error);
-      res.sendStatus(500);
-    } else {
-      console.log('Retrieved all students from db', data);
-      res.json(['Sean Patrick', 'Raymond Cooper']);
-    }
-  });
-});
-
-
-app.post('/admin/teacher', (req, res) => {
-  console.log('req.body', req.body);
-
-  pg.insertUser(req.body, (error, data) => {
-    if (error) {
-      console.log('Error inserting new teacher info to db.', error);
-      res.sendStatus(500);
-    } else {
-      console.log('Inserted new teacher info to db.', data);
-      res.sendStatus(200);
-    }
-  })
-});
-
-
-app.post('/admin/parent', (req, res) => {
-  console.log('req.body inside POST /admin/parent', req.body);
-  pg.insertUser(req.body, (error, data) => {
-    if (error) {
-      console.error('Error inserting new parent info to db.', error);
-      res.sendStatus(500);
-    } else {
-      console.log('Inserted new parent info to db.', data);
-      res.sendStatus(200);
-    }
-  });
-});
-
-
-app.post('/admin/student', (req, res) => {
-  console.log('req.body inside POST /admin/student', req.body);
-  pg.insertStudent(req.body, req.body, (error, data) => {
-    if (error) {
-      console.error('Error inserting new student info to db.', error);
-      res.sendStatus(500);
-    } else {
-      console.log('Inserted new student info to db.', data);
-      res.sendStatus(200);
-    }
-  });
-})
 
 
 app.listen(process.env.PORT || 5000, function() {
