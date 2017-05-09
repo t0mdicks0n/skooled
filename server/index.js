@@ -116,7 +116,7 @@ app.post('/admin/parent', (req, res) => {
 
 app.post('/admin/student', (req, res) => {
   console.log('req.body inside POST /admin/student', req.body);
-  pg.insertUser(req.body, (error, data) => {
+  pg.insertStudent(req.body, req.body, (error, data) => {
     if (error) {
       console.error('Error inserting new student info to db.', error);
       res.sendStatus(500);

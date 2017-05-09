@@ -41,8 +41,8 @@ module.exports = {
   // ADMIN PAGE: ADD STUDENT
   insertStudent : (user, student, callback) => {
     Student.forge({
-      first_name: student.first_name,
-      last_name: student.last_name
+      first_name: student.firstName,
+      last_name: student.lastName
     }).save().then(function(student) {
       callback(null, student);
     }).catch(function(err) {
