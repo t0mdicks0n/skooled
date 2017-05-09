@@ -1,5 +1,6 @@
 var User = require('./models/user.js');
 var Student = require('./models/student.js');
+var UserStudent = require('./models/user_student.js');
 var services = require('../services');
 
 module.exports = {
@@ -47,9 +48,26 @@ module.exports = {
     Student.forge({
       first_name: student.firstName,
       last_name: student.lastName
-    }).save().then(function(student) {
+    }).save()
+    .then(function(student) {
       callback(null, student);
-    }).catch(function(err) {
+
+    })
+    .catch(function(err) {
+      callback(err, null);
+    });
+  },
+
+  // ADMIN PAGE: SET STUDENT RELATION (TEACHER OR PARENT)
+  insertUserStudent : (id_user, student_id, callback) => {
+    UserStudent.forge({
+      id_user: id_user,
+      id_student: student_id
+    }).save()
+    .then(function(student) {
+      callback(null, student);
+    })
+    .catch(function(err) {
       callback(err, null);
     });
   },

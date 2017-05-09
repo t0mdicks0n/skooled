@@ -28,6 +28,7 @@ module.exports = function (knex, Promise) {
   knex.schema.hasTable('users_students').then((exists) => {
     if (!exists) {
       return knex.schema.createTable('users_students', (table) => {
+      table.increments('id');
       table.integer('id_user').references('users.id');
       table.integer('id_student').references('students.id');
     }).catch((error) => {
