@@ -8,7 +8,7 @@
     "server-dev": "nodemon server/index.js",
     "test": "jest",
     "build:watch": "babel . --out-dir compiled --presets=es2015,react --ignore=node_modules,compiled --source-maps inline -watch",
-    "start" : "node ./server/index.js"
+    "start": "node ./server/index.js"
   },
   "author": "Nick Anderson",
   "license": "ISC",
@@ -39,6 +39,7 @@
     "babel-jest": "^19.0.0",
     "babel-polyfill": "^6.23.0",
     "babelify": "^7.3.0",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.1",
     "bookshelf": "^0.10.3",
     "chai": "^3.5.0",
@@ -58,10 +59,20 @@
   },
   "jest": {
     "transform": {},
-    "moduleFileExtensions": ["js", "jsx"],
-    "moduleDirectories": ["node_modules", "bower_components", "shared"]
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "bower_components",
+      "shared"
+    ]
   },
   "babel": {
-    "presets": ["es2015", "react"]
+    "presets": [
+      "es2015",
+      "react"
+    ]
   }
 }

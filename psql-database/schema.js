@@ -11,7 +11,6 @@ module.exports = function (knex, Promise) {
         table.string('last_name', 80);
         table.string('phone_number', 20);
         table.string('role', 20);
-        table.string('salt', 80);
       });
     }
   })
