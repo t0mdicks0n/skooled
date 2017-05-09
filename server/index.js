@@ -4,6 +4,10 @@ var pg = require('../psql-database');
 var services = require('../services');
 var home = require('./routers/admin');
 var admin = require('./routers/admin');
+var auth = require('./auth.js');
+
+var ensureAuthorized = auth.ensureAuth;
+var createToken = auth.createToken;
 
 var app = express();
 
@@ -12,20 +16,10 @@ app.use('/admin', admin);
 app.use(express.static(__dirname + '/../react-client/dist'));
 app.use(bodyParser.json());
 
-// app.post('/admin', function (req, res) {
-//   pg.insertUser(function(err, data) {
-//     if(err) {
-//       res.sendStatus(500);
-//     } else {
-//       console.log('values received for admin page:', data);
-//     }
-//   });
-// });
-
-// app.post('/admin', function(req, res) {
-//   console.log(req.body);
-//   res.send('Hello');
-// });
+// Shows how secured paths works and get executed when the user enters the website the first time
+app.get('/checkOnClientLoad', ensureAuthorized, function(req, res) {
+  res.sendStatus(200);
+});
 
 // Insert demo-user
 pg.insertUser({
@@ -44,9 +38,6 @@ pg.insertUser({
 });
 
 app.post('/login', (req, res) => {
-  // console.log('req.body', req.body);
-  // console.log('body', typeof req.body.username);
-
   let retrievedUser;
   pg.selectUser({email: req.body.username}, (error, data) => {
     if (error) {
@@ -55,23 +46,13 @@ app.post('/login', (req, res) => {
     } else {
       services.checkHashPassword(req.body.password, data.attributes.password, (err, match) => {
         if (err) console.log('password issue:', err);
-        // console.log('data from db', data.attributes);
-        // console.log('client password', req.body.password);
-        // console.log('db password', data);
-        // Compare username & password from client with data from db.
         if (match) {
-          // let responseData = {
-          //   username: req.body.username,
-          //   password: req.body.password,
-          //   found: true
-          // };
-          console.log('Reached inside if statement');
-          res.json({isLoggedIn: true});
+          var payload = {id: data.attributes.id};
+          var token = createToken(payload);
+          res.json({isLoggedIn: true, jwtToken: token });
         } else {
           res.json({isLoggedIn: false});
         }
-        // retrievedUser = data;
-        // res.json(data);
       });
     }
   });
