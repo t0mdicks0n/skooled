@@ -1,27 +1,31 @@
 var User = require('./models/user.js');
 var Student = require('./models/student.js');
+var services = require('../services');
 
 module.exports = {
   // ADMIN PAGE: ADD USER
   insertUser : (user, callback) => {
-    User.forge({
-      email: user.email,
-      password: user.password,
-      first_name: user.firstName,
-      last_name: user.lastName,
-      phone_number: user.phone,
-      role: user.role
-      // email: '123abc@example.com',
-      // password: '123',
-      // first_name: 'John',
-      // last_name: 'Doe',
-      // phone_number: '18001234567',
-      // role: 'admin'
-    }).save().then(function(user) {
-      callback(null, user);
-    }).catch(function(err) {
-      callback(err, null);
-    })
+    services.createHashPassword(user.password, function(err, hash) {
+      if (err) console.log('hash password error:', err);
+      User.forge({
+        email: user.email,
+        password: hash,
+        first_name: user.firstName,
+        last_name: user.lastName,
+        phone_number: user.phone,
+        role: user.role
+        // email: '123abc@example.com',
+        // password: '123',
+        // first_name: 'John',
+        // last_name: 'Doe',
+        // phone_number: '18001234567',
+        // role: 'admin'
+      }).save().then(function(user) {
+        callback(null, user);
+      }).catch(function(err) {
+        callback(err, null);
+      });
+    });
   },
 
   // LOGIN PAGE: GET USER BY EMAIL
@@ -35,7 +39,7 @@ module.exports = {
     .catch(function (err) {
       // console.log('message:', err.message);
       callback(err, null);
-    })
+    });
   },
 
   // ADMIN PAGE: ADD STUDENT
