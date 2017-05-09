@@ -52,6 +52,7 @@ class App extends React.Component {
   }
 
   render () {
+    console.log('this.state.loggedIn', this.state.loggedIn);
     return (
         <div>
           <Nav/>
@@ -63,14 +64,14 @@ class App extends React.Component {
   }
 }
 
-const Authenticated = (component, loggedIn) => {
-  console.log(component.isLoggedIn)
-  if (component.isLoggedIn) {
-    var RequestedPath = component.name;
-    return (<RequestedPath />);
-  } else {
-    return (<Redirect to="login"/>);
-  }
-}
+// const Authenticated = (component, loggedIn) => {
+//   console.log(component.isLoggedIn)
+//   if (component.isLoggedIn) {
+//     var RequestedPath = component.name;
+//     return (<RequestedPath />);
+//   } else {
+//     return (<Redirect to="login"/>);
+//   }
+// }
 
 export default App;

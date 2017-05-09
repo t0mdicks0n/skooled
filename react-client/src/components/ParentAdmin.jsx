@@ -12,7 +12,9 @@ class ParentAdmin extends React.Component {
 			email: '',
 	    phone: '',
       password: '',
-      student: ''
+      students: [],
+      student: '',
+      role: 'parent'
 		};
     this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
     this.handleLastNameChange = this.handleLastNameChange.bind(this);
@@ -24,7 +26,18 @@ class ParentAdmin extends React.Component {
 	}
 
   componentDidMount() {
-    console.log(this.props)
+    console.log(this.props);
+    // Make http request to obtain array of students to populate the dropdown for student.
+    axios.get('/admin/students')
+    .then(response => {
+      console.log('Success getting students list from db.', response.data);
+      this.setState ({
+        students: response.data
+      });
+    })
+    .catch(error => {
+      console.error('Error getting students list from db.', error);
+    });
   }
 
   handleFirstNameChange(event) {
@@ -48,55 +61,75 @@ class ParentAdmin extends React.Component {
   }
 
   handleStudentSelect(event) {
-    this.setState({student: event.target.value})
+    this.setState({student: event.target.value});
+    event.preventDefault();
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
+  handleSubmit() {
+    // HTTP transaction to server to send this.state to server.
+    let userInfo = {
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      email: this.state.email,
+      phone: this.state.phone,
+      password: this.state.password,
+      student: this.state.student,
+      role: this.state.role
+    };
+    console.log('sending userInfo', userInfo);
+    axios.post('/admin/parent', userInfo)
+    .then(response => {
+      console.log('Successfully added parent to db.', response);
+    })
+    .catch(error => {
+      console.error('Failed to add parent to db.', error);
+    });
   }
 
 
 	render() {
-    if (!this.props.isLoggedIn) {
-      return (<Redirect to="login"/>)
-    } else {
-    	return (
-  			<div>
-  				<form> 
-            <label>
-              First Name:
-              <input type="text" value={this.state.firstName} onChange={this.handleFirstNameChange} />
-            </label>
-            <br></br>
-            <label>
-              Last Name:
-              <input type="text" value={this.state.lastName} onChange={this.handleLastNameChange} />
-            </label>
-            <br></br>
-            <label>
-              Email:
-              <input type="text" value={this.state.email} onChange={this.handleEmailChange} />
-            </label>
-            <br></br>
-            <label>
-              Phone:
-              <input type="text" value={this.state.phone} onChange={this.handlePhoneChange} />
-            </label>
-            <br></br>
-            <label>
-              Password:
-              <input type="text" value={this.state.password} onChange={this.handlePasswordChange} />
-            </label>
-            <br></br>
-            <select> 
-              <option value={this.state.studentList} onChange={this.handleS}>  </option>
-            </select>
-            <br></br>
-            <button type="button" onSubmit={this.handleSubmit}> Submit </button>
-  				</form>
-  			</div>
-  		)
-    }
+    console.log('this.state.students', this.state.students);
+    console.log('Current student', this.state.student);
+  	return (
+			<div>
+				<form> 
+          <label>
+            First Name:
+            <input type="text" value={this.state.firstName} onChange={this.handleFirstNameChange} />
+          </label>
+          <br></br>
+          <label>
+            Last Name:
+            <input type="text" value={this.state.lastName} onChange={this.handleLastNameChange} />
+          </label>
+          <br></br>
+          <label>
+            Email:
+            <input type="text" value={this.state.email} onChange={this.handleEmailChange} />
+          </label>
+          <br></br>
+          <label>
+            Phone:
+            <input type="text" value={this.state.phone} onChange={this.handlePhoneChange} />
+          </label>
+          <br></br>
+          <label>
+            Password:
+            <input type="text" value={this.state.password} onChange={this.handlePasswordChange} />
+          </label>
+          <br></br>
+          Student:
+          <select onChange={this.handleStudentSelect} value={this.state.value} > 
+            <option value="" defaultValue> Please Choose </option>
+            {this.state.students.map((student, index) => 
+              <option value={student} key={index} > {student} </option>
+            )}
+          </select>
+          <br></br>
+          <button type="button" onClick={this.handleSubmit}> Submit </button>
+				</form>
+			</div>
+		)
 	}
 
 }

@@ -33,9 +33,9 @@ pg.insertUser({
     salt: '123SADF908',
 }, (error, data) => {
   if (error) {
-    console.error('Error inserting fake user.');
+    console.error('Error inserting fake user.', error);
   } else {
-    console.log('Inserted fake user ok.');
+    console.log('Inserted fake user ok.', data);
   }
 });
 
@@ -71,8 +71,23 @@ app.post('/login', (req, res) => {
 });
 
 
+app.get('/admin/students', (req, res) => {
+  // Select all students from db to send back to client for ParentAdmin form.
+  pg.selectAllStudents(req.body, (error, data) => {
+    if (error) {
+      console.error('Error retrieving all students from db', error);
+      res.sendStatus(500);
+    } else {
+      console.log('Retrieved all students from db', data);
+      res.json(['Sean Patrick', 'Raymond Cooper']);
+    }
+  });
+});
+
+
 app.post('/admin/teacher', (req, res) => {
   console.log('req.body', req.body);
+
   pg.insertUser(req.body, (error, data) => {
     if (error) {
       console.log('Error inserting new teacher info to db.', error);
@@ -85,23 +100,8 @@ app.post('/admin/teacher', (req, res) => {
 });
 
 
-app.get('/admin/parent', (req, res) => {
-  // This gets the students in array from the db to send back to the client.
-  // Client then renders this in the drop down options to link parent to a student.
-  pg.selectAllStudents((error, data) => {
-    if (error) {
-      console.error('Error retrieving all students from db', error);
-      res.sendStatus(500);
-    } else {
-      console.log('Retrieved all students from db', data);
-      res.json(data);
-    }
-  });
-});
-
-
 app.post('/admin/parent', (req, res) => {
-  console.log(req.body);
+  console.log('req.body inside POST /admin/parent', req.body);
   pg.insertUser(req.body, (error, data) => {
     if (error) {
       console.error('Error inserting new parent info to db.', error);
@@ -112,6 +112,21 @@ app.post('/admin/parent', (req, res) => {
     }
   });
 });
+
+
+app.post('/admin/student', (req, res) => {
+  console.log('req.body inside POST /admin/student', req.body);
+  pg.insertStudent(req.body, req.body, (error, data) => {
+    if (error) {
+      console.error('Error inserting new student info to db.', error);
+      res.sendStatus(500);
+    } else {
+      console.log('Inserted new student info to db.', data);
+      res.sendStatus(200);
+    }
+  });
+})
+
 
 app.listen(process.env.PORT || 5000, function() {
   console.log('Listening on enviornment port or 5000!');
