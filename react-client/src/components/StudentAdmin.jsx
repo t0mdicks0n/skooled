@@ -29,12 +29,22 @@ class StudentAdmin extends React.Component {
   }
 
   handleSubmit() {
+    // var currentToken = window.localStorage.accessToken;
+    // console.log(currentToken);
+
+    var currentToken = window.localStorage.accessToken;
+
+    var config = {
+      headers: {'Authorization': currentToken}
+    };
+
     let userInfo = {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
       role: this.state.role
     };
-    axios.post('/admin/student', userInfo)
+
+    axios.post('/admin/student', userInfo, config)
     .then(response => {
       console.log('Successfully added student to db.', response);
     })
@@ -42,11 +52,11 @@ class StudentAdmin extends React.Component {
       console.error('Failed to add student to db.', error);
     });
   }
-  
+
 	render() {
   	return (
 			<div>
-				<form>        
+				<form>
           <label>
             First Name:
             <input type="text" value={this.state.firstName} onChange={this.handleFirstNameChange} />
