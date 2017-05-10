@@ -8,7 +8,7 @@ var ExtractJwt = passportJWT.ExtractJwt;
 var JwtStrategy = passportJWT.Strategy;
 var jwtOptions = {};
 jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeader();
-jwtOptions.secretOrKey = config.PASSPORT_JWT_SECRETORKEY;
+jwtOptions.secretOrKey = process.env.PASSPORT_JWT_SECRETORKEY || config.PASSPORT_JWT_SECRETORKEY;
 
 
 module.exports = {
