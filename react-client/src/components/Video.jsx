@@ -65,10 +65,6 @@ class Video extends React.Component {
     };
 
     broadcast(vid_thumb);
-
-    // ctrl.ready(function(){
-    //   ctrl.addLocalStream(vid_thumb);
-    // });
   }
 
   handleChange(event) {

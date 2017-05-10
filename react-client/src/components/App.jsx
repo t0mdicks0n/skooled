@@ -8,6 +8,7 @@ import Nav from './Nav.jsx';
 import axios from 'axios';
 import DocumentsList from './DocumentsList.jsx';
 import Video from './Video.jsx';
+import Logout from './Logout.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -81,7 +82,7 @@ class App extends React.Component {
           <Route name="nav" path="/nav" component={Nav} />
           <Route name="documents" path="/documents" component={() => (<DocumentsList isLoggedIn={this.state.loggedIn}/> )} />
           <Route name="video" path="/video" component={() => (<Video isLoggedIn={this.state.loggedIn}/> )} />
-          <li><a href="#" name="logout" onClick={this.revokeCredentials} >Logout</a></li>
+          <Route name="logout" path="/logout" component={() => (<Logout revokeCredentials={this.revokeCredentials}/> )} />
         </div>
     )
   }
