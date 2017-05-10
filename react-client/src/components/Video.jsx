@@ -1,14 +1,16 @@
 import React from 'react';
 import axios from 'axios';
 import { BrowserRouter, Route, Link, Switch, Redirect } from 'react-router-dom';
+var PUBNUB_PUBLISH_KEY = process.env.PUBNUB_PUBLISH_KEY || require('../../../services/config/config.js').PUBNUB_PUBLISH_KEY;
+var PUBNUB_SUBSCRIBE_KEY = process.env.PUBNUB_SUBSCRIBE_KEY || require('../../../services/config/config.js').PUBNUB_SUBSCRIBE_KEY;
 
 class Video extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			userid: '',
+  constructor(props) {
+    super(props);
+    this.state = {
+      userid: '',
       dialeduser: ''
-		};
+    };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.configurePhone = this.configurePhone.bind(this);
@@ -37,8 +39,8 @@ class Video extends React.Component {
 
     var phone = window.phone = PHONE({
         number        : userid,
-        publish_key   : 'pub-c-49c10967-3fa1-4e45-a8cf-e3f3f66bb3d1',
-        subscribe_key : 'sub-c-aefb4450-2f44-11e7-9a1a-0619f8945a4f'
+        publish_key   : PUBNUB_PUBLISH_KEY,
+        subscribe_key : PUBNUB_SUBSCRIBE_KEY
     });
     phone.ready(function(){});
     phone.receive(function(session){
@@ -52,7 +54,6 @@ class Video extends React.Component {
 
     function broadcast(vid) {
       var video = document.createElement('video');
-      console.log('++++++++', phone.mystream);
       video.src = URL.createObjectURL(phone.mystream);
       video.volume = 0.0;
       video.play();
@@ -84,13 +85,13 @@ class Video extends React.Component {
       return (<Redirect to="login" />)
     } else {
       return (
-  			<div>
-    			<form name="callForm" onChange={this.handleChange}>
+        <div>
+          <form name="callForm" onChange={this.handleChange}>
             <div>
-    				  <input type="text" placeholder="Enter user to dial!" />
+              <input type="text" placeholder="Enter user to dial!" />
               <button type="button" onClick={this.handleSubmit}> Call </button>
             </div>
-    			</form>
+          </form>
           <div id="vid-box"></div>
           <div id="vid-thumb"></div>
           <div id="inCall">
