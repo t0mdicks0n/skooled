@@ -1,0 +1,15 @@
+.hidden {
+  display: none;
+}
+
+span {
+  display: inline-block;
+}
+
+.permissionedYes {
+  display: &#10003;
+}
+
+.permissionedNo {
+  display: &#10007;
+}

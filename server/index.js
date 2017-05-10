@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 
 // Shows how secured paths works and get executed when the user enters the website the first time
 app.get('/checkOnClientLoad', ensureAuthorized, function(req, res) {
-  res.sendStatus(200);
+  res.json({userid: req.decoded.id});
 });
 
 // Insert demo-user
