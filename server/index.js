@@ -4,6 +4,8 @@ var pg = require('../psql-database');
 var services = require('../services');
 var home = require('./routers/admin');
 var admin = require('./routers/admin');
+var doc = require('./routers/document');
+
 
 var ensureAuthorized = services.ensureAuth;
 var createToken = services.createToken;
@@ -12,6 +14,7 @@ var app = express();
 
 app.use('/home', admin);
 app.use('/admin', admin);
+app.use('/doc', admin);
 app.use(express.static(__dirname + '/../react-client/dist'));
 app.use(bodyParser.json());
 

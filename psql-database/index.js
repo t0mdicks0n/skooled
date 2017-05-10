@@ -80,7 +80,28 @@ module.exports = {
     }).catch(function(err) {
       callback(err, null);
     });
-  }
+  },
+
+  insertDocument : (doc, callback) => {
+    Document.forge({
+      title: doc.title,
+      body: doc.body,
+      id_student: doc.studentId
+    })
+    .save()
+    .then(doc => {
+      callback(null, doc);
+    })
+    .catch(error => {
+      callback(error, null);
+    });
+  },
+
+  selectApplicableDocuments : () => {
+    // Selects all applicable documents depending on the student_ids for each document.
+    // Must refer to the users_students join table for reference the user_id to get the relevant student_id.
+    // Then select only the documents where the student_id matches that retrieved from the join table.
+  },
 
 };
 

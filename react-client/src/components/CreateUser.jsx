@@ -26,7 +26,7 @@ class CreateUser extends React.Component {
         console.log('this.state.usertype', this.state.usertype);
         return (
           <div>
-            <h3> Create User </h3>
+            <h2> Create User </h2>
             <form> 
               <select onChange={this.handleUserTypeChange} value={this.state.value}>
                 <option value="" defaultValue> Please Choose </option>

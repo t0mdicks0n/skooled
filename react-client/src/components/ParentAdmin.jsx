@@ -92,33 +92,24 @@ class ParentAdmin extends React.Component {
     console.log('Current studentId', this.state.studentId);
   	return (
 			<div>
+        <h2>Enter Parent Information</h2>
 				<form>
-          <label>
-            First Name:
-            <input type="text" value={this.state.firstName} onChange={this.handleFirstNameChange} />
-          </label>
+          <label>First Name:</label>
+          <input type="text" value={this.state.firstName} onChange={this.handleFirstNameChange} />
           <br></br>
-          <label>
-            Last Name:
-            <input type="text" value={this.state.lastName} onChange={this.handleLastNameChange} />
-          </label>
+          <label>Last Name:</label>
+          <input type="text" value={this.state.lastName} onChange={this.handleLastNameChange} />
           <br></br>
-          <label>
-            Email:
-            <input type="text" value={this.state.email} onChange={this.handleEmailChange} />
-          </label>
+          <label>Email:</label>
+          <input type="text" value={this.state.email} onChange={this.handleEmailChange} />
           <br></br>
-          <label>
-            Phone:
+          <label>Phone:</label>
             <input type="text" value={this.state.phone} onChange={this.handlePhoneChange} />
-          </label>
           <br></br>
-          <label>
-            Password:
+          <label>Password:</label>
             <input type="text" value={this.state.password} onChange={this.handlePasswordChange} />
-          </label>
           <br></br>
-          Student:
+          <label>Student:</label>
           <select onChange={this.handleStudentSelect} value={this.state.value} >
             <option value="" defaultValue> Please Choose </option>
             {this.state.students.map((student, index) =>
