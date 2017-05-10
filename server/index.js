@@ -5,7 +5,6 @@ var services = require('../services');
 var home = require('./routers/admin');
 var admin = require('./routers/admin');
 var doc = require('./routers/document');
-var auth = require('./auth.js');
 
 
 var ensureAuthorized = services.ensureAuth;

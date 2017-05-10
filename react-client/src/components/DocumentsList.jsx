@@ -42,6 +42,7 @@ class DocumentsList extends React.Component {
     } else {
       return (
         <div>
+          <h2>Permission slips</h2>
           {this.state.documents.map((doc, index) => 
             <Document document={doc} key={index}/>
           )}

@@ -45,6 +45,7 @@ module.exports = function (knex, Promise) {
         table.string('title', 250);
         table.string('body', 10000);
         table.boolean('permissioned', false);
+        table.integer('id_student');
       });
     }
   });
