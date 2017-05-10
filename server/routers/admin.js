@@ -2,6 +2,9 @@ var express = require('express');
 var router = express.Router();
 var pg = require('../../psql-database');
 var bodyParser = require('body-parser');
+var auth = require('../auth.js');
+
+var ensureAuthorized = auth.ensureAuth;
 
 router.use(express.static(__dirname + '/../../react-client/dist'));
 router.use(bodyParser.json());
@@ -43,20 +46,8 @@ router.post('/parent', (req, res) => {
       console.error('Error inserting new parent info to db.', error);
       res.sendStatus(500);
     } else {
-      var jsonData = data.toJSON();
-      //////////////////////////////////
-      // HARDCODED the 'id_student' to 3
-      // but we need to pull from dropdown
-      //////////////////////////////////
-      pg.insertUserStudent(jsonData.id, 3, (error, data) => {
-        if (error) {
-          console.error('Error inserting new student into join table.', error);
-          res.sendStatus(500);
-        } else {
-          console.log('Inserted new student into join table.', data);
-          res.sendStatus(200);
-        }
-      });
+      // Create the relationship in the join table for 'parent' and Student
+      pg.insertUserStudent(data.toJSON().id, req.body.studentId);
       console.log('Inserted new parent info to db.', data);
       res.sendStatus(200);
     }
@@ -64,27 +55,15 @@ router.post('/parent', (req, res) => {
 });
 
 
-router.post('/student', (req, res) => {
+router.post('/student', ensureAuthorized, (req, res) => {
   console.log('req.body inside POST /admin/student', req.body);
   pg.insertStudent(req.body, req.body, (error, data) => {
     if (error) {
       console.error('Error inserting new student info to db.', error);
       res.sendStatus(500);
     } else {
-      var jsonData = data.toJSON();
-      //////////////////////////////////
-      // HARDCODED the 'id_user' to 1
-      // since we need to know the user
-      //////////////////////////////////
-      pg.insertUserStudent(1, jsonData.id, (error, data) => {
-        if (error) {
-          console.error('Error inserting new student into join table.', error);
-          res.sendStatus(500);
-        } else {
-          console.log('Inserted new student into join table.', data);
-          res.sendStatus(200);
-        }
-      });
+      // Create the relationship in the join table for 'teacher' and Student
+      pg.insertUserStudent(req.decoded.id, data.toJSON().id);
       console.log('Inserted new student info to db.', data);
       res.sendStatus(200);
     }

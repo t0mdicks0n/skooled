@@ -13,7 +13,7 @@ class ParentAdmin extends React.Component {
 	    phone: '',
       password: '',
       students: [],
-      student: '',
+      studentId: null,
       role: 'parent'
 		};
     this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
@@ -55,13 +55,13 @@ class ParentAdmin extends React.Component {
   handlePhoneChange(event) {
     this.setState({phone: event.target.value});
   }
-  
+
   handlePasswordChange(event) {
     this.setState({password: event.target.value});
   }
 
   handleStudentSelect(event) {
-    this.setState({student: event.target.value});
+    this.setState({studentId: event.target.value});
     event.preventDefault();
   }
 
@@ -73,7 +73,7 @@ class ParentAdmin extends React.Component {
       email: this.state.email,
       phone: this.state.phone,
       password: this.state.password,
-      student: this.state.student,
+      studentId: this.state.studentId,
       role: this.state.role
     };
     console.log('sending userInfo', userInfo);
@@ -89,10 +89,10 @@ class ParentAdmin extends React.Component {
 
 	render() {
     console.log('this.state.students', this.state.students);
-    console.log('Current student', this.state.student);
+    console.log('Current studentId', this.state.studentId);
   	return (
 			<div>
-				<form> 
+				<form>
           <label>
             First Name:
             <input type="text" value={this.state.firstName} onChange={this.handleFirstNameChange} />
@@ -119,10 +119,10 @@ class ParentAdmin extends React.Component {
           </label>
           <br></br>
           Student:
-          <select onChange={this.handleStudentSelect} value={this.state.value} > 
+          <select onChange={this.handleStudentSelect} value={this.state.value} >
             <option value="" defaultValue> Please Choose </option>
-            {this.state.students.map((student, index) => 
-              <option value={student.first_name + ' ' + student.last_name} key={index} > {student.first_name + ' ' + student.last_name} </option>
+            {this.state.students.map((student, index) =>
+              <option value={student.id} key={index} > {student.first_name + ' ' + student.last_name} </option>
             )}
           </select>
           <br></br>

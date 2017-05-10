@@ -59,16 +59,16 @@ module.exports = {
   },
 
   // ADMIN PAGE: SET STUDENT RELATION (TEACHER OR PARENT)
-  insertUserStudent : (id_user, student_id, callback) => {
+  insertUserStudent : (id_user, student_id) => {
     UserStudent.forge({
       id_user: id_user,
       id_student: student_id
     }).save()
     .then(function(student) {
-      callback(null, student);
+      console.log('SUCCESSFUL INSERT IN JOIN TABLE:', student);
     })
     .catch(function(err) {
-      callback(err, null);
+      console.log('ERROR WITH INSERT IN JOIN TABLE:', err);
     });
   },
 
