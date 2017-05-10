@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var pg = require('../../psql-database');
 var bodyParser = require('body-parser');
-var services = require('../services');
+var services = require('../../services');
 
 var ensureAuthorized = services.ensureAuth;
 
