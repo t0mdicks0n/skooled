@@ -7,7 +7,7 @@ import CreateUser from './CreateUser.jsx';
 import Nav from './Nav.jsx';
 import axios from 'axios';
 import DocumentsList from './DocumentsList.jsx';
-
+import Video from './Video.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -69,7 +69,7 @@ class App extends React.Component {
           <Route name="admin" path="/admin" component={() => (<CreateUser isLoggedIn={this.state.loggedIn}/> )} />
           <Route name="nav" path="/nav" component={Nav} />
           <Route name="documents" path="/documents" component={() => (<DocumentsList isLoggedIn={this.state.loggedIn}/> )} />
-          {/*<Route name="video" path="/video" component={Video} />*/}
+          <Route name="video" path="/video" component={() => (<Video isLoggedIn={this.state.loggedIn}/> )} />
         </div>
     )
   }

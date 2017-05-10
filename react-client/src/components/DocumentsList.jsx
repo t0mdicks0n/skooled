@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Document from './Document.jsx';
+import { BrowserRouter, Route, Link, Switch, Redirect } from 'react-router-dom';
 
 class DocumentsList extends React.Component {
   constructor (props) {
