@@ -1,4 +1,4 @@
-var config = require('./config/config.js');
+var PASSPORT_JWT_SECRETORKEY = process.env.PASSPORT_JWT_SECRETORKEY || require('./config/config.js').PASSPORT_JWT_SECRETORKEY;
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 var passportJWT = require("passport-jwt");
@@ -8,7 +8,7 @@ var ExtractJwt = passportJWT.ExtractJwt;
 var JwtStrategy = passportJWT.Strategy;
 var jwtOptions = {};
 jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeader();
-jwtOptions.secretOrKey = process.env.PASSPORT_JWT_SECRETORKEY || config.PASSPORT_JWT_SECRETORKEY;
+jwtOptions.secretOrKey = PASSPORT_JWT_SECRETORKEY;
 
 
 module.exports = {
