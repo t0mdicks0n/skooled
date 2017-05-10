@@ -4,10 +4,9 @@ var pg = require('../psql-database');
 var services = require('../services');
 var home = require('./routers/admin');
 var admin = require('./routers/admin');
-var auth = require('./auth.js');
 
-var ensureAuthorized = auth.ensureAuth;
-var createToken = auth.createToken;
+var ensureAuthorized = services.ensureAuth;
+var createToken = services.createToken;
 
 var app = express();
 
