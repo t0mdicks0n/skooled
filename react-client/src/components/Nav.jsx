@@ -6,6 +6,7 @@ const Nav = (props) => (
   <div>
 	<li><Link to="login">Login</Link></li>
 	<li><Link to="admin">Admin</Link></li>
+  <li><Link to="documents">Documents</Link></li>
   </div>
 )
 

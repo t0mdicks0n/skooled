@@ -1,0 +1,20 @@
+.hidden {
+  display: none;
+}
+
+.permissionedYes {
+  display: &#10003;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+}
+
+.permissionedNo {
+  display: &#10007;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;;
+}
+
+.doc {
+  border-style: solid;
+  border-width: 1px;
+}

@@ -6,6 +6,7 @@ import Login from './Login.jsx';
 import CreateUser from './CreateUser.jsx';
 import Nav from './Nav.jsx';
 import axios from 'axios';
+import DocumentsList from './DocumentsList.jsx';
 
 
 class App extends React.Component {
@@ -67,6 +68,8 @@ class App extends React.Component {
           <Route name="login" path="/login" component={() => (<Login enterCredentials={this.sendCredentials}/> )}/>
           <Route name="admin" path="/admin" component={() => (<CreateUser isLoggedIn={this.state.loggedIn}/> )} />
           <Route name="nav" path="/nav" component={Nav} />
+          <Route name="documents" path="/documents" component={() => (<DocumentsList isLoggedIn={this.state.loggedIn}/> )} />
+          {/*<Route name="video" path="/video" component={Video} />*/}
         </div>
     )
   }
