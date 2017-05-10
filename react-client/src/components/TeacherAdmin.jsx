@@ -94,7 +94,7 @@ class TeacherAdmin extends React.Component {
           <br></br>
           <label>
             Password:
-            <input type="text" value={this.state.password} onChange={this.handlePasswordChange} />
+            <input type="password" value={this.state.password} onChange={this.handlePasswordChange} />
           </label>
           <br></br>
           <button type="button" onClick={this.handleSubmit}> Submit </button>
