@@ -14,6 +14,7 @@ var app = express();
 
 app.use('/home', admin);
 app.use('/admin', admin);
+app.use('/doc', admin);
 app.use(express.static(__dirname + '/../react-client/dist'));
 app.use(bodyParser.json());
 
