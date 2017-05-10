@@ -6,12 +6,15 @@ class Video extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			username:'',
-      phone: undefined
+			userid: '',
+      dialeduser: ''
 		};
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.configurePhone = this.configurePhone.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     var currentToken = window.localStorage.accessToken;
     var config = {
       headers: {'Authorization': currentToken}
@@ -19,52 +22,61 @@ class Video extends React.Component {
 
     axios.get('checkOnClientLoad', config)
     .then(response => {
-      this.setState({username: response.data.userid});
+      console.log('yalla', response.data.userid);
+      this.configurePhone(response.data.userid);
+      this.setState({userid: response.data.userid});
     })
     .catch(error => {
       console.log('error, received no response from server');
     });
   }
 
-  componentDidMount() {
-		var phone = window.phone = PHONE({
-		    number        : this.state.username,
-		    publish_key   : 'pub-c-49c10967-3fa1-4e45-a8cf-e3f3f66bb3d1',
-		    subscribe_key : 'sub-c-aefb4450-2f44-11e7-9a1a-0619f8945a4f'
-		});	
-		phone.ready(function(){});
-		phone.receive(function(session){
-		    session.connected(function(session) { video_out.appendChild(session.video); });
-		    session.ended(function(session) { video_out.innerHTML=''; });
-		});
-    this.setState({phone: phone});
+  configurePhone(userid) {
+    var video_out = document.getElementById("vid-box");
+    var vid_thumb = document.getElementById("vid_thumb");
+
+    var phone = window.phone = PHONE({
+        number        : userid,
+        publish_key   : 'pub-c-49c10967-3fa1-4e45-a8cf-e3f3f66bb3d1',
+        subscribe_key : 'sub-c-aefb4450-2f44-11e7-9a1a-0619f8945a4f'
+    });
+    phone.ready(function(){});
+    phone.receive(function(session){
+      session.connected(function(session){
+        video_out.appendChild(session.video);
+      });
+      session.ended(function(session){
+        video_out.innerHTML='';
+      });
+    });
+
+    function broadcast(vid) {
+      var video = document.createElement('video');
+      console.log('++++++++', phone.mystream);
+      video.src = URL.createObjectURL(phone.mystream);
+      video.volume = 0.0;
+      video.play();
+      video.setAttribute( 'autoplay', 'autoplay' );
+      video.setAttribute( 'data-number', phone.number() );
+      vid.style.cssText ="-moz-transform: scale(-1, 1); \
+              -webkit-transform: scale(-1, 1); -o-transform: scale(-1, 1); \
+              transform: scale(-1, 1); filter: FlipH;";
+      vid.appendChild(video);
+    };
+
+    broadcast(vid_thumb);
   }
 
-
-	login(form) {
-		var phone = window.phone = PHONE({
-		    number        : form.username.value || "Anonymous", // listen on username line else Anonymous
-		    publish_key   : 'pub-c-49c10967-3fa1-4e45-a8cf-e3f3f66bb3d1',
-		    subscribe_key : 'sub-c-aefb4450-2f44-11e7-9a1a-0619f8945a4f'
-	   //  	oneway        : true,
-				// ssl	: (('https:' == document.location.protocol) ? true : false),
-		});	
-		phone.ready(function(){ form.username.style.background="#55ff5b"; });
-		phone.receive(function(session){
-		    session.connected(function(session) { video_out.appendChild(session.video); });
-		    session.ended(function(session) { video_out.innerHTML=''; });
-		});
-		return false; 	// So the form does not submit.
-	}
-
-	makeCall(form) {
-		if (!window.phone) alert("Login First!");
-		else phone.dial(form.number.value);
-		return false;
-	}
+  handleChange(event) {
+    this.setState({dialeduser: event.target.value});
+  }
 
   handleSubmit() {
+    phone.dial(this.state.dialeduser);
+  }
 
+  endCall() {
+    phone.hangup();
   }
 
   render() {
@@ -72,21 +84,18 @@ class Video extends React.Component {
       return (<Redirect to="login" />)
     } else {
       return (
-  			<div id="vid-box">
-
-  			{/*<form name="loginForm" id="login" action="#" onsubmit="return login(this);">
-  			      <input type="text" name="username" id="username" placeholder="Pick a username!" />
-  			      <input type="submit" name="login_submit" value="Log In">
-  			</form>*/}
-
-  			<form name="callForm" id="call" action="#">
-          <div>
-  				  <input type="text" name="number" placeholder="Enter user to dial!" />
-  				  {/*<input type="submit" value="Call"/>*/}
-            <button type="button" onClick={this.handleSubmit}> Submit </button>
+  			<div>
+    			<form name="callForm" onChange={this.handleChange}>
+            <div>
+    				  <input type="text" placeholder="Enter user to dial!" />
+              <button type="button" onClick={this.handleSubmit}> Call </button>
+            </div>
+    			</form>
+          <div id="vid-box"></div>
+          <div id="vid-thumb"></div>
+          <div id="inCall">
+            <button id="end" onClick={this.endCall}>End</button>
           </div>
-  			</form>
-
         </div>
       )
     }
