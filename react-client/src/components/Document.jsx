@@ -36,9 +36,9 @@ class Document extends React.Component {
   render () {
     if (this.state.permissioned === true) {
       return (
-        <div>
+        <div className="doc">
           <h3 onClick={this.toggleDisplay}> {this.props.document.title} </h3>
-          <span className={this.state.permissioned ? 'permissionedYes' : 'permissionedNo'}>&#10003;</span>
+          <p className={this.state.permissioned ? 'permissionedYes' : 'permissionedNo'}>&#10003;</p>
           <button type="button" onClick={this.permissionedYes} > Yes </button>
           <button type="button" onClick={this.permissionedNo}> No </button>
           <p className={this.state.display ? '' : 'hidden'}> {this.props.document.body} </p>
@@ -46,9 +46,9 @@ class Document extends React.Component {
       )
     } else if (this.state.permissioned === false) {
       return (
-        <div>
+        <div className="doc">
           <h3 onClick={this.toggleDisplay}> {this.props.document.title} </h3>
-          <span onClick={this.togglePermissioned}>&#10007;</span>
+          <p className={this.state.permissioned ? 'permissionedYes' : 'permissionedNo'}>&#10007;</p>
           <button type="button" onClick={this.permissionedYes} > Yes </button>
           <button type="button" onClick={this.permissionedNo}> No </button>
           <p className={this.state.display ? '' : 'hidden'} > {this.props.document.body} </p>
@@ -56,9 +56,9 @@ class Document extends React.Component {
       )      
     } else if (this.state.permissioned === '') {
       return (
-        <div>
+        <div className="doc">
           <h3 onClick={this.toggleDisplay} > {this.props.document.title} </h3>
-          <span onClick={this.togglePermissioned}>&#9998;</span>
+          <p className={this.state.permissioned ? 'permissionedYes' : 'permissionedNo'}>&#9998;</p>
           <button type="button" onClick={this.permissionedYes} > Yes </button>
           <button type="button" onClick={this.permissionedNo}> No </button>
           <p className={this.state.display ? '' : 'hidden'} > {this.props.document.body} </p>
