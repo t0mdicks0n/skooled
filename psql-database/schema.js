@@ -37,6 +37,30 @@ module.exports = function (knex, Promise) {
     }
   });
 
+  knex.schema.hasTable('documents')
+  .then(exists => {
+    if (!exists) {
+      return knex.schema.createTable('documents', (table) => {
+        table.increments('id');
+        table.string('title', 250);
+        table.string('body', 10000);
+        table.boolean('permissioned', false);
+        table.integer('id_student');
+      });
+    }
+  });
+
+  // knex.schema.hasTable('users_documents')
+  // .then(exists => {
+  //   if(!exists) {
+  //     return knex.schema.createTable('users_documents', (table) => {
+  //       table.increments('id');
+  //       table.integer('id_user').references('users.id');
+  //       table.integer('id_document').references('documents.id');
+  //     });
+  //   }
+  // });
+
 };
 
 // module.exports.down = function (knex, Promise) {

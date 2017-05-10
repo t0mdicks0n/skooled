@@ -71,31 +71,22 @@ class TeacherAdmin extends React.Component {
 	render() {
   	return (
 			<div>
+        <h2>Enter Teacher Information</h2>
 				<form>        
-          <label>
-            First Name:
-            <input type="text" value={this.state.firstName} onChange={this.handleFirstNameChange} />
-          </label>
+          <label>First Name:</label>
+          <input type="text" value={this.state.firstName} onChange={this.handleFirstNameChange} />
           <br></br>
-          <label>
-            Last Name:
-            <input type="text" value={this.state.lastName} onChange={this.handleLastNameChange} />
-          </label>
+          <label>Last Name:</label>
+          <input type="text" value={this.state.lastName} onChange={this.handleLastNameChange} />
           <br></br>
-          <label>
-            Email:
-            <input type="text" value={this.state.email} onChange={this.handleEmailChange} />
-          </label>
+          <label>Email:</label>
+          <input type="text" value={this.state.email} onChange={this.handleEmailChange} />
           <br></br>
-          <label>
-            Phone:
-            <input type="text" value={this.state.phone} onChange={this.handlePhoneChange} />
-          </label>
+          <label>Phone:</label>
+          <input type="text" value={this.state.phone} onChange={this.handlePhoneChange} />
           <br></br>
-          <label>
-            Password:
-            <input type="text" value={this.state.password} onChange={this.handlePasswordChange} />
-          </label>
+          <label>Password:</label>
+          <input type="password" value={this.state.password} onChange={this.handlePasswordChange} />
           <br></br>
           <button type="button" onClick={this.handleSubmit}> Submit </button>
 				</form>

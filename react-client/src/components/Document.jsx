@@ -68,9 +68,4 @@ class Document extends React.Component {
   }
 }
 
-/*
-Need to add CSS in stylesheet:
-.hidden { display:none; }
-*/
-
 export default Document;

@@ -56,16 +56,13 @@ class StudentAdmin extends React.Component {
 	render() {
   	return (
 			<div>
+        <h2>Enter Student Information</h2>
 				<form>
-          <label>
-            First Name:
-            <input type="text" value={this.state.firstName} onChange={this.handleFirstNameChange} />
-          </label>
+          <label>First Name:</label>
+          <input type="text" value={this.state.firstName} onChange={this.handleFirstNameChange} />
           <br></br>
-          <label>
-            Last Name:
-            <input type="text" value={this.state.lastName} onChange={this.handleLastNameChange} />
-          </label>
+          <label>Last Name:</label>
+          <input type="text" value={this.state.lastName} onChange={this.handleLastNameChange} />
           <br></br>
           <button type="button" onClick={this.handleSubmit}> Submit </button>
 				</form>
