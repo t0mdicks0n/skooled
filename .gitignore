@@ -22,7 +22,7 @@ coverage
 build/
 
 # Bundled javascript file
-#bundle.js
+# bundle.js
 
 # Dependency directorys
 # Deployed apps should consider commenting these lines out:
@@ -30,8 +30,11 @@ build/
 node_modules/
 bower_components/
 
-# Ignore .DS_Store files
+# .DS_Store files
 .DS_Store
 
 # Compiled files
 compiled
+
+# config.js
+config.js

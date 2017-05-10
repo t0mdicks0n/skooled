@@ -1,9 +1,25 @@
+var config = require('./config/config.js');
 var bcrypt = require('bcryptjs');
+var jwt = require('jsonwebtoken');
+var passportJWT = require("passport-jwt");
+
+// Passport JSON Web Token (JWT) variables
+var ExtractJwt = passportJWT.ExtractJwt;
+var JwtStrategy = passportJWT.Strategy;
+var jwtOptions = {};
+jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeader();
+jwtOptions.secretOrKey = process.env.PASSPORT_JWT_SECRETORKEY || config.PASSPORT_JWT_SECRETORKEY;
+
 
 module.exports = {
-// No need to store the salt because the hash includes it at the beginning
-// Salt is added at beginning to hash like $2a$10$CVKM/Y5YTdSih615f70aUe
-// Hash would be $2a$10$CVKM/Y5YTdSih615f70aUeqiAJ0EV0PyohI8700T6GwlBjYQpQgBy
+
+  //////////////////////////////////////////////
+  // HASH PASSWORD FUNCTIONS
+  //////////////////////////////////////////////
+  // No need to store the salt because the hash includes it at the beginning
+  // Salt is added at beginning to hash like $2a$10$CVKM/Y5YTdSih615f70aUe
+  // Hash would be $2a$10$CVKM/Y5YTdSih615f70aUeqiAJ0EV0PyohI8700T6GwlBjYQpQgBy
+  //////////////////////////////////////////////
   createHashPassword : (plainTextPassword, callback) => {
     bcrypt.genSalt(10, (err, salt) => {
       bcrypt.hash(plainTextPassword, salt).then((hash) => {
@@ -22,22 +38,39 @@ module.exports = {
     }).catch((err) => {
       callback(err, null);
     });
+  },
+
+
+  //////////////////////////////////////////////
+  // PASSPORT JSON WEB TOKEN FUNCTIONS
+  //////////////////////////////////////////////
+  ensureAuth : (req, res, next) => {
+    var token = req.headers['authorization'];
+    jwt.verify(token, jwtOptions.secretOrKey, function(err, decoded) {
+      if (err) {
+        res.sendStatus(403);
+      } else {
+        req.decoded = decoded;
+        next();
+      }
+    });
+  },
+
+  createToken : (payload) => {
+    return jwt.sign(payload, jwtOptions.secretOrKey);
   }
+
+
+  //////////////////////////////////////////////
+  // EMAIL FUNCTIONS
+  //////////////////////////////////////////////
+
+
+  //////////////////////////////////////////////
+  // STRIPE PAYMENT FUNCTIONS
+  //////////////////////////////////////////////
 
 };
 
 
-// CALL SERVICE ON THE SERVER (EXAMPLE BELOW)
-// Remember to require this as a library and adjust the code below as necessary
-
-// var plainTextPassword = 'nick123';
-// createHashPassword(plainTextPassword, (err, hash) => {
-//   if (err) throw err;
-//   console.log('plainTextPassword:', plainTextPassword);
-//   console.log('hash:', hash);
-//   checkHashPassword(plainTextPassword, hash, (err, value) => {
-//     if (err) throw err;
-//     console.log('password and hash match? true/false:', value === true);
-//   });
-// });
 
