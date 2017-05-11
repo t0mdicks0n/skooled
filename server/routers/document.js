@@ -89,7 +89,7 @@ router.get('/documents', ensureAuthorized, (req, res) => {
       .then(() => {
         console.log('documentsArrayToSendBackToClient', documentsArrayToSendBackToClient);
         // Send back to client.
-        res.send(documentsArrayToSendBackToClient);
+        res.json(documentsArrayToSendBackToClient);
       });
     }
   });
