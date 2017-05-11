@@ -63,25 +63,36 @@ router.get('/documents', ensureAuthorized, (req, res) => {
       // For each student, get documents from documents table where id_student === current id_student.
       let documentsArrayToSendBackToClient = [];
 
-      data.models.forEach((promiseChain, model) => {
-        // console.log('This is the individual model iterated.', model);
-        let id_student = model.attributes.id_student;
-        pg.selectApplicableDocument(id_student, (error, doc) => {
-          if (error) {
-            console.error('Could not retrieve document given individual id_student.');
-          } else {
-            console.log('Retrieved document given individual id_student.', doc.models[0].attributes);
-            documentsArrayToSendBackToClient.push(doc.models[0].attributes);
-            console.log('documentsArrayToSendBackToClient',documentsArrayToSendBackToClient);
-          }
+      const compileArray = function(model, cb) {
+        setTimeout(() => {
+          // console.log('This is the individual model iterated.', model);
+          let id_student = model.attributes.id_student;
+          pg.selectApplicableDocument(id_student, (error, doc) => {
+            if (error) {
+              console.error('Could not retrieve document given individual id_student.');
+            } else {
+              console.log('Retrieved document given individual id_student.', doc.models[0].attributes);
+              documentsArrayToSendBackToClient.push(doc.models[0].attributes);
+              cb();
+            }
+          });
+        }, 100);
+      };
+
+      let requests = data.models.map(model => {
+        return new Promise(resolve => {
+          compileArray(model, resolve);
         });
       });
+
+      Promise.all(requests)
+      .then(() => {
+        console.log('documentsArrayToSendBackToClient', documentsArrayToSendBackToClient);
+        // Send back to client.
+        res.send(documentsArrayToSendBackToClient);
+      });
     }
-  })
-
-
-  // Send back to client.
-
+  });
 });
 
 router.post('/user', (req, res) => {
