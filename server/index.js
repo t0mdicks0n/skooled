@@ -20,8 +20,21 @@ app.use(express.static(__dirname + '/../react-client/dist'));
 app.use(bodyParser.json());
 
 // Shows how secured paths works and get executed when the user enters the website the first time
-app.get('/checkOnClientLoad', ensureAuthorized, function(req, res) {
-  res.json({userid: req.decoded.id});
+app.get('/checkOnClientLoad', ensureAuthorized, (req, res) => {
+  pg.selectUserById(req.decoded.id, (error, data) => {
+    if (error) {
+      console.error('Error retrieving logged in user from db');
+      res.json({userid: req.decoded.id});
+    } else {
+      console.log('selectUserById response', data);
+      let user = {
+        userid: req.decoded.id,
+        userRole: data.attributes.role
+      };
+      console.log('user from selectUserById', user);
+      res.json(user);
+    }
+  });
 });
 
 // Insert demo-user
@@ -52,7 +65,7 @@ app.post('/login', (req, res) => {
         if (match) {
           var payload = {id: data.attributes.id};
           var token = createToken(payload);
-          res.json({isLoggedIn: true, jwtToken: token });
+          res.json({isLoggedIn: true, jwtToken: token, userRole: data.attributes.role });
         } else {
           res.json({isLoggedIn: false});
         }

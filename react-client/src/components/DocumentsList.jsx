@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Document from './Document.jsx';
+import CreateDocument from './CreateDocument.jsx';
 import { BrowserRouter, Route, Link, Switch, Redirect } from 'react-router-dom';
 
 class DocumentsList extends React.Component {
@@ -37,17 +38,31 @@ class DocumentsList extends React.Component {
 
 
   render () {
+    console.log('type of user logged in', this.props.userType);
     if (!this.props.isLoggedIn) {
       return (<Redirect to="login" />)
     } else {
-      return (
-        <div>
-          <h2>Permission slips</h2>
-          {this.state.documents.map((doc, index) => 
-            <Document document={doc} key={index}/>
-          )}
-        </div>
-      )    
+      if (this.props.userType === 'teacher') {
+        return (
+          <div>
+            <h2>Permission slips</h2>
+            <Link to="/documents/createDocument">Create Document</Link>
+            <Route name="createDocument" path="/documents/createDocument" component={() => (<CreateDocument userType={this.props.userType} />)} />
+            {this.state.documents.map((doc, index) => 
+              <Document document={doc} key={index}/>
+            )}
+          </div>
+        )    
+      } else {
+        return (
+          <div>
+            <h2>Permission slips</h2>
+            {this.state.documents.map((doc, index) => 
+              <Document document={doc} key={index}/>
+            )}
+          </div>
+        )    
+      }
     }
   }
 }
