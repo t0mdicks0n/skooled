@@ -40,7 +40,7 @@ module.exports = {
   },
 
   createToken : (payload) => {
-    auth.createToken(payload);
+    return auth.createToken(payload);
   },
 
 
@@ -54,7 +54,7 @@ module.exports = {
     //   subject: 'Hello from Mailgun',
     //   html: 'Here we go again...'
     // };
-    email.sendEmail(data);
+    auth.sendEmail(data);
   },
 
   //////////////////////////////////////////////
