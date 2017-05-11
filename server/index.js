@@ -6,7 +6,6 @@ var home = require('./routers/admin');
 var admin = require('./routers/admin');
 var doc = require('./routers/document');
 
-
 var ensureAuthorized = services.ensureAuth;
 var createToken = services.createToken;
 

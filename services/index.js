@@ -1,15 +1,6 @@
-var PASSPORT_JWT_SECRETORKEY = process.env.PASSPORT_JWT_SECRETORKEY || require('./config/config.js').PASSPORT_JWT_SECRETORKEY;
 var bcrypt = require('bcryptjs');
-var jwt = require('jsonwebtoken');
-var passportJWT = require("passport-jwt");
-
-// Passport JSON Web Token (JWT) variables
-var ExtractJwt = passportJWT.ExtractJwt;
-var JwtStrategy = passportJWT.Strategy;
-var jwtOptions = {};
-jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeader();
-jwtOptions.secretOrKey = PASSPORT_JWT_SECRETORKEY;
-
+var auth = require('./auth.js');
+var email = require('./email.js');
 
 module.exports = {
 
@@ -45,26 +36,26 @@ module.exports = {
   // PASSPORT JSON WEB TOKEN FUNCTIONS
   //////////////////////////////////////////////
   ensureAuth : (req, res, next) => {
-    var token = req.headers['authorization'];
-    jwt.verify(token, jwtOptions.secretOrKey, function(err, decoded) {
-      if (err) {
-        res.sendStatus(403);
-      } else {
-        req.decoded = decoded;
-        next();
-      }
-    });
+    auth.ensureAuth(req, res, next);
   },
 
   createToken : (payload) => {
-    return jwt.sign(payload, jwtOptions.secretOrKey);
-  }
+    auth.createToken(payload);
+  },
 
 
   //////////////////////////////////////////////
   // EMAIL FUNCTIONS
   //////////////////////////////////////////////
-
+  sendEmail : (data) => {
+    // var data = {
+    //   from: 'test@example.com',
+    //   to: 'test@gmail.com',
+    //   subject: 'Hello from Mailgun',
+    //   html: 'Here we go again...'
+    // };
+    email.sendEmail(data);
+  },
 
   //////////////////////////////////////////////
   // STRIPE PAYMENT FUNCTIONS
