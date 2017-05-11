@@ -8,6 +8,7 @@ var jwtOptions = {};
 jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeader();
 jwtOptions.secretOrKey = PASSPORT_JWT_SECRETORKEY;
 
+
 module.exports = {
   ensureAuth : (req, res, next) => {
     var token = req.headers['authorization'];
@@ -23,5 +24,6 @@ module.exports = {
 
   createToken : (payload) => {
     return jwt.sign(payload, jwtOptions.secretOrKey);
-  }
+  },
+
 };

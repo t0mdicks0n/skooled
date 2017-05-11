@@ -11,15 +11,17 @@ var mailgun = new Mailgun({apiKey: MAILGUN_API_KEY, domain: MAILGUN_DOMAIN});
 //   html: 'Here we go again... Jessica Alba number 1'
 // };
 
-var sendEmail = function(data) {
-  mailgun.messages().send(data, function (err, body) {
-    if (err) {
-        console.log("Error with your email message: ", err);
-    }
-    else {
-        console.log(body);
-    }
-  });
+module.exports = {
+  sendEmail : function(data) {
+    mailgun.messages().send(data, function (err, body) {
+      if (err) {
+          console.log("Error with your email message: ", err);
+      }
+      else {
+          console.log(body);
+      }
+    });
+  },
+
 };
 
-module.exports.sendEmail = sendEmail;
