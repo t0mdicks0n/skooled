@@ -58,7 +58,7 @@ module.exports = {
   },
 
   // ADMIN PAGE: ADD STUDENT
-  insertStudent : (user, student, callback) => {
+  insertStudent : (student, callback) => {
     Student.forge({
       first_name: student.firstName,
       last_name: student.lastName

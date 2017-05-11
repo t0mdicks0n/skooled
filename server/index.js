@@ -12,7 +12,6 @@ var createToken = services.createToken;
 
 var app = express();
 
-app.use('/home', admin);
 app.use('/admin', admin);
 app.use('/doc', doc);
 app.use('/video', video);
