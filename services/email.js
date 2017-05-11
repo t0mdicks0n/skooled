@@ -22,4 +22,4 @@ var sendEmail = function(data) {
   });
 };
 
-export.modules.sendEmail = sendEmail;
+module.exports.sendEmail = sendEmail;
