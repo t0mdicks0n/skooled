@@ -55,42 +55,77 @@ router.get('/documents', ensureAuthorized, (req, res) => {
   console.log('logged in user', req.decoded);
 
   // With the id_user, find all students associated for that user.
-  pg.retrieveSelectedUsersStudents(id_user, (error, data) => {
+  pg.retrieveSelectedUsersStudents(id_user, (error, usersStudentsEntries) => {
     if (error) {
       console.error('Error retrieving entries from users_students join table given id of logged in user.');
     } else {
-      console.log('GET /documents - retrieved entries from users_students join table given id of logged in user.', data.models);
+      console.log('GET /documents - retrieved entries from users_students join table given id of logged in user.', usersStudentsEntries.models);
       // For each student, get documents from documents table where id_student === current id_student.
       let documentsArrayToSendBackToClient = [];
 
-      const compileArray = function(model, cb) {
-        setTimeout(() => {
-          // console.log('This is the individual model iterated.', model);
-          let id_student = model.attributes.id_student;
-          pg.selectApplicableDocument(id_student, (error, doc) => {
-            if (error) {
-              console.error('Could not retrieve document given individual id_student.');
-            } else {
-              console.log('Retrieved document given individual id_student.', doc.models[0].attributes);
-              documentsArrayToSendBackToClient.push(doc.models[0].attributes);
+      usersStudentsEntries.models.forEach(usersStudentsEntry => {
+        console.log('usersStudentsEntry', usersStudentsEntry.attributes.id_student);
+      });
+
+      let id_student = usersStudentsEntries.models[0].attributes.id_student;
+      console.log('dshd', id_student);
+      pg.selectApplicableDocuments(id_student, (error, docs) => {
+        if (error) {
+          console.error('Could not retrieve document given individual id_student.');
+        } else {
+          // Iterate through the list of documents.
+          console.log('Retrieved documents from db given individual id', docs.models);
+
+          const compileArray = function(doc, cb) {
+            setTimeout(() => {
+              documentsArrayToSendBackToClient.push(doc.attributes);
               cb();
-            }
+            }, 100);
+          };
+
+          let requests = docs.models.map(doc => {
+            return new Promise(resolve => {
+              compileArray(doc, resolve);
+            });
           });
-        }, 100);
-      };
 
-      let requests = data.models.map(model => {
-        return new Promise(resolve => {
-          compileArray(model, resolve);
-        });
+          Promise.all(requests)
+          .then(() => {
+            console.log('documentsArrayToSendBackToClient', documentsArrayToSendBackToClient);
+            // Send back to client.
+            res.json(documentsArrayToSendBackToClient);
+          })
+        }
       });
 
-      Promise.all(requests)
-      .then(() => {
-        console.log('documentsArrayToSendBackToClient', documentsArrayToSendBackToClient);
-        // Send back to client.
-        res.json(documentsArrayToSendBackToClient);
-      });
+      // const compileArray = function(model, cb) {
+      //   setTimeout(() => {
+      //     // console.log('This is the individual model iterated.', model);
+      //     let id_student = model.attributes.id_student;
+      //     pg.selectApplicableDocuments(id_student, (error, doc) => {
+      //       if (error) {
+      //         console.error('Could not retrieve document given individual id_student.');
+      //       } else {
+      //         console.log('Retrieved document given individual id_student.', doc.models[0].attributes);
+      //         documentsArrayToSendBackToClient.push(doc.models[0].attributes);
+      //         cb();
+      //       }
+      //     });
+      //   }, 100);
+      // };
+
+      // let requests = data.models.map(model => {
+      //   return new Promise(resolve => {
+      //     compileArray(model, resolve);
+      //   });
+      // });
+
+      // Promise.all(requests)
+      // .then(() => {
+      //   console.log('documentsArrayToSendBackToClient', documentsArrayToSendBackToClient);
+      //   // Send back to client.
+      //   res.json(documentsArrayToSendBackToClient);
+      // });
     }
   });
 });

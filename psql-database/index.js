@@ -126,7 +126,7 @@ module.exports = {
     });
   },
 
-  selectApplicableDocument : (id_student, callback) => {
+  selectApplicableDocuments : (id_student, callback) => {
     // Selects all applicable documents depending on the student_ids for each document.
     Document.forge()
     .query('where', {id_student: id_student})
