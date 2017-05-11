@@ -44,6 +44,19 @@ module.exports = {
     });
   },
 
+  selectUserById : (userId, callback) => {
+    User.forge({id: userId})
+    .fetch({require: true})
+    .then(function (user) {
+      // console.log('user info:', user);
+      callback(null, user);
+    })
+    .catch(function (err) {
+      // console.log('message:', err.message);
+      callback(err, null);
+    });
+  },
+
   // ADMIN PAGE: ADD STUDENT
   insertStudent : (user, student, callback) => {
     Student.forge({

@@ -17,7 +17,8 @@ class App extends React.Component {
     this.state = {
       username: '',
       password: '',
-      loggedIn: false
+      loggedIn: false,
+      userType: ''
     }
     this.sendCredentials = this.sendCredentials.bind(this);
     this.revokeCredentials = this.revokeCredentials.bind(this);
@@ -30,11 +31,11 @@ class App extends React.Component {
     });
     axios.post('/login', {username: username, password: password})
     .then(response => {
-      console.log('response received from server', response.data.isLoggedIn);
+      console.log('response invoking sendCredentials received from server', response.data);
       this.setState({
-        loggedIn: response.data.isLoggedIn
+        loggedIn: response.data.isLoggedIn,
+        userType: response.data.userRole
       });
-      console.log('Response on successfull post ', response.data);
       window.localStorage.accessToken = response.data.jwtToken;
     })
     .catch(error => {
@@ -47,7 +48,8 @@ class App extends React.Component {
     this.setState({
       username: '',
       password: '',
-      loggedIn: false
+      loggedIn: false,
+      userType: ''
     });
 
     window.localStorage.accessToken = '';
@@ -64,8 +66,11 @@ class App extends React.Component {
 
     axios.get('checkOnClientLoad', config)
     .then(response => {
-      console.log('response received from server', response.data);
-      this.setState({loggedIn: true});
+      console.log('response received from server', response);
+      this.setState({
+        loggedIn: true,
+        userType: response.data.userRole
+      });
       console.log(response);
     })
     .catch(error => {
@@ -74,15 +79,15 @@ class App extends React.Component {
   }
 
   render () {
-    console.log('this.state.loggedIn', this.state.loggedIn);
+    console.log('this.state.loggedIn', this.state);
     return (
         <div>
           <Nav/>
           <Route name="login" path="/login" component={() => (<Login enterCredentials={this.sendCredentials}/> )}/>
           <Route name="admin" path="/admin" component={() => (<CreateUser isLoggedIn={this.state.loggedIn}/> )} />
           <Route name="nav" path="/nav" component={Nav} />
-          <Route name="documents" path="/documents" component={() => (<DocumentsList isLoggedIn={this.state.loggedIn}/> )} />
-          <Route name="createDocument" path="/createDocument" component={CreateDocument} />
+          <Route name="documents" path="/documents" component={() => (<DocumentsList isLoggedIn={this.state.loggedIn} userType={this.state.userType} /> )} />
+          
           <Route name="video" path="/video" component={() => (<Video isLoggedIn={this.state.loggedIn}/> )} />
           <Route name="logout" path="/logout" component={() => (<Logout revokeCredentials={this.revokeCredentials}/> )} />
         </div>
