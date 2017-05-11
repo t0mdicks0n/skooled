@@ -19,6 +19,7 @@ router.post('/create', ensureAuthorized, (req, res) => {
   pg.retrieveSelectedUsersStudents(id_user, (error, data) => {
     if (error) {
       console.error('Error retrieving entries from users_students join table given id of logged in user.');
+      // res.sendStatus(404);
     } else {
       console.log('Retrieved entries from users_students join table given id of logged in user.', data.models);
       // For each student, create new instance of doc in db, INCLUDING FOR TEACHER'S ID.
@@ -34,8 +35,10 @@ router.post('/create', ensureAuthorized, (req, res) => {
         pg.insertDocument(doc, (error, response) => {
           if (error) {
             console.error('Error inserting doc for a specfic student.');
+            // res.sendStatus(404);   
           } else {
             console.log('Success inserting doc for a specific student');
+            // res.sendStatus(200);
           }
         });
       });
