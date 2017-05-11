@@ -41,7 +41,8 @@ class Video extends React.Component {
     var phone = window.phone = PHONE({
         number        : userid,
         publish_key   : PUBNUB_PUBLISH_KEY,
-        subscribe_key : PUBNUB_SUBSCRIBE_KEY
+        subscribe_key : PUBNUB_SUBSCRIBE_KEY,
+        ssl : (('https:' == document.location.protocol) ? true : false)
     });
     phone.ready(function(){});
     phone.receive(function(session){
