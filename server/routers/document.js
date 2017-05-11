@@ -19,7 +19,7 @@ router.post('/create', ensureAuthorized, (req, res) => {
   pg.retrieveSelectedUsersStudents(id_user, (error, data) => {
     if (error) {
       console.error('Error retrieving entries from users_students join table given id of logged in user.');
-      // res.sendStatus(404);
+      res.sendStatus(404);
     } else {
       console.log('Retrieved entries from users_students join table given id of logged in user.', data.models);
       // For each student, create new instance of doc in db, INCLUDING FOR TEACHER'S ID.
@@ -35,10 +35,10 @@ router.post('/create', ensureAuthorized, (req, res) => {
         pg.insertDocument(doc, (error, response) => {
           if (error) {
             console.error('Error inserting doc for a specfic student.');
-            // res.sendStatus(404);   
+            res.sendStatus(404);   
           } else {
             console.log('Success inserting doc for a specific student');
-            // res.sendStatus(200);
+            res.sendStatus(200);
           }
         });
       });
@@ -48,7 +48,7 @@ router.post('/create', ensureAuthorized, (req, res) => {
 
 router.get('/user', (req, res) => {
   // Teachers and parents fetch the list of documents applicable to them based on their id.
-
+  
   // Check which user_id is currently authorised/logged in.
 
   // Get documents from documents table where user_id === current user_id.
