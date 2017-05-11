@@ -24,15 +24,21 @@ class DocumentsList extends React.Component {
   }
 
   componentDidMount () {
-    axios.get('/documents')
+    let currentToken = window.localStorage.accessToken;
+
+    let config = {
+      headers: {'Authorization': currentToken}
+    };
+
+    axios.get('/doc/documents', config)
     .then(docs => {
       console.log('Retrieved docs back from GET /documents request.', docs);
       this.setState({
         documents: docs
-      })
+      });
     })
-    .error(error => {
-      console.log('Error retrieving docs back from GET /documents request.')
+    .catch(error => {
+      console.log('Error retrieving docs back from GET /documents request.');
     });
   }
 

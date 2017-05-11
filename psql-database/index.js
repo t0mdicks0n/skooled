@@ -126,9 +126,19 @@ module.exports = {
     });
   },
 
-  selectApplicableDocuments : () => {
+  selectApplicableDocument : (id_student, callback) => {
     // Selects all applicable documents depending on the student_ids for each document.
+    Document.forge()
+    .query('where', {id_student: id_student})
+    .fetchAll({require: true})
+    .then(documentEntry => {
+      callback(null, documentEntry)
+    })
+    .catch(error => {
+      callback(error, null);
+    });
     // Must refer to the users_students join table for reference the user_id to get the relevant student_id.
+
     // Then select only the documents where the student_id matches that retrieved from the join table.
   },
 
