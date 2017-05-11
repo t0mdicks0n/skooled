@@ -72,20 +72,20 @@ class TeacherAdmin extends React.Component {
   	return (
 			<div>
         <h2>Enter Teacher Information</h2>
-				<form>        
-          <label>First Name:</label>
+				<form className="form-group">        
+          <label>First Name:  </label>
           <input type="text" value={this.state.firstName} onChange={this.handleFirstNameChange} />
           <br></br>
-          <label>Last Name:</label>
+          <label>Last Name:  </label>
           <input type="text" value={this.state.lastName} onChange={this.handleLastNameChange} />
           <br></br>
-          <label>Email:</label>
+          <label>Email:  </label>
           <input type="text" value={this.state.email} onChange={this.handleEmailChange} />
           <br></br>
-          <label>Phone:</label>
+          <label>Phone:  </label>
           <input type="text" value={this.state.phone} onChange={this.handlePhoneChange} />
           <br></br>
-          <label>Password:</label>
+          <label>Password:  </label>
           <input type="password" value={this.state.password} onChange={this.handlePasswordChange} />
           <br></br>
           <button type="button" onClick={this.handleSubmit}> Submit </button>
