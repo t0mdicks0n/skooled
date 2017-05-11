@@ -48,7 +48,8 @@ router.post('/create', ensureAuthorized, (req, res) => {
 
 router.get('/user', (req, res) => {
   // Teachers and parents fetch the list of documents applicable to them based on their id.
-  
+  console.log('Inside GET /user req.body: ', req.body);
+
   // Check which user_id is currently authorised/logged in.
 
   // Get documents from documents table where user_id === current user_id.

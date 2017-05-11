@@ -24,16 +24,16 @@ class DocumentsList extends React.Component {
   }
 
   componentDidMount () {
-    // axios.get('/documents')
-    // .then(docs => {
-    //   console.log('Retrieved docs back from GET /documents request.', docs);
-    //   this.setState({
-    //     documents: docs
-    //   })
-    // })
-    // .error(error => {
-    //   console.log('Error retrieving docs back from GET /documents request.')
-    // });
+    axios.get('/documents')
+    .then(docs => {
+      console.log('Retrieved docs back from GET /documents request.', docs);
+      this.setState({
+        documents: docs
+      })
+    })
+    .error(error => {
+      console.log('Error retrieving docs back from GET /documents request.')
+    });
   }
 
 
