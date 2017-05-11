@@ -26,7 +26,6 @@ class Video extends React.Component {
 
     axios.get('checkOnClientLoad', config)
     .then(response => {
-      console.log('yalla', response.data.userid);
       this.configurePhone(response.data.userid);
       this.setState({userid: response.data.userid});
     })
@@ -75,7 +74,24 @@ class Video extends React.Component {
   }
 
   handleSubmit() {
-    phone.dial(this.state.dialeduser);
+    // phone.dial(this.state.dialeduser);
+
+    var currentToken = window.localStorage.accessToken;
+    var config = {
+      headers: {
+        'Authorization': currentToken,
+        'username': this.state.dialeduser
+      }
+    };
+
+    axios.get('/video/userdata', config)
+    .then(response => {
+      phone.dial(response.data.id);
+    })
+    .catch(error => {
+      console.log('error, received no response from server');
+      alert('Please submit a valid email address.');
+    });
   }
 
   endCall() {
