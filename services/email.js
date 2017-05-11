@@ -8,7 +8,7 @@ var mailgun = new Mailgun({apiKey: MAILGUN_API_KEY, domain: MAILGUN_DOMAIN});
 //   from: 'test@example.com',
 //   to: 'test@gmail.com',
 //   subject: 'Hello from Mailgun',
-//   html: 'Here we go again... Jessica Alba number 1'
+//   html: 'Here we go again...'
 // };
 
 module.exports = {
