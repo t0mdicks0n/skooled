@@ -1,7 +1,8 @@
-var User = require('./models/user.js');
-var Student = require('./models/student.js');
-var UserStudent = require('./models/user_student.js');
-var services = require('../services');
+const User = require('./models/user.js');
+const Student = require('./models/student.js');
+const UserStudent = require('./models/user_student.js');
+const Document = require('./models/document.js')
+const services = require('../services');
 
 module.exports = {
   // ADMIN PAGE: ADD USER
@@ -82,6 +83,19 @@ module.exports = {
     });
   },
 
+  // DOC PAGE: GET SELECTED STUDENTS
+  retrieveSelectedUsersStudents : (id_user, callback) => {
+    UserStudent.forge()
+    .query('where', {id_user: id_user})
+    .fetchAll({require: true})
+    .then(userStudentEntry => {
+      callback(null, userStudentEntry);
+    })
+    .catch(error => {
+      callback(error, null);
+    });
+  },
+
   insertDocument : (doc, callback) => {
     Document.forge({
       title: doc.title,
@@ -90,9 +104,11 @@ module.exports = {
     })
     .save()
     .then(doc => {
+      console.log('SUCCESSFUL INSERT IN DOCUMENTS TABLE:', doc);
       callback(null, doc);
     })
     .catch(error => {
+      console.log('ERROR WITH INSERT IN DOCUMENTS TABLE:', error);
       callback(error, null);
     });
   },

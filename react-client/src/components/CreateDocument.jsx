@@ -31,7 +31,13 @@ class CreateDocument extends React.Component {
 
   createDoc () {
     console.log('createDoc invoked');
-    axios.post('/create', this.state)
+    var currentToken = window.localStorage.accessToken;
+
+    var config = {
+      headers: {'Authorization': currentToken}
+    };
+
+    axios.post('/doc/create', this.state, config)
     .then(response => {
       window.alert('Document created in database!')
     })
