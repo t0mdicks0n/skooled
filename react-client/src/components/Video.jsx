@@ -74,8 +74,6 @@ class Video extends React.Component {
   }
 
   handleSubmit() {
-    // phone.dial(this.state.dialeduser);
-
     var currentToken = window.localStorage.accessToken;
     var config = {
       headers: {
