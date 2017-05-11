@@ -103,6 +103,7 @@ class Video extends React.Component {
     } else {
       return (
         <div>
+          <h2> Video Chat </h2>
           <form name="callForm" onChange={this.handleChange}>
             <div>
               <input type="text" placeholder="Enter user to dial!" />

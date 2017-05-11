@@ -93,23 +93,23 @@ class ParentAdmin extends React.Component {
   	return (
 			<div>
         <h2>Enter Parent Information</h2>
-				<form className="form-group">
-          <label>First Name:  </label>
-          <input type="text" value={this.state.firstName} onChange={this.handleFirstNameChange} />
+				<form className="form-group form-horizontal">
+          <label>First Name</label>
+          <input type="text" placeholder="First Name" value={this.state.firstName} onChange={this.handleFirstNameChange} />
           <br></br>
-          <label>Last Name:  </label>
-          <input type="text" value={this.state.lastName} onChange={this.handleLastNameChange} />
+          <label>Last Name</label>
+          <input type="text" placeholder="Last Name" value={this.state.lastName} onChange={this.handleLastNameChange} />
           <br></br>
-          <label>Email:  </label>
-          <input type="text" value={this.state.email} onChange={this.handleEmailChange} />
+          <label>Email</label>
+          <input type="text" placeholder="Email" value={this.state.email} onChange={this.handleEmailChange} />
           <br></br>
-          <label>Phone:  </label>
-            <input type="text" value={this.state.phone} onChange={this.handlePhoneChange} />
+          <label>Phone</label>
+            <input type="text" placeholder="Phone Number" value={this.state.phone} onChange={this.handlePhoneChange} />
           <br></br>
-          <label>Password:  </label>
-            <input type="text" value={this.state.password} onChange={this.handlePasswordChange} />
+          <label>Password</label>
+            <input type="text" placeholder="Password" value={this.state.password} onChange={this.handlePasswordChange} />
           <br></br>
-          <label>Student:  </label>
+          <label>Student</label>
           <select onChange={this.handleStudentSelect} value={this.state.value} >
             <option value="" defaultValue> Please Choose </option>
             {this.state.students.map((student, index) =>

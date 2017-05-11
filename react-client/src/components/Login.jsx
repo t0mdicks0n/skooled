@@ -29,17 +29,13 @@ class Login extends React.Component {
     return (
       <div>
         <img src="stock_logo.jpg" height="200" width="200"></img>
-        <h1> Welcome to Skooled! </h1>
+        <h2> Welcome to Skooled! </h2>
         <form>
-          <label>
-            Username:
-            <input type="text" value={this.state.username} onChange={this.handleUsernameChange} />
-          </label>
+          <label>Username</label>
+            <input type="text" placeholder="Username" value={this.state.username} onChange={this.handleUsernameChange} />
           <br></br>
-          <label>
-            Password:
-            <input type="password" value={this.state.password} onChange={this.handlePasswordChange} />
-          </label>
+          <label>Password</label>
+            <input type="password" placeholder="Password" value={this.state.password} onChange={this.handlePasswordChange} />
           <br></br>
           <button type="button" onClick={this.handleSubmit}> Submit </button>
         </form>

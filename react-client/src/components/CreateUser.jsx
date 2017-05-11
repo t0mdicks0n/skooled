@@ -27,7 +27,7 @@ class CreateUser extends React.Component {
         return (
           <div>
             <h2> Create User </h2>
-            <form> 
+            <form className="form-horizontal"> 
               <select onChange={this.handleUserTypeChange} value={this.state.value}>
                 <option value="" defaultValue> Please Choose </option>
                 <option value='teacher'> Teacher </option>
@@ -63,7 +63,5 @@ class CreateUser extends React.Component {
 }
 
 
+export default CreateUser; 
 
-
-
-export default CreateUser;  
