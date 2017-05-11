@@ -3,7 +3,6 @@ var passportJWT = require("passport-jwt");
 var jwt = require('jsonwebtoken');
 
 var ExtractJwt = passportJWT.ExtractJwt;
-// var JwtStrategy = passportJWT.Strategy;
 var jwtOptions = {};
 jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeader();
 jwtOptions.secretOrKey = PASSPORT_JWT_SECRETORKEY;

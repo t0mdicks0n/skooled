@@ -27,43 +27,45 @@ router.get('/students', (req, res) => {
 router.post('/teacher', (req, res) => {
   console.log('req.body', req.body);
 
+  // Create welcome email with new password
+  services.sendEmail({
+    from: 'no-reply@skooled.com',
+    to: req.body.email,
+    subject: 'Welcome ' + req.body.firstName + ' to your Skooled account!',
+    html: 'Please use \'' + req.body.password + '\' as your password.',
+  });
+
   pg.insertUser(req.body, (error, data) => {
     if (error) {
       console.log('Error inserting new teacher info to db.', error);
       res.sendStatus(500);
     } else {
-      var jsonData = data.toJSON();
-      // Create welcome email with new password
-      services.sendEmail({
-        from: 'no-reply@skooled.com',
-        to: jsonData.email,
-        subject: 'Welcome ' + jsonData.firstName + ' to your Skooled account!',
-        html: 'Please use \'' + jsonData.password + '\' as your password.',
-      });
       console.log('Inserted new teacher info to db.', data);
       res.sendStatus(200);
     }
-  })
+  });
 });
 
 
 router.post('/parent', (req, res) => {
   console.log('req.body inside POST /admin/parent', req.body);
+
+  // Create welcome email with new password
+  services.sendEmail({
+    from: 'no-reply@skooled.com',
+    to: req.body.email,
+    subject: 'Welcome ' + req.body.firstName + ' to your Skooled account!',
+    html: 'Please use \'' + req.body.password + '\' as your password.',
+  });
+
   pg.insertUser(req.body, (error, data) => {
     if (error) {
       console.error('Error inserting new parent info to db.', error);
       res.sendStatus(500);
     } else {
-      var jsonData = data.toJSON();
       // Create the relationship in the join table for 'parent' and Student
-      pg.insertUserStudent(jsonData.id, req.body.studentId);
-      // Create welcome email with new password
-      services.sendEmail({
-        from: 'no-reply@skooled.com',
-        to: jsonData.email,
-        subject: 'Welcome ' + jsonData.firstName + ' to your Skooled account!',
-        html: 'Please use \'' + jsonData.password + '\' as your password.',
-      });
+      pg.insertUserStudent(data.toJSON().id, req.body.studentId);
+
       console.log('Inserted new parent info to db.', data);
       res.sendStatus(200);
     }
@@ -73,7 +75,7 @@ router.post('/parent', (req, res) => {
 
 router.post('/student', ensureAuthorized, (req, res) => {
   console.log('req.body inside POST /admin/student', req.body);
-  pg.insertStudent(req.body, req.body, (error, data) => {
+  pg.insertStudent(req.body, (error, data) => {
     if (error) {
       console.error('Error inserting new student info to db.', error);
       res.sendStatus(500);
