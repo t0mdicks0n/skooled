@@ -57,11 +57,11 @@ class StudentAdmin extends React.Component {
   	return (
 			<div>
         <h2>Enter Student Information</h2>
-				<form>
-          <label>First Name:</label>
+				<form className="form-group">
+          <label>First Name:  </label>
           <input type="text" value={this.state.firstName} onChange={this.handleFirstNameChange} />
           <br></br>
-          <label>Last Name:</label>
+          <label>Last Name:  </label>
           <input type="text" value={this.state.lastName} onChange={this.handleLastNameChange} />
           <br></br>
           <button type="button" onClick={this.handleSubmit}> Submit </button>

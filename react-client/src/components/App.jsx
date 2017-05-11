@@ -83,13 +83,15 @@ class App extends React.Component {
     return (
         <div>
           <Nav/>
-          <Route name="login" path="/login" component={() => (<Login enterCredentials={this.sendCredentials}/> )}/>
-          <Route name="admin" path="/admin" component={() => (<CreateUser isLoggedIn={this.state.loggedIn}/> )} />
-          <Route name="nav" path="/nav" component={Nav} />
-          <Route name="documents" path="/documents" component={() => (<DocumentsList isLoggedIn={this.state.loggedIn} userType={this.state.userType} /> )} />
-          
-          <Route name="video" path="/video" component={() => (<Video isLoggedIn={this.state.loggedIn}/> )} />
-          <Route name="logout" path="/logout" component={() => (<Logout revokeCredentials={this.revokeCredentials}/> )} />
+          <div className="main container-fluid col-md-9">
+            <Route name="login" path="/login" component={() => (<Login enterCredentials={this.sendCredentials}/> )}/>
+            <Route name="admin" path="/admin" component={() => (<CreateUser isLoggedIn={this.state.loggedIn}/> )} />
+            <Route name="nav" path="/nav" component={Nav} />
+            <Route name="documents" path="/documents" component={() => (<DocumentsList isLoggedIn={this.state.loggedIn} userType={this.state.userType} /> )} />
+            
+            <Route name="video" path="/video" component={() => (<Video isLoggedIn={this.state.loggedIn}/> )} />
+            <Route name="logout" path="/logout" component={() => (<Logout revokeCredentials={this.revokeCredentials}/> )} />
+          </div>
         </div>
     )
   }

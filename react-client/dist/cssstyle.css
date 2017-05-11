@@ -1,5 +1,6 @@
 h2 {
   text-align: center;
+  padding-bottom: 80px;
 }
 
 .hidden {
@@ -40,6 +41,21 @@ br {
   width: 60%;
   padding: 20%;
 }
+
+.nav {
+  padding-top: 150px;
+  padding-bottom: 100px;
+}
+
+.main {
+  text-align: center;
+  padding: 100px 30px 400px 30px;
+}
+
+/*.form-group {
+  width: 60%;
+  padding: 20;
+}*/
 
 /*input[type=text] {
     width: 100%;
