@@ -8,8 +8,9 @@ class Logout extends React.Component {
   }
 
   componentWillMount() {
-  	this.props.revokeCredentials();
+    this.props.revokeCredentials();
   }
+  
   render () {
   	return (<Redirect to="login" />)
   }
