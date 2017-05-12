@@ -63,9 +63,8 @@ router.get('/documents', ensureAuthorized, (req, res) => {
 
   retrieveSelectedUsersStudentsAsync(id_user)
   .then(response => {
-    console.log('SANDWICH', response.models);
+    // console.log('SANDWICH', response.models);
     return response.models.map(userStudentEntry => {
-      // studentIds.push(userStudentEntry.id_student);
       return userStudentEntry.attributes.id_student;
     });
   })
@@ -74,6 +73,7 @@ router.get('/documents', ensureAuthorized, (req, res) => {
     // For each of these student ids, fetch all documents pertaining to them.
     let results = [];
 
+    // Recursive function to gather up all documents array for a user, iterating through the associated student ids of that user. Look at join table.
     function syncFetchDocs(studentsIdArray) {
       let studentId = studentsIdArray.pop();
       pg.selectApplicableDocuments(studentId, (error, list) => {
@@ -91,6 +91,7 @@ router.get('/documents', ensureAuthorized, (req, res) => {
         }
       });
     }
+    
     return syncFetchDocs(studentIds);
   });
 
