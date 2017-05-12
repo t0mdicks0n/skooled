@@ -50,13 +50,22 @@ router.post('/documents', ensureAuthorized, (req, res) => {
         console.log('PEPPER', doc);
         insertDocumentAsync(doc)
         .then(response => {
-          console.log('Success inserting doc for a specific student');
+          console.log('Success inserting doc for a specific student.');
+        })
+        .catch(error => {
+          console.log('Error inserting doc for a specific student.')
         })
       })
       .then(() => {
         res.sendStatus(200);
-      });
+      })
+      .catch(error => {
+        res.sendStatus(500);
+      })
     });
+  })
+  .catch(error => {
+    res.sendStatus(500);
   });
 });
 
@@ -108,6 +117,9 @@ router.get('/documents', ensureAuthorized, (req, res) => {
     }
     
     return syncFetchDocs(studentIds);
+  })
+  .catch(error => {
+    res.sendStatus(500);
   });
 });
 

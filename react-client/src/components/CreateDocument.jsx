@@ -40,7 +40,6 @@ class CreateDocument extends React.Component {
     axios.post('/doc/documents', this.state, config)
     .then(response => {
       window.alert('Document created in database!');
-      this.props.reRender();
     })
     .catch(error => {
       window.alert('Error creating document in database.')
