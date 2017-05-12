@@ -9,7 +9,6 @@ class DocumentsList extends React.Component {
     super(props);
     this.state = {
       documents: [],
-      variable: true
     };
     this.reRender = this.reRender.bind(this);
   }
@@ -27,7 +26,6 @@ class DocumentsList extends React.Component {
       this.setState({
         documents: docs.data
       });
-      // console.log('State with docs', this.state);
     })
     .catch(error => {
       console.log('Error retrieving docs back from GET /documents request.');
@@ -48,7 +46,6 @@ class DocumentsList extends React.Component {
       this.setState({
         documents: docs.data
       });
-      // console.log('State with docs', this.state);
     })
     .catch(error => {
       console.log('Error retrieving docs back from GET /documents request.');
@@ -65,8 +62,7 @@ class DocumentsList extends React.Component {
         return (
           <div>
             <h2>Permission slips</h2>
-            <Link to="/documents/createDocument">Create Document</Link>
-            <Route name="createDocument" path="/documents/createDocument" component={() => (<CreateDocument userType={this.props.userType} reRender={this.reRender}/>)} />
+            <Link to="/createDocument">Create Document</Link>
             {this.state.documents.map((doc, index) => 
               <Document document={doc} key={index} userType={this.props.userType} reRender={this.reRender}/>
             )}
