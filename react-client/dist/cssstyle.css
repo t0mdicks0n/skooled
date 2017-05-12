@@ -26,6 +26,9 @@ h2 {
 
 label {
   display: block;
+  margin-right: 20px;
+  text-align: right;
+  width: 100px;
 }
 
 br {
@@ -44,18 +47,27 @@ br {
 
 .nav {
   padding-top: 150px;
-  padding-bottom: 100px;
+  padding-bottom: 10px;
 }
 
 .main {
   text-align: center;
   padding: 100px 30px 400px 30px;
 }
+ 
+li[role=presentation] {
+  text-align: center;
+}
 
-/*.form-group {
-  width: 60%;
-  padding: 20;
-}*/
+select {
+  height: 40px;
+  width: 200px;
+  text-align: center;
+}
+
+option {
+  text-align: center;
+}
 
 /*input[type=text] {
     width: 100%;
