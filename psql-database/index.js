@@ -164,6 +164,20 @@ module.exports = {
     .catch(error => {
       callback(error, null);
     });
+  },
+
+  updatePermission : (returnedDoc, callback) => {
+    Document
+    .forge({id: returnedDoc.docId})
+    .save({permissioned: returnedDoc.permissioned})
+    .then(doc => {
+      console.log('SUCCESSFUL UPDATE OF DOCUMENT PERMISSION STATUS:', doc);
+      callback(null, doc);
+    })
+    .catch(error => {
+      console.log('ERROR UPDATING DOCUMENT PERMISSION STATUS', error);
+      callback(error, null);
+    })
   }
 
 };

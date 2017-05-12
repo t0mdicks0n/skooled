@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 class Document extends React.Component {
   constructor (props) {
@@ -10,6 +11,14 @@ class Document extends React.Component {
     this.toggleDisplay = this.toggleDisplay.bind(this);
     this.permissionedYes = this.permissionedYes.bind(this);
     this.permissionedNo = this.permissionedNo.bind(this);
+  }
+
+  componentDidMount () {
+    if (this.props.document.permissioned !== null) {
+      this.setState ({
+        permissioned: this.props.document.permissioned
+      });
+    }
   }
 
   toggleDisplay () {
@@ -24,6 +33,18 @@ class Document extends React.Component {
     this.setState ({
       permissioned: true
     });
+    const permissionSlip = {
+      docId: this.props.document.id,
+      permissioned: true
+    };
+    axios.put('/doc/documents', permissionSlip)
+    .then(response => {
+      console.log('Updated permission status on slip!');
+      // this.props.reRender();
+    })
+    .catch(error => {
+      console.error('Error updating permission status on slip.');
+    });
   }
 
   permissionedNo () {
@@ -31,9 +52,22 @@ class Document extends React.Component {
     this.setState ({
       permissioned: false
     });
+    const permissionSlip = {
+      docId: this.props.document.id,
+      permissioned: false
+    };
+    axios.put('/doc/documents', permissionSlip)
+    .then(response => {
+      console.log('Updated permission status on slip!');
+      // this.props.reRender();
+    })
+    .catch(error => {
+      console.error('Error updating permission status on slip.');
+    });
   }
 
   render () {
+    console.log('this.props.document.permissioned', this.props.document.permissioned);
     if (this.state.permissioned === true) {
       return (
         <div className="doc">

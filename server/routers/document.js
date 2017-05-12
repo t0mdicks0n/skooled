@@ -11,7 +11,7 @@ router.use(express.static(__dirname + '/../../react-client/dist'));
 router.use(bodyParser.json());
 
 
-router.post('/create', ensureAuthorized, (req, res) => {
+router.post('/documents', ensureAuthorized, (req, res) => {
   // Teacher creates a document for an activity.
   // Check which user_id is currently authorised/logged in.
   // console.log('req.body inside POST /doc/create', req.body, 'req.decoded', req.decoded);
@@ -112,8 +112,19 @@ router.get('/documents', ensureAuthorized, (req, res) => {
 });
 
 
-router.post('/user', (req, res) => {
+router.put('/documents', (req, res) => {
   // Parent updates the permission status of the document to the db.
+  console.log(req.body);
+
+  // Promisify updatePermission.
+  const updatePermissionAsync = Promise.promisify(pg.updatePermission);
+  updatePermissionAsync(req.body)
+  .then(response => {
+    res.sendStatus(200);
+  })
+  .catch(error => {
+    res.sendStatus(500);
+  });
 });
 
 module.exports = router;

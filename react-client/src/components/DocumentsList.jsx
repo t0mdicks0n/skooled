@@ -9,10 +9,33 @@ class DocumentsList extends React.Component {
     super(props);
     this.state = {
       documents: [],
+      variable: true
     };
+    this.reRender = this.reRender.bind(this);
   }
 
   componentDidMount () {
+    let currentToken = window.localStorage.accessToken;
+
+    let config = {
+      headers: {'Authorization': currentToken}
+    };
+
+    axios.get('/doc/documents', config)
+    .then(docs => {
+      console.log('Retrieved docs back from GET /documents request.', docs);
+      this.setState({
+        documents: docs.data
+      });
+      // console.log('State with docs', this.state);
+    })
+    .catch(error => {
+      console.log('Error retrieving docs back from GET /documents request.');
+    });
+  }
+
+
+  reRender () {
     let currentToken = window.localStorage.accessToken;
 
     let config = {
@@ -43,9 +66,9 @@ class DocumentsList extends React.Component {
           <div>
             <h2>Permission slips</h2>
             <Link to="/documents/createDocument">Create Document</Link>
-            <Route name="createDocument" path="/documents/createDocument" component={() => (<CreateDocument userType={this.props.userType} />)} />
+            <Route name="createDocument" path="/documents/createDocument" component={() => (<CreateDocument userType={this.props.userType} reRender={this.reRender}/>)} />
             {this.state.documents.map((doc, index) => 
-              <Document document={doc} key={index}/>
+              <Document document={doc} key={index} reRender={this.reRender}/>
             )}
           </div>
         )    
