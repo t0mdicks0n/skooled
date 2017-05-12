@@ -34,6 +34,7 @@ There are five distinct folders for review.
 
 - axios 0.16.x
 - bcryptjs 2.4.x
+- bluebird 3.5.x
 - body-parser 1.17.x
 - bookshelf 0.10.x
 - express 4.15.x
