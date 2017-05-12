@@ -54,6 +54,48 @@ router.get('/documents', ensureAuthorized, (req, res) => {
   let id_user = req.decoded.id;
   console.log('logged in user', req.decoded);
 
+  // With the id_user, find all students associcated with that user.
+  let documentsArrayToSendBackToClient = [];
+  // Promisify retrieveSelectedUsersStudents.
+  let retrieveSelectedUsersStudentsAsync = Promise.promisify(pg.retrieveSelectedUsersStudents);
+  // Promisify selectApplicableDocuments.
+  let selectApplicableDocumentsAsync = Promise.promisify(pg.selectApplicableDocuments);
+
+  retrieveSelectedUsersStudentsAsync(id_user)
+  .then(response => {
+    console.log('SANDWICH', response.models);
+    return response.models.map(userStudentEntry => {
+      // studentIds.push(userStudentEntry.id_student);
+      return userStudentEntry.attributes.id_student;
+    });
+  })
+  .then(studentIds => {
+    // console.log('KETCHUP', studentIds);
+    // For each of these student ids, fetch all documents pertaining to them.
+    let results = [];
+
+    function syncFetchDocs(studentsIdArray) {
+      let studentId = studentsIdArray.pop();
+      pg.selectApplicableDocuments(studentId, (error, list) => {
+        results = results.concat(list.models)
+        if (studentIds.length) {
+          return syncFetchDocs(studentsIdArray);
+        } else {
+          // console.log('GRAPE', results);
+          // For each object in the results array, extract the attributes.
+          results = results.map(doc => {
+            return doc.attributes;
+          })
+          // console.log('BACON', results);
+          res.json(results);
+        }
+      });
+    }
+    return syncFetchDocs(studentIds);
+  });
+
+/*
+
   // With the id_user, find all students associated for that user.
   pg.retrieveSelectedUsersStudents(id_user, (error, usersStudentsEntries) => {
     if (error) {
@@ -98,6 +140,7 @@ router.get('/documents', ensureAuthorized, (req, res) => {
         }
       });
 
+
       // const compileArray = function(model, cb) {
       //   setTimeout(() => {
       //     // console.log('This is the individual model iterated.', model);
@@ -128,6 +171,8 @@ router.get('/documents', ensureAuthorized, (req, res) => {
       // });
     }
   });
+
+*/
 });
 
 router.post('/user', (req, res) => {

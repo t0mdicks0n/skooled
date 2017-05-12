@@ -142,6 +142,17 @@ module.exports = {
     // Then select only the documents where the student_id matches that retrieved from the join table.
   },
 
+  selectAllDocuments : (callback) => {
+    Document.collection
+    .fetch()
+    .then(documents => {
+      callback(null, documents);
+    })
+    .catch(error => {
+      callback(error, null);
+    });
+  }
+
 };
 
 /*
