@@ -16,50 +16,65 @@ router.post('/create', ensureAuthorized, (req, res) => {
   // console.log('req.body inside POST /doc/create', req.body, 'req.decoded', req.decoded);
 
   // Get all student_id from db users_students table connected to currrent id_user.
-  let id_user = req.decoded.id;
-  pg.retrieveSelectedUsersStudents(id_user, (error, data) => {
-    if (error) {
-      // console.error('Error retrieving entries from users_students join table given id of logged in user.');
-      res.sendStatus(404);
-    } else {
-      // console.log('Retrieved entries from users_students join table given id of logged in user.', data.models);
-      // For each student, create new instance of doc in db, INCLUDING FOR TEACHER'S ID.
-      // id  title  body  permissioned  user_id
-      data.models.forEach(model => {
-        let doc = {
+  const id_user = req.decoded.id;
+
+  // Promisify retrieveSelectedUsersStudents.
+  const retrieveSelectedUsersStudentsAsync = Promise.promisify(pg.retrieveSelectedUsersStudents);
+
+  // Promisify selectStudent.
+  const selectStudentAsync = Promise.promisify(pg.selectStudent);
+
+  // Promisify insertDocument.
+  const insertDocumentAsync = Promise.promisify(pg.insertDocument);
+
+  retrieveSelectedUsersStudentsAsync(id_user)
+  .then(response => {
+    // For each student create a new instance of doc in db, INCLUDING FOR STUDENT'S ID.
+    // id  title  body  permissioned  student_id
+
+    // Iterate through array of entries from users_students join table.
+    response.models.forEach(usersStudentsEntry => {
+      // With each student id, get the full student's info from students table in db.
+      const id_student = usersStudentsEntry.attributes.id_student;
+      selectStudentAsync(id_student)
+      .then(studentInfo => {
+        // Populate the document entry attributes by combining the req.body info with the studentInfo.
+        const doc = {
           title: req.body.title,
           body: req.body.body,
-          studentId: model.attributes.id_student
+          studentId: studentInfo.attributes.id,
+          studentFirstName: studentInfo.attributes.first_name,
+          studentLastName: studentInfo.attributes.last_name
         };
-        // console.log('doc to insert', doc);
-        // console.log('pg', pg);
-        pg.insertDocument(doc, (error, response) => {
-          if (error) {
-            // console.error('Error inserting doc for a specfic student.');
-            res.sendStatus(404);   
-          } else {
-            // console.log('Success inserting doc for a specific student');
-          }
-        });
+        console.log('PEPPER', doc);
+        insertDocumentAsync(doc)
+        .then(response => {
+          console.log('Success inserting doc for a specific student');
+        })
+      })
+      .then(() => {
+        res.sendStatus(200);
       });
-      res.sendStatus(200);
-    }
+    });
   });
 });
+
 
 router.get('/documents', ensureAuthorized, (req, res) => {
   // Teachers and parents fetch the list of documents applicable to them based on their id.
   // Check which user_id is currently authorised/logged in.
   // console.log('Inside GET /doc/documents req.body: ');
-  let id_user = req.decoded.id;
+  const id_user = req.decoded.id;
   console.log('logged in user', req.decoded);
 
   // With the id_user, find all students associcated with that user.
   let documentsArrayToSendBackToClient = [];
+
   // Promisify retrieveSelectedUsersStudents.
-  let retrieveSelectedUsersStudentsAsync = Promise.promisify(pg.retrieveSelectedUsersStudents);
+  const retrieveSelectedUsersStudentsAsync = Promise.promisify(pg.retrieveSelectedUsersStudents);
+
   // Promisify selectApplicableDocuments.
-  let selectApplicableDocumentsAsync = Promise.promisify(pg.selectApplicableDocuments);
+  const selectApplicableDocumentsAsync = Promise.promisify(pg.selectApplicableDocuments);
 
   retrieveSelectedUsersStudentsAsync(id_user)
   .then(response => {
@@ -175,6 +190,7 @@ router.get('/documents', ensureAuthorized, (req, res) => {
 
 */
 });
+
 
 router.post('/user', (req, res) => {
   // Parent updates the permission status of the document to the db.

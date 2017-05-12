@@ -125,7 +125,8 @@ module.exports = {
       title: doc.title,
       body: doc.body,
       id_student: doc.studentId,
-
+      first_name_student: doc.studentFirstName,
+      last_name_student: doc.studentLastName
     })
     .save()
     .then(doc => {
