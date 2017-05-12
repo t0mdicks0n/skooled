@@ -68,7 +68,7 @@ class DocumentsList extends React.Component {
             <Link to="/documents/createDocument">Create Document</Link>
             <Route name="createDocument" path="/documents/createDocument" component={() => (<CreateDocument userType={this.props.userType} reRender={this.reRender}/>)} />
             {this.state.documents.map((doc, index) => 
-              <Document document={doc} key={index} reRender={this.reRender}/>
+              <Document document={doc} key={index} userType={this.props.userType} reRender={this.reRender}/>
             )}
           </div>
         )    
