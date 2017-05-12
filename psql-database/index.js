@@ -96,6 +96,17 @@ module.exports = {
     });
   },
 
+  selectStudent : (id_student, callback) => {
+    Student.forge({id: id_student})
+    .fetch({required: true})
+    .then(student => {
+      callback(null, student);
+    })
+    .catch(error => {
+      callback(error, null);
+    });
+  },
+
   // DOC PAGE: GET SELECTED STUDENTS
   retrieveSelectedUsersStudents : (id_user, callback) => {
     UserStudent.forge()
@@ -113,7 +124,8 @@ module.exports = {
     Document.forge({
       title: doc.title,
       body: doc.body,
-      id_student: doc.studentId
+      id_student: doc.studentId,
+
     })
     .save()
     .then(doc => {
