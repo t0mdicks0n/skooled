@@ -38,7 +38,6 @@ class Document extends React.Component {
     axios.put('/doc/documents', permissionSlip)
     .then(response => {
       console.log('Updated permission status on slip!');
-      // this.props.reRender();
     })
     .catch(error => {
       console.error('Error updating permission status on slip.');
