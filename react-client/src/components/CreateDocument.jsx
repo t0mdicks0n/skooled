@@ -37,9 +37,10 @@ class CreateDocument extends React.Component {
       headers: {'Authorization': currentToken}
     };
 
-    axios.post('/doc/create', this.state, config)
+    axios.post('/doc/documents', this.state, config)
     .then(response => {
-      window.alert('Document created in database!')
+      window.alert('Document created in database!');
+      this.props.reRender();
     })
     .catch(error => {
       window.alert('Error creating document in database.')

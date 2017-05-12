@@ -3,59 +3,128 @@ const router = express.Router();
 const pg = require('../../psql-database');
 const bodyParser = require('body-parser');
 const services = require('../../services');
+const Promise = require('bluebird');
 
 const ensureAuthorized = services.ensureAuth;
 
 router.use(express.static(__dirname + '/../../react-client/dist'));
 router.use(bodyParser.json());
 
-router.post('/create', ensureAuthorized, (req, res) => {
+
+router.post('/documents', ensureAuthorized, (req, res) => {
   // Teacher creates a document for an activity.
   // Check which user_id is currently authorised/logged in.
-  console.log('req.body inside POST /doc/create', req.body, 'req.decoded', req.decoded);
+  // console.log('req.body inside POST /doc/create', req.body, 'req.decoded', req.decoded);
 
   // Get all student_id from db users_students table connected to currrent id_user.
-  let id_user = req.decoded.id;
-  pg.retrieveSelectedUsersStudents(id_user, (error, data) => {
-    if (error) {
-      console.error('Error retrieving entries from users_students join table given id of logged in user.');
-    } else {
-      console.log('Retrieved entries from users_students join table given id of logged in user.', data.models);
-      // For each student, create new instance of doc in db, INCLUDING FOR TEACHER'S ID.
-      // id  title  body  permissioned  user_id
-      data.models.forEach(model => {
-        let doc = {
+  const id_user = req.decoded.id;
+
+  // Promisify retrieveSelectedUsersStudents.
+  const retrieveSelectedUsersStudentsAsync = Promise.promisify(pg.retrieveSelectedUsersStudents);
+
+  // Promisify selectStudent.
+  const selectStudentAsync = Promise.promisify(pg.selectStudent);
+
+  // Promisify insertDocument.
+  const insertDocumentAsync = Promise.promisify(pg.insertDocument);
+
+  retrieveSelectedUsersStudentsAsync(id_user)
+  .then(response => {
+    // For each student create a new instance of doc in db, INCLUDING FOR STUDENT'S ID.
+    // id  title  body  permissioned  student_id
+
+    // Iterate through array of entries from users_students join table.
+    response.models.forEach(usersStudentsEntry => {
+      // With each student id, get the full student's info from students table in db.
+      const id_student = usersStudentsEntry.attributes.id_student;
+      selectStudentAsync(id_student)
+      .then(studentInfo => {
+        // Populate the document entry attributes by combining the req.body info with the studentInfo.
+        const doc = {
           title: req.body.title,
           body: req.body.body,
-          studentId: model.attributes.id_student
+          studentId: studentInfo.attributes.id,
+          studentFirstName: studentInfo.attributes.first_name,
+          studentLastName: studentInfo.attributes.last_name
         };
-        console.log('doc to insert', doc);
-        console.log('pg', pg);
-        pg.insertDocument(doc, (error, response) => {
-          if (error) {
-            console.error('Error inserting doc for a specfic student.');
-          } else {
-            console.log('Success inserting doc for a specific student');
-          }
-        });
+        console.log('PEPPER', doc);
+        insertDocumentAsync(doc)
+        .then(response => {
+          console.log('Success inserting doc for a specific student');
+        })
+      })
+      .then(() => {
+        res.sendStatus(200);
       });
-    }
+    });
   });
 });
 
-router.get('/user', (req, res) => {
+
+router.get('/documents', ensureAuthorized, (req, res) => {
   // Teachers and parents fetch the list of documents applicable to them based on their id.
-
   // Check which user_id is currently authorised/logged in.
+  // console.log('Inside GET /doc/documents req.body: ');
+  const id_user = req.decoded.id;
+  console.log('logged in user', req.decoded);
 
-  // Get documents from documents table where user_id === current user_id.
+  // With the id_user, find all students associcated with that user.
 
-  // Send back to client.
+  // Promisify retrieveSelectedUsersStudents.
+  const retrieveSelectedUsersStudentsAsync = Promise.promisify(pg.retrieveSelectedUsersStudents);
 
+  // Promisify selectApplicableDocuments.
+  const selectApplicableDocumentsAsync = Promise.promisify(pg.selectApplicableDocuments);
+
+  retrieveSelectedUsersStudentsAsync(id_user)
+  .then(response => {
+    // console.log('SANDWICH', response.models);
+    return response.models.map(userStudentEntry => {
+      return userStudentEntry.attributes.id_student;
+    });
+  })
+  .then(studentIds => {
+    // console.log('KETCHUP', studentIds);
+    // For each of these student ids, fetch all documents pertaining to them.
+    let results = [];
+
+    // Recursive function to gather up all documents array for a user, iterating through the associated student ids of that user. Look at join table.
+    function syncFetchDocs(studentsIdArray) {
+      let studentId = studentsIdArray.pop();
+      pg.selectApplicableDocuments(studentId, (error, list) => {
+        results = results.concat(list.models)
+        if (studentIds.length) {
+          return syncFetchDocs(studentsIdArray);
+        } else {
+          // console.log('GRAPE', results);
+          // For each object in the results array, extract the attributes.
+          results = results.map(doc => {
+            return doc.attributes;
+          })
+          // console.log('BACON', results);
+          res.json(results);
+        }
+      });
+    }
+    
+    return syncFetchDocs(studentIds);
+  });
 });
 
-router.post('/user', (req, res) => {
+
+router.put('/documents', (req, res) => {
   // Parent updates the permission status of the document to the db.
+  console.log(req.body);
+
+  // Promisify updatePermission.
+  const updatePermissionAsync = Promise.promisify(pg.updatePermission);
+  updatePermissionAsync(req.body)
+  .then(response => {
+    res.sendStatus(200);
+  })
+  .catch(error => {
+    res.sendStatus(500);
+  });
 });
 
 module.exports = router;

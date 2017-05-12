@@ -96,6 +96,17 @@ module.exports = {
     });
   },
 
+  selectStudent : (id_student, callback) => {
+    Student.forge({id: id_student})
+    .fetch({required: true})
+    .then(student => {
+      callback(null, student);
+    })
+    .catch(error => {
+      callback(error, null);
+    });
+  },
+
   // DOC PAGE: GET SELECTED STUDENTS
   retrieveSelectedUsersStudents : (id_user, callback) => {
     UserStudent.forge()
@@ -113,7 +124,9 @@ module.exports = {
     Document.forge({
       title: doc.title,
       body: doc.body,
-      id_student: doc.studentId
+      id_student: doc.studentId,
+      first_name_student: doc.studentFirstName,
+      last_name_student: doc.studentLastName
     })
     .save()
     .then(doc => {
@@ -126,11 +139,46 @@ module.exports = {
     });
   },
 
-  selectApplicableDocuments : () => {
+  selectApplicableDocuments : (id_student, callback) => {
     // Selects all applicable documents depending on the student_ids for each document.
+    Document.forge()
+    .query('where', {id_student: id_student})
+    .fetchAll({require: true})
+    .then(documentEntry => {
+      callback(null, documentEntry)
+    })
+    .catch(error => {
+      callback(error, null);
+    });
     // Must refer to the users_students join table for reference the user_id to get the relevant student_id.
+
     // Then select only the documents where the student_id matches that retrieved from the join table.
   },
+
+  selectAllDocuments : (callback) => {
+    Document.collection
+    .fetch()
+    .then(documents => {
+      callback(null, documents);
+    })
+    .catch(error => {
+      callback(error, null);
+    });
+  },
+
+  updatePermission : (returnedDoc, callback) => {
+    Document
+    .forge({id: returnedDoc.docId})
+    .save({permissioned: returnedDoc.permissioned})
+    .then(doc => {
+      console.log('SUCCESSFUL UPDATE OF DOCUMENT PERMISSION STATUS:', doc);
+      callback(null, doc);
+    })
+    .catch(error => {
+      console.log('ERROR UPDATING DOCUMENT PERMISSION STATUS', error);
+      callback(error, null);
+    })
+  }
 
 };
 
