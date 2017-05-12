@@ -38,6 +38,7 @@ class Document extends React.Component {
       return (
         <div className="doc">
           <h3 onClick={this.toggleDisplay}> {this.props.document.title} </h3>
+          <p>{this.props.document.first_name_student} {this.props.document.last_name_student}</p>
           <p className={this.state.permissioned ? 'permissionedYes' : 'permissionedNo'}>&#10003;</p>
           <button type="button" onClick={this.permissionedYes} > Yes </button>
           <button type="button" onClick={this.permissionedNo}> No </button>
@@ -48,6 +49,7 @@ class Document extends React.Component {
       return (
         <div className="doc">
           <h3 onClick={this.toggleDisplay}> {this.props.document.title} </h3>
+          <p>{this.props.document.first_name_student} {this.props.document.last_name_student}</p>
           <p className={this.state.permissioned ? 'permissionedYes' : 'permissionedNo'}>&#10007;</p>
           <button type="button" onClick={this.permissionedYes} > Yes </button>
           <button type="button" onClick={this.permissionedNo}> No </button>
@@ -58,6 +60,7 @@ class Document extends React.Component {
       return (
         <div className="doc">
           <h3 onClick={this.toggleDisplay} > {this.props.document.title} </h3>
+          <p>{this.props.document.first_name_student} {this.props.document.last_name_student}</p>
           <p className={this.state.permissioned ? 'permissionedYes' : 'permissionedNo'}>&#9998;</p>
           <button type="button" onClick={this.permissionedYes} > Yes </button>
           <button type="button" onClick={this.permissionedNo}> No </button>
