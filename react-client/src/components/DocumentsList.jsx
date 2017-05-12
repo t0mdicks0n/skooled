@@ -52,32 +52,26 @@ class DocumentsList extends React.Component {
     });
   }
 
-
   render () {
-    console.log('type of user logged in', this.props.userType);
-    if (!this.props.isLoggedIn) {
-      return (<Redirect to="login" />)
+    if (this.props.userType === 'teacher') {
+      return (
+        <div>
+          <h2>Permission slips</h2>
+          <Link to="/createDocument">Create Document</Link>
+          {this.state.documents.map((doc, index) => 
+            <Document document={doc} key={index} userType={this.props.userType} reRender={this.reRender}/>
+          )}
+        </div>
+      )    
     } else {
-      if (this.props.userType === 'teacher') {
-        return (
-          <div>
-            <h2>Permission slips</h2>
-            <Link to="/createDocument">Create Document</Link>
-            {this.state.documents.map((doc, index) => 
-              <Document document={doc} key={index} userType={this.props.userType} reRender={this.reRender}/>
-            )}
-          </div>
-        )    
-      } else {
-        return (
-          <div>
-            <h2>Permission slips</h2>
-            {this.state.documents.map((doc, index) => 
-              <Document document={doc} key={index}/>
-            )}
-          </div>
-        )    
-      }
+      return (
+        <div>
+          <h2>Permission slips</h2>
+          {this.state.documents.map((doc, index) => 
+            <Document document={doc} key={index}/>
+          )}
+        </div>
+      )    
     }
   }
 }

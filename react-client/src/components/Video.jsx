@@ -98,26 +98,22 @@ class Video extends React.Component {
   }
 
   render() {
-    if (!this.props.isLoggedIn) {
-      return (<Redirect to="login" />)
-    } else {
-      return (
-        <div>
-          <h2> Video Chat </h2>
-          <form name="callForm" onChange={this.handleChange}>
-            <div>
-              <input type="text" placeholder="Enter user to dial!" />
-              <button type="button" onClick={this.handleSubmit}> Call </button>
-            </div>
-          </form>
-          <div id="vid-box"></div>
-          <div id="vid-thumb"></div>
-          <div id="inCall">
-            <button id="end" onClick={this.endCall}>End</button>
+    return (
+      <div>
+        <h2> Video Chat </h2>
+        <form name="callForm" onChange={this.handleChange}>
+          <div>
+            <input type="text" placeholder="Enter user to dial!" />
+            <button type="button" onClick={this.handleSubmit}> Call </button>
           </div>
+        </form>
+        <div id="vid-box"></div>
+        <div id="vid-thumb"></div>
+        <div id="inCall">
+          <button id="end" onClick={this.endCall}>End</button>
         </div>
-      )
-    }
+      </div>
+    )
   }
 }
 
