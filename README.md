@@ -1,51 +1,87 @@
-# Project Name
+# Skooled
 
-> Pithy project description
+> An integrated platform for communication between teachers and parents. Teachers can share information on student progress, grades and scheduling updates. In addition, the platform provides parents the ability to give permission on pressing questions.
 
 ## Team
 
-  - teamMember
-  - teamMember
-  - teamMember
-  - teamMember
+  - David Gould
+  - Nick Anderson
+  - Preda Wen
+  - Tom Dickson
 
 ## Table of Contents
 
-1. [Usage](#Usage)
+1. [Usage](#usage)
 1. [Requirements](#requirements)
 1. [Development](#development)
-    1. [Installing Dependencies](#installing-dependencies)
-    1. [Tasks](#tasks)
-1. [Roadmap](#roadmap)
+    1. [Database](#database)
+    1. [Install](#install)
+    1. [NPM Run](#npm-run)
 1. [Contributing](#contributing)
 
 ## Usage
 
-> Some usage instructions
+This project assumes you have installed the requirements noted below. Once you've installed and run the NPM scripts, you'll be able to login to test the service locally at localhost:5000. You will need to seed the database with a teacher prior to login.
+
+There are five distinct folders for review.
+- psql-database (Postgres database)
+- react-client (React front-end)
+- server (Express server)
+- services (authentication, email, etc.)
+- test (database, server-side, etc.)
 
 ## Requirements
 
-- Node 6.4.x
-- Redis 2.6.x
-- Postgresql 9.1.x
-- etc
-- etc
+- axios 0.16.x
+- bcryptjs 2.4.x
+- body-parser 1.17.x
+- bookshelf 0.10.x
+- express 4.15.x
+- jsonwebtoken 7.4.x
+- knex 0.13.x
+- mailgun-js 0.10.x
+- node 7.9.x
+- nodemon 1.11.x
+- passport-jwt 2.2.x
+- pg 6.1.x
+- react 15.4.x
+- react-dom 15.4.x
+- react-router 4.1.x
+- react-router-dom 4.1.x
 
 ## Development
 
-### Installing Dependencies
+### Database
+
+Requires a 'test' database with a 'root' user to access the Postgres database. Please see the file 'psql-database/config/index.js' for more details.
+
+### Install
 
 From within the root directory:
 
 ```sh
-npm install -g bower
 npm install
-bower install
 ```
 
-### Roadmap
+### NPM Run
 
-View the project roadmap [here](LINK_TO_DOC)
+From within the root directory:
+
+```sh
+npm run react-dev
+```
+
+To run the server open a terminal window:
+
+```sh
+npm run server-dev
+```
+
+To run tests open a terminal window:
+
+```sh
+npm test
+```
 
 
 ## Contributing
