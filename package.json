@@ -39,6 +39,7 @@
     "bookshelf": "^0.10.3",
     "bootstrap": "^3.3.7",
     "chai": "^3.5.0",
+    "chai-as-promised": "^6.0.0",
     "enzyme": "^2.8.2",
     "express": "^4.15.0",
     "jest": "^19.0.2",
