@@ -3,8 +3,6 @@ import axios from 'axios';
 import { BrowserRouter, Route, Link, Switch, Redirect } from 'react-router-dom';
 var PUBNUB_PUBLISH_KEY = 'pub-c-49c10967-3fa1-4e45-a8cf-e3f3f66bb3d1';
 var PUBNUB_SUBSCRIBE_KEY = 'sub-c-aefb4450-2f44-11e7-9a1a-0619f8945a4f';
-// var PUBNUB_PUBLISH_KEY = process.env.PUBNUB_PUBLISH_KEY || require('../../../services/config/config.js').PUBNUB_PUBLISH_KEY;
-// var PUBNUB_SUBSCRIBE_KEY = process.env.PUBNUB_SUBSCRIBE_KEY || require('../../../services/config/config.js').PUBNUB_SUBSCRIBE_KEY;
 
 class Video extends React.Component {
   constructor(props) {
@@ -107,7 +105,7 @@ class Video extends React.Component {
             <button type="button" class="btn" onClick={this.handleSubmit}> 
               <span className="glyphicon glyphicon-facetime-video"></span> Call 
             </button>
-            <button type="button" id="end-call"  onClick={this.endCall}>
+            <button type="button" id="end-call" onClick={this.endCall}>
               <span className="glyphicon glyphicon-stop"></span> End Call
             </button>
           </div>
@@ -120,6 +118,3 @@ class Video extends React.Component {
 }
 
 export default Video;
-
-
-//         </a>

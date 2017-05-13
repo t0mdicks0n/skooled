@@ -28,7 +28,8 @@ app.get('/checkOnClientLoad', ensureAuthorized, (req, res) => {
       console.log('selectUserById response', data);
       let user = {
         userid: req.decoded.id,
-        userRole: data.attributes.role
+        userRole: data.attributes.role,
+        firstName: data.attributes.first_name
       };
       console.log('user from selectUserById', user);
       res.json(user);
@@ -64,7 +65,12 @@ app.post('/login', (req, res) => {
         if (match) {
           var payload = {id: data.attributes.id};
           var token = createToken(payload);
-          res.json({isLoggedIn: true, jwtToken: token, userRole: data.attributes.role });
+          res.json({
+            isLoggedIn: true,
+            jwtToken: token,
+            userRole: data.attributes.role,
+            firstName: data.attributes.first_name
+          });
         } else {
           res.json({isLoggedIn: false});
         }

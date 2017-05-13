@@ -14,12 +14,10 @@ class CreateUser extends React.Component {
 
   handleUserTypeChange(event) {
     this.setState({usertype: event.target.value});
-    console.log('this.state.usertype handleUserSubmit', this.state.usertype);
   }
 
   render() {
     if (this.state.usertype === '') {
-      console.log('this.state.usertype', this.state.usertype);
       return (
         <div>
           <h2> Create User </h2>
