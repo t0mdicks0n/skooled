@@ -59,8 +59,8 @@ app.post('/login', (req, res) => {
       res.sendStatus(500);
       res.send(JSON.stringify(data));
     } else {
-      services.checkHashPassword(req.body.password, data.attributes.password, (err, match) => {
-        if (err) console.log('password issue:', err);
+      services.checkHashPassword(req.body.password, data.attributes.password)
+      .then((match) => {
         if (match) {
           var payload = {id: data.attributes.id};
           var token = createToken(payload);
@@ -68,6 +68,9 @@ app.post('/login', (req, res) => {
         } else {
           res.json({isLoggedIn: false});
         }
+      })
+      .catch((err) => {
+        if (err) console.log('password issue:', err);
       });
     }
   });

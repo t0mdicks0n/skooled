@@ -7,8 +7,8 @@ const services = require('../services');
 module.exports = {
   // ADMIN PAGE: ADD USER
   insertUser : (user, callback) => {
-    services.createHashPassword(user.password, function(err, hash) {
-      if (err) console.log('hash password error:', err);
+    services.createHashPassword(user.password)
+    .then((hash) => {
       User.forge({
         email: user.email,
         password: hash,
@@ -27,6 +27,8 @@ module.exports = {
       }).catch(function(err) {
         callback(err, null);
       });
+    }).catch((err) => {
+      if (err) console.log('hash password error:', err);
     });
   },
 
