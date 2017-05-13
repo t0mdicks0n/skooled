@@ -19,7 +19,8 @@ class AppIndex extends React.Component {
       username: '',
       password: '',
       loggedIn: false,
-      userType: ''
+      userType: '',
+      firstName: ''
     }
     this.sendCredentials = this.sendCredentials.bind(this);
     this.revokeCredentials = this.revokeCredentials.bind(this);
@@ -31,7 +32,8 @@ class AppIndex extends React.Component {
       console.log('response invoking sendCredentials received from server', response.data);
       this.setState({
         loggedIn: response.data.isLoggedIn,
-        userType: response.data.userRole
+        userType: response.data.userRole,
+        firstName: response.data.firstName
       });
       window.localStorage.accessToken = response.data.jwtToken;
     })
@@ -46,7 +48,8 @@ class AppIndex extends React.Component {
       username: '',
       password: '',
       loggedIn: false,
-      userType: ''
+      userType: '',
+      firstName: ''
     });
     window.localStorage.accessToken = '';
   }
@@ -62,7 +65,8 @@ class AppIndex extends React.Component {
       console.log('response received from server', response);
       this.setState({
         loggedIn: true,
-        userType: response.data.userRole
+        userType: response.data.userRole,
+        firstName: response.data.firstName
       });
       console.log(response);
     })
@@ -76,8 +80,8 @@ class AppIndex extends React.Component {
       <BrowserRouter>
         <div>
           <Switch>
-            <Route name="login" path="/login" component={() => (<Login enterCredentials={this.sendCredentials} isLoggedIn={this.state.loggedIn}/> )}/>
-            <Route name="app" path="/" component={() => (<App isLoggedIn={this.state.loggedIn} revokeCredentials={this.revokeCredentials} userType={this.state.userType} /> )}/>
+            <Route name="login" path="/login" component={() => (<Login enterCredentials={this.sendCredentials} isLoggedIn={this.state.loggedIn} /> )}/>
+            <Route name="app" path="/" component={() => (<App isLoggedIn={this.state.loggedIn} revokeCredentials={this.revokeCredentials} userType={this.state.userType} firstName={this.state.firstName} /> )}/>
           </Switch>
         </div>
       </BrowserRouter>
