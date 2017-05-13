@@ -101,20 +101,25 @@ class Video extends React.Component {
     return (
       <div>
         <h2> Video Chat </h2>
-        <form name="callForm" onChange={this.handleChange}>
-          <div>
-            <input type="text" placeholder="Enter user to dial!" />
-            <button type="button" onClick={this.handleSubmit}> Call </button>
+        <form name="callForm" id="call-form" onChange={this.handleChange}>
+          <div id="vid-div">
+            <input type="text" placeholder="Enter Email to dial!" />
+            <button type="button" class="btn" onClick={this.handleSubmit}> 
+              <span className="glyphicon glyphicon-facetime-video"></span> Call 
+            </button>
+            <button type="button" id="end-call"  onClick={this.endCall}>
+              <span className="glyphicon glyphicon-stop"></span> End Call
+            </button>
           </div>
         </form>
         <div id="vid-box"></div>
         <div id="vid-thumb"></div>
-        <div id="inCall">
-          <button id="end" onClick={this.endCall}>End</button>
-        </div>
       </div>
     )
   }
 }
 
 export default Video;
+
+
+//         </a>

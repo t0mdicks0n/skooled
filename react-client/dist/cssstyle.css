@@ -69,6 +69,29 @@ option {
   text-align: center;
 }
 
+#vid-box {
+  background-color: #e0ebeb;
+  height: 550px;
+  width: 100%;
+  align-content: center;
+}
+
+#end-call {
+  right: 0;
+  position: absolute; 
+}
+
+#call-form {
+  display: inline-block;
+  width: 100%;
+}
+
+#vid-div {
+  position: relative;
+  padding-bottom: 10px;
+}
+
+
 /*input[type=text] {
     width: 100%;
     padding: 12px 20px;
