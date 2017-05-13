@@ -5,7 +5,7 @@ import Login from '../../components/Login';
 import renderer from 'react-test-renderer';
 
 describe('Login', () => {
-  let wrapper = shallow(<Login />);
+  // let wrapper = shallow(<Login />);
 
 
   test('is a stateful class component.', () => {
