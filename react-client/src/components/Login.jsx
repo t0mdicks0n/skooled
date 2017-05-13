@@ -34,7 +34,7 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="main container-fluid col-md-12">
         <img src="stock_logo.jpg" height="200" width="200"></img>
         <h2> Welcome to Skooled! </h2>
         <form>
