@@ -10,7 +10,6 @@ import Video from './Video.jsx';
 import Logout from './Logout.jsx';
 import Home from './Home.jsx';
 
-
 class App extends React.Component {
   constructor(props) {
     super(props);
