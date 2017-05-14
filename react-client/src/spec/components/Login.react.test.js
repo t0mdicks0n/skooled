@@ -1,11 +1,12 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import TestUtils from 'react-addons-test-utils';
 import Login from '../../components/Login';
 import renderer from 'react-test-renderer';
 
 describe('Login', () => {
-  // let wrapper = shallow(<Login />);
+  let wrapper = shallow(<Login />);
 
 
   test('is a stateful class component.', () => {
@@ -29,6 +30,11 @@ describe('Login', () => {
     expect(1 + 1).toBe(2);
   });
 
+  test('invokes handleSubmit method when button is clicked', () => {
+    const login = shallow(<Login />)
+  })
+
 
 });
 
+it('Login component contains an input form')
