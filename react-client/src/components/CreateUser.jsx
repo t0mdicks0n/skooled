@@ -3,6 +3,20 @@ import TeacherAdmin from './TeacherAdmin.jsx';
 import ParentAdmin from './ParentAdmin.jsx';
 import StudentAdmin from './StudentAdmin.jsx';
 
+import DropDownMenu from 'material-ui/DropDownMenu';
+import MenuItem from 'material-ui/MenuItem';
+import RaisedButton from 'material-ui/RaisedButton';
+
+const styles = {
+  customWidth: {
+    width: 200,
+  },
+};
+
+const style = {
+  margin: 12,
+};
+
 class CreateUser extends React.Component {
 	constructor(props) {
 		super(props);
@@ -12,8 +26,8 @@ class CreateUser extends React.Component {
     this.handleUserTypeChange = this.handleUserTypeChange.bind(this);
   }
 
-  handleUserTypeChange(event) {
-    this.setState({usertype: event.target.value});
+  handleUserTypeChange(event, index, value) {
+    this.setState({usertype: value});
   }
 
   render() {
@@ -21,16 +35,12 @@ class CreateUser extends React.Component {
       return (
         <div>
           <h2> Create User </h2>
-          <form className="form-horizontal"> 
-            <select onChange={this.handleUserTypeChange} value={this.state.value}>
-              <option value="" defaultValue> Please Choose </option>
-              <option value='teacher'> Teacher </option>
-              <option value='parent'> Parent </option>  
-              <option value='student'> Student </option>  
-            </select>
-            <br></br>
-            <button type="button" onSubmit={this.handleSubmit}> Submit </button>
-          </form>
+          <DropDownMenu onChange={this.handleUserTypeChange} value="Please choose">
+            <MenuItem value={'Please choose'} primaryText="Please choose" />
+            <MenuItem value={'teacher'} primaryText="Teacher" />
+            <MenuItem value={'parent'} primaryText="Parent" />
+            <MenuItem value={'student'} primaryText="Student" />
+          </DropDownMenu>
         </div>
       )
     } else if (this.state.usertype === 'teacher') {
