@@ -80,8 +80,8 @@ class Document extends React.Component {
             <h3 onClick={this.toggleDisplay}> {this.props.document.title} </h3>
             <p>{this.props.document.first_name_student} {this.props.document.last_name_student}</p>
             <p className={this.state.permissioned ? 'permissionedYes' : 'permissionedNo'}>&#10003;</p>
-            <button type="button" onClick={this.permissionedYes} > Yes </button>
-            <button type="button" onClick={this.permissionedNo}> No </button>
+            <button className="yesButton" type="button" onClick={this.permissionedYes} > Yes </button>
+            <button className="noButton" type="button" onClick={this.permissionedNo}> No </button>
             <p className={this.state.display ? null : 'hidden'}> {this.props.document.body} </p>
           </div>
         )
@@ -91,8 +91,8 @@ class Document extends React.Component {
             <h3 onClick={this.toggleDisplay}> {this.props.document.title} </h3>
             <p>{this.props.document.first_name_student} {this.props.document.last_name_student}</p>
             <p className={this.state.permissioned ? 'permissionedYes' : 'permissionedNo'}>&#10007;</p>
-            <button type="button" onClick={this.permissionedYes} > Yes </button>
-            <button type="button" onClick={this.permissionedNo}> No </button>
+            <button className="yesButton" type="button" onClick={this.permissionedYes} > Yes </button>
+            <button className="noButton" type="button" onClick={this.permissionedNo}> No </button>
             <p className={this.state.display ? null : 'hidden'} > {this.props.document.body} </p>
           </div>
         )
@@ -102,8 +102,8 @@ class Document extends React.Component {
             <h3 onClick={this.toggleDisplay} > {this.props.document.title} </h3>
             <p>{this.props.document.first_name_student} {this.props.document.last_name_student}</p>
             <p className={this.state.permissioned ? 'permissionedYes' : 'permissionedNo'}>&#9998;</p>
-            <button type="button" onClick={this.permissionedYes} > Yes </button>
-            <button type="button" onClick={this.permissionedNo}> No </button>
+            <button className="yesButton" type="button" onClick={this.permissionedYes} > Yes </button>
+            <button className="noButton" type="button" onClick={this.permissionedNo}> No </button>
             <p className={this.state.display ? null : 'hidden'} > {this.props.document.body} </p>
           </div>
         )

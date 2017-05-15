@@ -1,16 +1,16 @@
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Login from '../../components/Login';
 import renderer from 'react-test-renderer';
 
 describe('Login', () => {
-  let wrapper = shallow(<Login />);
+  let wrapper = mount(<Login />);
 
 
-  test('is a stateful class component.', () => {
-    expect(React.Component.isPrototypeOf(Login)).toBe(true);
-  });
+  // test('is a stateful class component.', () => {
+  //   expect(React.Component.isPrototypeOf(Login)).toBe(true);
+  // });
 
   test('contains an image', () => {
     // let wrapper = shallow(<Login />);

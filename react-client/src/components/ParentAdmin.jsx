@@ -5,6 +5,7 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 class ParentAdmin extends React.Component {
 	constructor(props) {
@@ -37,7 +38,7 @@ class ParentAdmin extends React.Component {
     // Make http request to obtain array of students to populate the dropdown for student.
     axios.get('/admin/students', config)
     .then(response => {
-      console.log('Success getting students list from db.', response.data);
+      // console.log('Success getting students list from db.', response.data);
       this.setState ({
         students: response.data
       });
@@ -98,56 +99,63 @@ class ParentAdmin extends React.Component {
 
 
 	render() {
-    console.log('this.state.students', this.state.students);
-    console.log('Current studentId', this.state.studentId);
+    // console.log('this.state.students', this.state.students);
+    // console.log('Current studentId', this.state.studentId);
   	return (
-			<div>
-        <h2>Enter Parent Information</h2>
-          <br></br>
-          <TextField
-            placeholder="First Name"
-            value={this.state.firstName}
-            onChange={this.handleFirstNameChange}
-            id="firsname"
-          />
-          <br></br>
-          <TextField
-            placeholder="Last Name"
-            value={this.state.lastName}
-            onChange={this.handleLastNameChange}
-            id="lastname"
-          />
-          <br></br>
-          <TextField
-            placeholder="Email"
-            value={this.state.email}
-            onChange={this.handleEmailChange}
-            id="email"
-          />
-          <br></br>
-          <TextField
-            placeholder="Phone Number"
-            value={this.state.phone}
-            onChange={this.handlePhoneChange}
-            id="number"
-          />
-          <br></br>
-          <TextField
-            placeholder="Password"
-            value={this.state.password}
-            onChange={this.handlePasswordChange}
-            id="password"
-          />
-          <br></br>
-          <DropDownMenu onChange={this.handleStudentSelect} value="Please choose" >
-            <MenuItem value={'Please choose'} primaryText="Please choose" />
-            {this.state.students.map((student, index) =>
-              <MenuItem value={student.id} primaryText={student.first_name + ' ' + student.last_name} />
-            )}
-          </DropDownMenu>
-          <br></br>
-          <RaisedButton label="Submit" primary={true} style={style} onClick={this.handleSubmit} />
-			</div>
+			<MuiThemeProvider>
+        <div>
+          <h2>Enter Parent Information</h2>
+            <br></br>
+            <TextField
+              className="parentFirstNameInput"
+              placeholder="First Name"
+              value={this.state.firstName}
+              onChange={this.handleFirstNameChange}
+              id="firstname"
+            />
+            <br></br>
+            <TextField
+              className="parentLastNameInput"
+              placeholder="Last Name"
+              value={this.state.lastName}
+              onChange={this.handleLastNameChange}
+              id="lastname"
+            />
+            <br></br>
+            <TextField
+              className="parentEmailInput"
+              placeholder="Email"
+              value={this.state.email}
+              onChange={this.handleEmailChange}
+              id="email"
+            />
+            <br></br>
+            <TextField
+              className="parentPhoneNumberInput"
+              placeholder="Phone Number"
+              value={this.state.phone}
+              onChange={this.handlePhoneChange}
+              id="number"
+            />
+            <br></br>
+            <TextField
+              className="parentPasswordInput"
+              placeholder="Password"
+              value={this.state.password}
+              onChange={this.handlePasswordChange}
+              id="password"
+            />
+            <br></br>
+            <DropDownMenu onChange={this.handleStudentSelect} value="Please choose" >
+              <MenuItem value={'Please choose'} primaryText="Please choose" />
+              {this.state.students.map((student, index) =>
+                <MenuItem value={student.id} primaryText={student.first_name + ' ' + student.last_name} />
+              )}
+            </DropDownMenu>
+            <br></br>
+            <RaisedButton label="Submit" primary={true} style={style} onClick={this.handleSubmit} />
+        </div>
+			</MuiThemeProvider>
 		)
 	}
 }
