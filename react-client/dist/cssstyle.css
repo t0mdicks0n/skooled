@@ -196,29 +196,6 @@ option {
   padding-left: 100px; 
 }
 
-.fab {
-  border:none;
-  font-size:1.5em;
-  color:white;
-  background-color: #ff4081;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  margin: auto;
-  -webkit-box-shadow: 2px 3px 3px 0px rgba(41, 41, 41, .3);
-     -moz-box-shadow: 2px 3px 3px 0px rgba(41, 41, 41, .3);
-          box-shadow: 2px 3px 3px 0px rgba(41, 41, 41, .3);
-  top: 'auto';
-  right: 20;
-  bottom: 20;
-  left: 'auto';
-  position: 'fixed';
-}
-
-.fab {
-  background-color: #ff4060;
-}
-
 
 /*input[type=text] {
     width: 100%;

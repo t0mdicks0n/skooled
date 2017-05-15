@@ -11,8 +11,9 @@ class DocumentsList extends React.Component {
     super(props);
     this.state = {
       documents: [],
+      renderCreateNew: false
     };
-    this.reRender = this.reRender.bind(this);
+    this.renderRedirect = this.renderRedirect.bind(this);
   }
 
   componentDidMount () {
@@ -54,30 +55,29 @@ class DocumentsList extends React.Component {
     });
   }
 
-  clickToAdd() {
-    this.context.router.push('/createDocument');
+  renderRedirect() {
+    this.setState({
+      renderCreateNew: true
+    });
   }
 
   render () {
     if (this.props.userType === 'teacher') {
-      return (
-        <div>
-          <h2>Permission slips</h2>
-          <FloatingActionButton style={style} >
-            <ContentAdd/>
-            {/*<Link to="/createDocument"><ContentAdd/></Link>*/}
-          </FloatingActionButton>
-          {/*<span className="fab-container">
-            <Link to="/createDocument">
-              <div className="fab">
-              </div>
-            </Link>
-          </span>*/}
-          {this.state.documents.map((doc, index) => 
-            <Document document={doc} key={index} userType={this.props.userType} reRender={this.reRender}/>
-          )}
-        </div>
-      )    
+      if (this.state.renderCreateNew) {
+        return (<Redirect to="/createDocument"/>);
+      } else {
+        return (
+          <div>
+            <h2>Permission slips</h2>
+            <FloatingActionButton style={style} onClick={this.renderRedirect} >
+              <ContentAdd/>
+            </FloatingActionButton>
+            {this.state.documents.map((doc, index) => 
+              <Document document={doc} key={index} userType={this.props.userType} reRender={this.reRender}/>
+            )}
+          </div>
+        )    
+      }
     } else {
       return (
         <div>
@@ -92,7 +92,6 @@ class DocumentsList extends React.Component {
 }
 
 const style = {
-  // marginRight: 20,
   margin: 0,
   top: 'auto',
   right: 20,
