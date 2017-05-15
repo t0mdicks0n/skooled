@@ -2,15 +2,18 @@ import React from 'react';
 import axios from 'axios';
 import Document from './Document.jsx';
 import CreateDocument from './CreateDocument.jsx';
-import { BrowserRouter, Route, Link, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter, Route, Link, Switch, Redirect} from 'react-router-dom';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 
 class DocumentsList extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
       documents: [],
+      renderCreateNew: false
     };
-    this.reRender = this.reRender.bind(this);
+    this.renderRedirect = this.renderRedirect.bind(this);
   }
 
   componentDidMount () {
@@ -52,17 +55,29 @@ class DocumentsList extends React.Component {
     });
   }
 
+  renderRedirect() {
+    this.setState({
+      renderCreateNew: true
+    });
+  }
+
   render () {
     if (this.props.userType === 'teacher') {
-      return (
-        <div>
-          <h2>Permission slips</h2>
-          <Link to="/createDocument">Create Document</Link>
-          {this.state.documents.map((doc, index) => 
-            <Document document={doc} key={index} userType={this.props.userType} reRender={this.reRender}/>
-          )}
-        </div>
-      )    
+      if (this.state.renderCreateNew) {
+        return (<Redirect to="/createDocument"/>);
+      } else {
+        return (
+          <div>
+            <h2>Permission slips</h2>
+            <FloatingActionButton style={style} onClick={this.renderRedirect} >
+              <ContentAdd/>
+            </FloatingActionButton>
+            {this.state.documents.map((doc, index) => 
+              <Document document={doc} key={index} userType={this.props.userType} reRender={this.reRender}/>
+            )}
+          </div>
+        )    
+      }
     } else {
       return (
         <div>
@@ -75,5 +90,14 @@ class DocumentsList extends React.Component {
     }
   }
 }
+
+const style = {
+  margin: 0,
+  top: 'auto',
+  right: 20,
+  bottom: 20,
+  left: 'auto',
+  position: 'fixed',
+};
 
 export default DocumentsList;
