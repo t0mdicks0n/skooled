@@ -1,11 +1,11 @@
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Login from '../../components/Login';
 import renderer from 'react-test-renderer';
 
 describe('Login', () => {
-  let wrapper = shallow(<Login />);
+  let wrapper = mount(<Login />);
 
 
   test('is a stateful class component.', () => {

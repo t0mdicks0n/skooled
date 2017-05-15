@@ -63,23 +63,5 @@
     "sinon": "^2.2.0",
     "webpack": "^2.4.1",
     "webpack-dev-server": "^2.4.5"
-  },
-  "jest": {
-    "transform": {},
-    "moduleFileExtensions": [
-      "js",
-      "jsx"
-    ],
-    "moduleDirectories": [
-      "node_modules",
-      "bower_components",
-      "shared"
-    ]
-  },
-  "babel": {
-    "presets": [
-      "es2015",
-      "react"
-    ]
   }
 }
