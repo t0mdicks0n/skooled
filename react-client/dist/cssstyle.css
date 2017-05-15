@@ -197,31 +197,6 @@ option {
   
 }
 
-#loginpage {
-  background-image: url("school-background.jpg");
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  /*background-color: grey;*/
-  size: 100%;
-
-}
-
-#loginform {
-  padding-top: 30px;
-  background-color: white;
-  margin: auto;
-  width: 40%;
-}
-
-#logintitle {
-  /*padding-top: 30px;*/
-}
-
-#password {
-  width: 'calc(100% - 5px)';
-}
 
 /*input[type=text] {
     width: 100%;

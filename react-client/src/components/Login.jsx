@@ -1,7 +1,5 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
 
 class Login extends React.Component {
 	constructor (props) {
@@ -36,36 +34,21 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div className="main container-fluid col-md-12" id="loginpage">
-        <div id="loginform">
-        <div id="logintitle">
-          <h2 > Welcome to Skooled! </h2>
-          <h3 > Log in: </h3>
-        </div>
-          <TextField
-            placeholder="Username"
-            value={this.state.username}
-            onChange={this.handleUsernameChange}
-            id="username"
-          />
+      <div className="main container-fluid col-md-12">
+        <img src="stock_logo.jpg" height="200" width="200"></img>
+        <h2> Welcome to Skooled! </h2>
+        <form>
+          <label>Username</label>
+            <input type="text" placeholder="Username" value={this.state.username} onChange={this.handleUsernameChange} />
           <br></br>
-          <TextField
-            placeholder="Password"
-            value={this.state.password}
-            onChange={this.handlePasswordChange}
-            type="password"
-            id="password"
-          />
+          <label>Password</label>
+            <input type="password" placeholder="Password" value={this.state.password} onChange={this.handlePasswordChange} />
           <br></br>
-          <RaisedButton label="Submit" primary={true} style={style} onClick={this.handleSubmit} />
-        </div>
+          <button type="button" onClick={this.handleSubmit}> Submit </button>
+        </form>
       </div>
     );
   }
 }
-
-const style = {
-  margin: 12,
-};
 
 export default withRouter(Login);
