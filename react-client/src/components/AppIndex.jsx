@@ -12,10 +12,6 @@ import Video from './Video.jsx';
 import Logout from './Logout.jsx';
 import App from './App.jsx';
 
-import injectTapEventPlugin from 'react-tap-event-plugin';
-injectTapEventPlugin();
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-
 class AppIndex extends React.Component {
   constructor(props) {
     super(props);
@@ -81,16 +77,14 @@ class AppIndex extends React.Component {
 
   render () {
     return (
-      <MuiThemeProvider>
-        <BrowserRouter>
-          <div>
-            <Switch>
-              <Route name="login" path="/login" component={() => (<Login enterCredentials={this.sendCredentials} isLoggedIn={this.state.loggedIn} /> )}/>
-              <Route name="app" path="/" component={() => (<App isLoggedIn={this.state.loggedIn} revokeCredentials={this.revokeCredentials} userType={this.state.userType} firstName={this.state.firstName} /> )}/>
-            </Switch>
-          </div>
-        </BrowserRouter>
-      </MuiThemeProvider>
+      <BrowserRouter>
+        <div>
+          <Switch>
+            <Route name="login" path="/login" component={() => (<Login enterCredentials={this.sendCredentials} isLoggedIn={this.state.loggedIn} /> )}/>
+            <Route name="app" path="/" component={() => (<App isLoggedIn={this.state.loggedIn} revokeCredentials={this.revokeCredentials} userType={this.state.userType} firstName={this.state.firstName} /> )}/>
+          </Switch>
+        </div>
+      </BrowserRouter>
     );
   }
 }

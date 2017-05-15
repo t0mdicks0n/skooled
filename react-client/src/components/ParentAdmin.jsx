@@ -1,10 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { BrowserRouter, Route, Link, Switch, Redirect } from 'react-router-dom';
-import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
-import DropDownMenu from 'material-ui/DropDownMenu';
-import MenuItem from 'material-ui/MenuItem';
+
 
 class ParentAdmin extends React.Component {
 	constructor(props) {
@@ -63,8 +60,9 @@ class ParentAdmin extends React.Component {
     this.setState({password: event.target.value});
   }
 
-  handleStudentSelect(event, index, value) {
-    this.setState({studentId: value});
+  handleStudentSelect(event) {
+    this.setState({studentId: event.target.value});
+    event.preventDefault();
   }
 
   handleSubmit() {
@@ -95,63 +93,36 @@ class ParentAdmin extends React.Component {
   	return (
 			<div>
         <h2>Enter Parent Information</h2>
+				<form className="form-group form-horizontal">
+          <label>First Name</label>
+          <input type="text" placeholder="First Name" value={this.state.firstName} onChange={this.handleFirstNameChange} />
           <br></br>
-          <TextField
-            placeholder="First Name"
-            value={this.state.firstName}
-            onChange={this.handleFirstNameChange}
-            id="firsname"
-          />
+          <label>Last Name</label>
+          <input type="text" placeholder="Last Name" value={this.state.lastName} onChange={this.handleLastNameChange} />
           <br></br>
-          <TextField
-            placeholder="Last Name"
-            value={this.state.lastName}
-            onChange={this.handleLastNameChange}
-            id="lastname"
-          />
+          <label>Email</label>
+          <input type="text" placeholder="Email" value={this.state.email} onChange={this.handleEmailChange} />
           <br></br>
-          <TextField
-            placeholder="Email"
-            value={this.state.email}
-            onChange={this.handleEmailChange}
-            id="email"
-          />
+          <label>Phone</label>
+            <input type="text" placeholder="Phone Number" value={this.state.phone} onChange={this.handlePhoneChange} />
           <br></br>
-          <TextField
-            placeholder="Phone Number"
-            value={this.state.phone}
-            onChange={this.handlePhoneChange}
-            id="number"
-          />
+          <label>Password</label>
+            <input type="text" placeholder="Password" value={this.state.password} onChange={this.handlePasswordChange} />
           <br></br>
-          <TextField
-            placeholder="Password"
-            value={this.state.password}
-            onChange={this.handlePasswordChange}
-            id="password"
-          />
-          <br></br>
-          <DropDownMenu onChange={this.handleStudentSelect} value="Please choose" >
-            <MenuItem value={'Please choose'} primaryText="Please choose" />
+          <label>Student</label>
+          <select onChange={this.handleStudentSelect} value={this.state.value} >
+            <option value="" defaultValue> Please Choose </option>
             {this.state.students.map((student, index) =>
-              <MenuItem value={student.id} primaryText={student.first_name + ' ' + student.last_name} />
+              <option value={student.id} key={index} > {student.first_name + ' ' + student.last_name} </option>
             )}
-          </DropDownMenu>
+          </select>
           <br></br>
-          <RaisedButton label="Submit" primary={true} style={style} onClick={this.handleSubmit} />
+          <button type="button" onClick={this.handleSubmit}> Submit </button>
+				</form>
 			</div>
 		)
 	}
+
 }
-
-const styles = {
-  customWidth: {
-    width: 200,
-  },
-};
-
-const style = {
-  margin: 12,
-};
 
 export default ParentAdmin;

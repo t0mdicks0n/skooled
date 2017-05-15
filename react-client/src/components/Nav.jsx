@@ -8,10 +8,10 @@ const Nav = (props) => (
 	<span></span>
 	<span></span>
     <ul className="nav nav-pills nav-stacked col-md-3" id="menu">
-		<li role="presentation"><Link to="logout">Sign Out</Link></li>
-		<li role="presentation"><Link to="documents">Documents</Link></li>
-		<li role="presentation"><Link to="video">Video</Link></li>
-		<li role="presentation"><Link to="admin">Settings</Link></li>
+			<li role="presentation"><Link to="logout">Logout</Link></li>
+			<li role="presentation"><Link to="documents">Documents</Link></li>
+			<li role="presentation"><Link to="video">Video</Link></li>
+			<li role="presentation"><Link to="admin">Settings</Link></li>
     </ul>
   </div>
 )
