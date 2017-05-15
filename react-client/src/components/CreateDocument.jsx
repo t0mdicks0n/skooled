@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
 
 class CreateDocument extends React.Component {
   constructor(props) {
@@ -49,19 +51,40 @@ class CreateDocument extends React.Component {
   render () {
     return (
       <div>
-        <h2>Enter New Document Information</h2>
-        <form>
-          <label>Title:</label>
-          <input className="createDocumentTitle" onChange={this.handleTitleChange} value={this.state.title} placeholder="Title goes here"/>
-          <br></br>
-          <label>Body:</label> 
-          <input className="createDocumentBody" onChange={this.handleBodyChange} value={this.state.body} placeholder="Body goes here"/>
-          <br></br>
-          <button type="button" onClick={this.createDoc}>Submit document</button>
-        </form>
+        <h2>Request permission from all students</h2>
+        <br></br>
+        <TextField
+          id="permissionname"
+          placeholder="Permission Name"
+          value={this.state.password}
+          onChange={this.handleTitleChange}
+          className="createDocumentTitle"
+        />
+        <br></br>
+        <TextField
+          id="permissiondesc"
+          placeholder="Permission Description"
+          value={this.state.body}
+          onChange={this.handleBodyChange}
+          className="createDocumentTitle"
+          rows={10}
+          rowsMax={20}
+          multiLine={true}
+        />
+        <br></br>
+        <RaisedButton
+          label="Require permission"
+          primary={true}
+          style={style}
+          onClick={this.createDoc} 
+        />
       </div>
     )
   }
 }
+
+const style = {
+  margin: 12,
+};
 
 export default CreateDocument;

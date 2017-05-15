@@ -2,7 +2,9 @@ import React from 'react';
 import axios from 'axios';
 import Document from './Document.jsx';
 import CreateDocument from './CreateDocument.jsx';
-import { BrowserRouter, Route, Link, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter, Route, Link, Switch, Redirect} from 'react-router-dom';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 
 class DocumentsList extends React.Component {
   constructor (props) {
@@ -52,12 +54,25 @@ class DocumentsList extends React.Component {
     });
   }
 
+  clickToAdd() {
+    this.context.router.push('/createDocument');
+  }
+
   render () {
     if (this.props.userType === 'teacher') {
       return (
         <div>
           <h2>Permission slips</h2>
-          <Link to="/createDocument">Create Document</Link>
+          <FloatingActionButton style={style} >
+            <ContentAdd/>
+            {/*<Link to="/createDocument"><ContentAdd/></Link>*/}
+          </FloatingActionButton>
+          {/*<span className="fab-container">
+            <Link to="/createDocument">
+              <div className="fab">
+              </div>
+            </Link>
+          </span>*/}
           {this.state.documents.map((doc, index) => 
             <Document document={doc} key={index} userType={this.props.userType} reRender={this.reRender}/>
           )}
@@ -75,5 +90,15 @@ class DocumentsList extends React.Component {
     }
   }
 }
+
+const style = {
+  // marginRight: 20,
+  margin: 0,
+  top: 'auto',
+  right: 20,
+  bottom: 20,
+  left: 'auto',
+  position: 'fixed',
+};
 
 export default DocumentsList;
