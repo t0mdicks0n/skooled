@@ -29,9 +29,13 @@ class ParentAdmin extends React.Component {
 	}
 
   componentDidMount() {
+    var currentToken = window.localStorage.accessToken;
+    var config = {
+      headers: {'Authorization': currentToken}
+    };
     console.log(this.props);
     // Make http request to obtain array of students to populate the dropdown for student.
-    axios.get('/admin/students')
+    axios.get('/admin/students', config)
     .then(response => {
       console.log('Success getting students list from db.', response.data);
       this.setState ({
@@ -68,6 +72,10 @@ class ParentAdmin extends React.Component {
   }
 
   handleSubmit() {
+    var currentToken = window.localStorage.accessToken;
+    var config = {
+      headers: {'Authorization': currentToken}
+    };
     // HTTP transaction to server to send this.state to server.
     let userInfo = {
       firstName: this.state.firstName,
@@ -79,7 +87,7 @@ class ParentAdmin extends React.Component {
       role: this.state.role
     };
     console.log('sending userInfo', userInfo);
-    axios.post('/admin/parent', userInfo)
+    axios.post('/admin/parent', userInfo, config)
     .then(response => {
       console.log('Successfully added parent to db.', response);
     })

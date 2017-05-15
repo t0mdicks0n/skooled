@@ -27,6 +27,10 @@ class Document extends React.Component {
   }
 
   permissionedYes () {
+    var currentToken = window.localStorage.accessToken;
+    var config = {
+      headers: {'Authorization': currentToken}
+    };
     console.log('permissionedYes invoked.');
     this.setState ({
       permissioned: true
@@ -35,7 +39,7 @@ class Document extends React.Component {
       docId: this.props.document.id,
       permissioned: true
     };
-    axios.put('/doc/documents', permissionSlip)
+    axios.put('/doc/documents', permissionSlip, config)
     .then(response => {
       console.log('Updated permission status on slip!');
     })
@@ -45,6 +49,10 @@ class Document extends React.Component {
   }
 
   permissionedNo () {
+    var currentToken = window.localStorage.accessToken;
+    var config = {
+      headers: {'Authorization': currentToken}
+    };
     console.log('permissionedNo invoked.');
     this.setState ({
       permissioned: false
@@ -53,7 +61,7 @@ class Document extends React.Component {
       docId: this.props.document.id,
       permissioned: false
     };
-    axios.put('/doc/documents', permissionSlip)
+    axios.put('/doc/documents', permissionSlip, config)
     .then(response => {
       console.log('Updated permission status on slip!');
     })
@@ -64,7 +72,7 @@ class Document extends React.Component {
 
   render () {
     console.log('this.props.userType', this.props.userType);
-    // If logged in user type is a parent, he/she should have permissioning buttons. 
+    // If logged in user type is a parent, he/she should have permissioning buttons.
     if (this.props.userType !== 'teacher') {
       if (this.state.permissioned === true) {
         return (
@@ -87,7 +95,7 @@ class Document extends React.Component {
             <button type="button" onClick={this.permissionedNo}> No </button>
             <p className={this.state.display ? null : 'hidden'} > {this.props.document.body} </p>
           </div>
-        )      
+        )
       } else if (this.state.permissioned === null) {
         return (
           <div className="doc">
@@ -98,7 +106,7 @@ class Document extends React.Component {
             <button type="button" onClick={this.permissionedNo}> No </button>
             <p className={this.state.display ? null : 'hidden'} > {this.props.document.body} </p>
           </div>
-        )     
+        )
       }
     }
     // If logged in user is a teacher, he/she shouldn't have the permissioning buttons.
@@ -120,7 +128,7 @@ class Document extends React.Component {
             <p className={this.state.permissioned ? 'permissionedYes' : 'permissionedNo'}>&#10007;</p>
             <p className={this.state.display ? null : 'hidden'} > {this.props.document.body} </p>
           </div>
-        )      
+        )
       } else if (this.state.permissioned === null) {
         return (
           <div className="doc">
@@ -129,7 +137,7 @@ class Document extends React.Component {
             <p className={this.state.permissioned ? 'permissionedYes' : 'permissionedNo'}>&#9998;</p>
             <p className={this.state.display ? null : 'hidden'} > {this.props.document.body} </p>
           </div>
-        )     
+        )
       }
     }
   }
