@@ -8,9 +8,9 @@ describe('Login', () => {
   let wrapper = mount(<Login />);
 
 
-  test('is a stateful class component.', () => {
-    expect(React.Component.isPrototypeOf(Login)).toBe(true);
-  });
+  // test('is a stateful class component.', () => {
+  //   expect(React.Component.isPrototypeOf(Login)).toBe(true);
+  // });
 
   test('contains an image', () => {
     // let wrapper = shallow(<Login />);
