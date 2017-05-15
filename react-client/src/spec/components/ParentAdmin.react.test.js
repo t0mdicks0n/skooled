@@ -4,20 +4,25 @@ import ReactDOM from 'react-dom';
 import TestUtils from 'react-addons-test-utils';
 import ParentAdmin from '../../components/ParentAdmin';
 import renderer from 'react-test-renderer';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+import DropDownMenu from 'material-ui/DropDownMenu';
+import MenuItem from 'material-ui/MenuItem';
+
 
 describe ('<ParentAdmin />', () => {
-  const shallowWrapper = mount(<ParentAdmin />);
-  const deepWrapper = shallow(<ParentAdmin />);
+  const shallowWrapper = shallow(<ParentAdmin />);
+  const deepWrapper = mount(<ParentAdmin />);
   const studentList = ['Gregory Windsor', 'Andrew Appleton', 'Josephine Hendry', 'Leslie Goldberg', 'Oscar Wilde'];
 
 
   test('ParentAdmin updates its state when first name is typed.', () => {
     const parentAdmin = TestUtils.renderIntoDocument(<ParentAdmin />);
     const parentAdminNode = ReactDOM.findDOMNode(parentAdmin);
-    const parentFirstNameInputElement = TestUtils.findRenderedDOMComponentWithClass(parentAdmin, 'parentFirstNameInput');
-
-    TestUtils.Simulate.change(parentFirstNameInputElement, {target: {value: 'Francessca'}});
-
+    const parentFirstNameTextFieldElement = TestUtils.findRenderedDOMComponentWithClass(parentAdmin, 'parentFirstNameInput');
+    
+    TestUtils.Simulate.change(parentFirstNameTextFieldElement, {target: {value: 'Francessca'}});
+    console.log('ROLL2', parentFirstNameTextFieldElement);
     expect(parentAdmin.state.firstName).toEqual('Francessca');
   });
 
