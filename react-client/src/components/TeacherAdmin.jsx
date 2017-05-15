@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import { BrowserRouter, Route, Link, Switch, Redirect } from 'react-router-dom';
-
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
 
 class TeacherAdmin extends React.Component {
 	constructor(props) {
@@ -72,27 +73,50 @@ class TeacherAdmin extends React.Component {
   	return (
 			<div>
         <h2>Enter Teacher Information</h2>
-				<form className="form-horizontal">        
-          <label>First Name</label>
-          <input type="text" placeholder="First Name" value={this.state.firstName} onChange={this.handleFirstNameChange} />
           <br></br>
-          <label>Last Name</label>
-          <input type="text" placeholder="Last Name" value={this.state.lastName} onChange={this.handleLastNameChange} />
+          <TextField
+            placeholder="First Name"
+            value={this.state.firstName}
+            onChange={this.handleFirstNameChange}
+            id="firsname"
+          />
           <br></br>
-          <label>Email</label>
-          <input type="text" placeholder="Email" value={this.state.email} onChange={this.handleEmailChange} />
+          <TextField
+            placeholder="Last Name"
+            value={this.state.lastName}
+            onChange={this.handleLastNameChange}
+            id="lastname"
+          />
           <br></br>
-          <label>Phone</label>
-          <input type="text" placeholder="Phone Number" value={this.state.phone} onChange={this.handlePhoneChange} />
+          <TextField
+            placeholder="Email"
+            value={this.state.email}
+            onChange={this.handleEmailChange}
+            id="email"
+          />
           <br></br>
-          <label>Password</label>
-          <input type="password" placeholder="Password" value={this.state.password} onChange={this.handlePasswordChange} />
+          <TextField
+            placeholder="Phone Number"
+            value={this.state.phone}
+            onChange={this.handlePhoneChange}
+            id="number"
+          />
           <br></br>
-          <button type="button" onClick={this.handleSubmit}> Submit </button>
-				</form>
+          <TextField
+            placeholder="Password"
+            value={this.state.password}
+            onChange={this.handlePasswordChange}
+            id="password"
+          />
+          <br></br>
+          <RaisedButton label="Submit" primary={true} style={style} onClick={this.handleSubmit} />
 			</div>
 		)
 	}
 }
+
+const style = {
+  margin: 12,
+};
 
 export default TeacherAdmin;

@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import { BrowserRouter, Route, Link, Switch, Redirect } from 'react-router-dom';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
 
 
 class StudentAdmin extends React.Component {
@@ -16,10 +18,6 @@ class StudentAdmin extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
-  // componentDidMount() {
-  //   console.log(this.props)
-  // }
-
   handleFirstNameChange(event) {
     this.setState({firstName: event.target.value});
   }
@@ -29,9 +27,6 @@ class StudentAdmin extends React.Component {
   }
 
   handleSubmit() {
-    // var currentToken = window.localStorage.accessToken;
-    // console.log(currentToken);
-
     var currentToken = window.localStorage.accessToken;
 
     var config = {
@@ -57,19 +52,33 @@ class StudentAdmin extends React.Component {
   	return (
 			<div>
         <h2>Enter Student Information</h2>
-				<form className="form-group form-horizontal">
-          <label>First Name</label>
-          <input type="text" placeholder="First Name" value={this.state.firstName} onChange={this.handleFirstNameChange} />
-          <br></br>
-          <label>Last Name</label>
-          <input type="text" placeholder="Last Name" value={this.state.lastName} onChange={this.handleLastNameChange} />
-          <br></br>
-          <button type="button" onClick={this.handleSubmit}> Submit </button>
-				</form>
+        <br></br>
+        <TextField
+          placeholder="First Name"
+          value={this.state.firstName}
+          onChange={this.handleFirstNameChange}
+          id="firsname"
+        />
+        <br></br>
+        <TextField
+          placeholder="Last Name"
+          value={this.state.lastName}
+          onChange={this.handleLastNameChange}
+          id="lastname"
+        />
+        <br></br>
+        <RaisedButton 
+          label="Submit" 
+          primary={true} 
+          style={style} 
+          onClick={this.handleSubmit} />
 			</div>
 		)
 	}
-
 }
+
+const style = {
+  margin: 12,
+};
 
 export default StudentAdmin;
