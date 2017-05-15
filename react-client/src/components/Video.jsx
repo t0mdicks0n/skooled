@@ -4,6 +4,11 @@ import { BrowserRouter, Route, Link, Switch, Redirect } from 'react-router-dom';
 var PUBNUB_PUBLISH_KEY = 'pub-c-49c10967-3fa1-4e45-a8cf-e3f3f66bb3d1';
 var PUBNUB_SUBSCRIBE_KEY = 'sub-c-aefb4450-2f44-11e7-9a1a-0619f8945a4f';
 
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+import Callicon from 'material-ui/svg-icons/communication/call';
+import CallEndedicon from 'material-ui/svg-icons/communication/call-end';
+
 class Video extends React.Component {
   constructor(props) {
     super(props);
@@ -99,22 +104,39 @@ class Video extends React.Component {
     return (
       <div>
         <h2> Video Chat </h2>
-        <form name="callForm" id="call-form" onChange={this.handleChange}>
-          <div id="vid-div">
-            <input type="text" placeholder="Enter Email to dial!" />
-            <button type="button" class="btn" onClick={this.handleSubmit}> 
-              <span className="glyphicon glyphicon-facetime-video"></span> Call 
-            </button>
-            <button type="button" id="end-call" onClick={this.endCall}>
-              <span className="glyphicon glyphicon-stop"></span> End Call
-            </button>
-          </div>
-        </form>
+        <div id="vid-div">
+        <TextField
+            placeholder="Enter email to dial"
+            onChange={this.handleChange}
+            id="call-form"
+            name="callForm"
+          />
+          <RaisedButton 
+            label = "Call"
+            primary = {true}
+            style = {style}
+            onClick={this.handleSubmit}
+            class="btn"
+            icon={<Callicon />}
+           />
+          <RaisedButton 
+            label = "End Call"
+            secondary={true}
+            style = {style}
+            onClick={this.endCall}
+            id="end-call"
+            icon={<CallEndedicon />}
+           />
+        </div>
         <div id="vid-box"></div>
         <div id="vid-thumb"></div>
       </div>
     )
   }
 }
+
+const style = {
+  margin: 12,
+};
 
 export default Video;
