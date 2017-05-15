@@ -22,16 +22,13 @@ app.use(bodyParser.json());
 app.get('/checkOnClientLoad', ensureAuthorized, (req, res) => {
   pg.selectUserById(req.decoded.id, (error, data) => {
     if (error) {
-      console.error('Error retrieving logged in user from db');
       res.json({userid: req.decoded.id});
     } else {
-      console.log('selectUserById response', data);
       let user = {
         userid: req.decoded.id,
         userRole: data.attributes.role,
         firstName: data.attributes.first_name
       };
-      console.log('user from selectUserById', user);
       res.json(user);
     }
   });

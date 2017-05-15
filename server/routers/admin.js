@@ -17,7 +17,6 @@ router.get('/students', ensureAuthorized, (req, res) => {
       console.error('Error retrieving all students from db', error);
       res.sendStatus(500);
     } else {
-      console.log('Retrieved all students from db', data);
       res.send(data);
     }
   });
@@ -25,7 +24,6 @@ router.get('/students', ensureAuthorized, (req, res) => {
 
 
 router.post('/teacher', ensureAuthorized, (req, res) => {
-  console.log('req.body', req.body);
 
   // Create welcome email with new password
   services.sendEmail({
@@ -40,7 +38,6 @@ router.post('/teacher', ensureAuthorized, (req, res) => {
       console.log('Error inserting new teacher info to db.', error);
       res.sendStatus(500);
     } else {
-      console.log('Inserted new teacher info to db.', data);
       res.sendStatus(200);
     }
   });
@@ -48,7 +45,6 @@ router.post('/teacher', ensureAuthorized, (req, res) => {
 
 
 router.post('/parent', ensureAuthorized, (req, res) => {
-  console.log('req.body inside POST /admin/parent', req.body);
 
   // Create welcome email with new password
   services.sendEmail({
@@ -65,8 +61,6 @@ router.post('/parent', ensureAuthorized, (req, res) => {
     } else {
       // Create the relationship in the join table for 'parent' and Student
       pg.insertUserStudent(data.toJSON().id, req.body.studentId);
-
-      console.log('Inserted new parent info to db.', data);
       res.sendStatus(200);
     }
   });
@@ -74,7 +68,7 @@ router.post('/parent', ensureAuthorized, (req, res) => {
 
 
 router.post('/student', ensureAuthorized, (req, res) => {
-  console.log('req.body inside POST /admin/student', req.body);
+
   pg.insertStudent(req.body, (error, data) => {
     if (error) {
       console.error('Error inserting new student info to db.', error);
@@ -82,7 +76,6 @@ router.post('/student', ensureAuthorized, (req, res) => {
     } else {
       // Create the relationship in the join table for 'teacher' and Student
       pg.insertUserStudent(req.decoded.id, data.toJSON().id);
-      console.log('Inserted new student info to db.', data);
       res.sendStatus(200);
     }
   });
