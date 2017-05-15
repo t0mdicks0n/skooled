@@ -115,7 +115,7 @@ router.get('/documents', ensureAuthorized, (req, res) => {
         }
       });
     }
-    
+
     return syncFetchDocs(studentIds);
   })
   .catch(error => {
@@ -124,7 +124,7 @@ router.get('/documents', ensureAuthorized, (req, res) => {
 });
 
 
-router.put('/documents', (req, res) => {
+router.put('/documents', ensureAuthorized, (req, res) => {
   // Parent updates the permission status of the document to the db.
   console.log(req.body);
 

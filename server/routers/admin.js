@@ -10,7 +10,7 @@ router.use(express.static(__dirname + '/../../react-client/dist'));
 router.use(bodyParser.json());
 
 
-router.get('/students', (req, res) => {
+router.get('/students', ensureAuthorized, (req, res) => {
   // Select all students from db to send back to client for ParentAdmin form.
   pg.selectAllStudents(req.body, (error, data) => {
     if (error) {
@@ -24,7 +24,7 @@ router.get('/students', (req, res) => {
 });
 
 
-router.post('/teacher', (req, res) => {
+router.post('/teacher', ensureAuthorized, (req, res) => {
   console.log('req.body', req.body);
 
   // Create welcome email with new password
@@ -47,7 +47,7 @@ router.post('/teacher', (req, res) => {
 });
 
 
-router.post('/parent', (req, res) => {
+router.post('/parent', ensureAuthorized, (req, res) => {
   console.log('req.body inside POST /admin/parent', req.body);
 
   // Create welcome email with new password

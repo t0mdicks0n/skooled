@@ -43,12 +43,16 @@ class TeacherAdmin extends React.Component {
   handlePhoneChange(event) {
     this.setState({phone: event.target.value});
   }
-  
+
   handlePasswordChange(event) {
     this.setState({password: event.target.value});
   }
 
   handleSubmit() {
+    var currentToken = window.localStorage.accessToken;
+    var config = {
+      headers: {'Authorization': currentToken}
+    };
     // HTTP transaction to server to send this.state to server.
     let userInfo = {
       firstName: this.state.firstName,
@@ -59,7 +63,7 @@ class TeacherAdmin extends React.Component {
       role: this.state.role
     };
     console.log('sending userInfo', userInfo);
-    axios.post('/admin/teacher', userInfo)
+    axios.post('/admin/teacher', userInfo, config)
     .then(response => {
       console.log('Successfully added teacher to db.', response);
     })
