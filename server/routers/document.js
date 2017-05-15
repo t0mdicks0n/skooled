@@ -14,7 +14,6 @@ router.use(bodyParser.json());
 router.post('/documents', ensureAuthorized, (req, res) => {
   // Teacher creates a document for an activity.
   // Check which user_id is currently authorised/logged in.
-  // console.log('req.body inside POST /doc/create', req.body, 'req.decoded', req.decoded);
 
   // Get all student_id from db users_students table connected to currrent id_user.
   const id_user = req.decoded.id;
@@ -47,11 +46,7 @@ router.post('/documents', ensureAuthorized, (req, res) => {
           studentFirstName: studentInfo.attributes.first_name,
           studentLastName: studentInfo.attributes.last_name
         };
-        console.log('PEPPER', doc);
         insertDocumentAsync(doc)
-        .then(response => {
-          console.log('Success inserting doc for a specific student.');
-        })
         .catch(error => {
           console.log('Error inserting doc for a specific student.')
         })
@@ -73,9 +68,7 @@ router.post('/documents', ensureAuthorized, (req, res) => {
 router.get('/documents', ensureAuthorized, (req, res) => {
   // Teachers and parents fetch the list of documents applicable to them based on their id.
   // Check which user_id is currently authorised/logged in.
-  // console.log('Inside GET /doc/documents req.body: ');
   const id_user = req.decoded.id;
-  console.log('logged in user', req.decoded);
 
   // With the id_user, find all students associcated with that user.
 
@@ -87,13 +80,11 @@ router.get('/documents', ensureAuthorized, (req, res) => {
 
   retrieveSelectedUsersStudentsAsync(id_user)
   .then(response => {
-    // console.log('SANDWICH', response.models);
     return response.models.map(userStudentEntry => {
       return userStudentEntry.attributes.id_student;
     });
   })
   .then(studentIds => {
-    // console.log('KETCHUP', studentIds);
     // For each of these student ids, fetch all documents pertaining to them.
     let results = [];
 
@@ -105,12 +96,10 @@ router.get('/documents', ensureAuthorized, (req, res) => {
         if (studentIds.length) {
           return syncFetchDocs(studentsIdArray);
         } else {
-          // console.log('GRAPE', results);
           // For each object in the results array, extract the attributes.
           results = results.map(doc => {
             return doc.attributes;
           })
-          // console.log('BACON', results);
           res.json(results);
         }
       });
@@ -126,7 +115,6 @@ router.get('/documents', ensureAuthorized, (req, res) => {
 
 router.put('/documents', ensureAuthorized, (req, res) => {
   // Parent updates the permission status of the document to the db.
-  console.log(req.body);
 
   // Promisify updatePermission.
   const updatePermissionAsync = Promise.promisify(pg.updatePermission);

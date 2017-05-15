@@ -17,7 +17,6 @@ router.get('/userdata', ensureAuthorized, (req, res) => {
   		console.log('Error retrieving data on user ', req.headers['username']);
   		res.sendStatus(500);
   	} else {
-  		console.log('Retrieved the following data on user ', data);
   		res.send(data);
   	}
   })

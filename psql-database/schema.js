@@ -31,9 +31,7 @@ module.exports = function (knex, Promise) {
       table.increments('id');
       table.integer('id_user').references('users.id');
       table.integer('id_student').references('students.id');
-    }).catch((error) => {
-      console.log('database error:', error);
-      });
+    })
     }
   });
 
@@ -48,20 +46,11 @@ module.exports = function (knex, Promise) {
         table.integer('id_student');
         table.string('first_name_student');
         table.string('last_name_student');
+      }).catch((error) => {
+        console.log('database error:', error);
       });
     }
   });
-
-  // knex.schema.hasTable('users_documents')
-  // .then(exists => {
-  //   if(!exists) {
-  //     return knex.schema.createTable('users_documents', (table) => {
-  //       table.increments('id');
-  //       table.integer('id_user').references('users.id');
-  //       table.integer('id_document').references('documents.id');
-  //     });
-  //   }
-  // });
 
 };
 

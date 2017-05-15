@@ -21,14 +21,14 @@
 
 ## Usage
 
-This project assumes you have installed the requirements noted below. Once you've installed and run the NPM scripts, you'll be able to login to test the service locally at localhost:5000. You will need to seed the database with a teacher prior to login.
+This project assumes you have installed the requirements noted below. Once you've installed and run the NPM scripts, you'll be able to login to test the service locally at localhost:5000. You will need to seed the database with a teacher prior to login (see server/index.js).
 
 There are five distinct folders for review.
 - psql-database (Postgres database)
 - react-client (React front-end)
 - server (Express server)
 - services (authentication, email, etc.)
-- test (database, server-side, etc.)
+- test (client, database, server, etc.)
 
 ## Requirements
 
@@ -41,6 +41,7 @@ There are five distinct folders for review.
 - jsonwebtoken 7.4.x
 - knex 0.13.x
 - mailgun-js 0.10.x
+- material-ui 0.18.x
 - node 7.9.x
 - nodemon 1.11.x
 - passport-jwt 2.2.x
@@ -49,6 +50,7 @@ There are five distinct folders for review.
 - react-dom 15.4.x
 - react-router 4.1.x
 - react-router-dom 4.1.x
+- react-tap-event-plugin 2.0.x
 
 ## Development
 

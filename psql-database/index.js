@@ -37,11 +37,9 @@ module.exports = {
     User.forge({email: user.email})
     .fetch({require: true})
     .then(function (user) {
-      // console.log('user info:', user);
       callback(null, user);
     })
     .catch(function (err) {
-      // console.log('message:', err.message);
       callback(err, null);
     });
   },
@@ -50,11 +48,9 @@ module.exports = {
     User.forge({id: userId})
     .fetch({require: true})
     .then(function (user) {
-      // console.log('user info:', user);
       callback(null, user);
     })
     .catch(function (err) {
-      // console.log('message:', err.message);
       callback(err, null);
     });
   },
