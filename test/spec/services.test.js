@@ -2,7 +2,7 @@ var expect = require('chai').expect;
 var services = require('../../services');
 
 
-describe('Hash functions', () => {
+xdescribe('Hash functions', () => {
 
   it('createHashPassword', (done) => {
     services.createHashPassword('password')
